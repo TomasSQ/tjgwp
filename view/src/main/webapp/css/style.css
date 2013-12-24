@@ -32,31 +32,31 @@
 			transition: all ease-in-out 0.15s;
 	-webkit-transition: all ease-in-out 0.15s;
 }
-body { background: #F0E8D5; font-family: sans-serif; font-size: 12pt;}
+body { background: #F0E8D5; font-family: Georgia, serif; font-size: 12pt;}
 input[type="text"] {color: #505050; height: 17px; padding: 3px; outline: 0;}
 input[type="text"]:focus {box-shadow: 0 0 3px 2px #A0702E; outline: 0;}
 input[type="text"], .input-container {border: 1px solid #A0702E; line-height: 1.5;}
 .input-container {background: #FFFFFF; height: 28px; line-height: 28px; position: relative;}
 .input-container > input[type="text"] {border: none; float: left; height: 100%; margin: 0; padding: 0 32px 0 7px;}
 .input-container > i {border-left: 1px solid #A0A0A0; display: inline-block; height: 16px; margin: 3px 3px 3px 0; padding: 3px; position: absolute; right: 0; width: 23px;}
-
 /* 			CONTAINERS					 		*/
 .container {background: #FFFFFF; margin: 0 auto;}
 .main-content {width: 1037px;}
 
 /* 			HEADER							*/
+
 .header, .header .you .my-profile-container {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 5px 3px 0 #E6D0BB;}
-.header {text-align: center; width: 100%;}
-.header .logo {font-family: "Crete Round"; font-size: 14pt;}
-.header-container{margin: 0 auto; width: 1037px; height: 42px;}
-.header ul > li {float: left; line-height: 41px;}
+.header {font-family: "MyriadProBoldCondensed", sans-serif; height: 40px; text-align: center; width: 100%;}
+.header-container{margin: 0 auto; width: 1037px; height: 40px;}
+.header ul > li {float: left; line-height: 40px;}
 .header ul > li > * {display: inline-block; vertical-align: middle;}
-.header ul > li > .logo {width:94px;}
 .header ul > li > input {width: 330px;}
-.header ul.right-buttons li {padding: 0 6px;}
-.header ul.right-buttons > li:hover a, .header ul.left-buttons > li:hover a,
-.header ul.right-buttons > li > a:focus, .header ul.left-buttons > li > a:focus,
-.header ul.right-buttons > li > a:active, .header ul.left-buttons > li > a:active {background-color: #FFD566; outline: none;}
+.header ul > .logo {font-family: "Crete Round"; font-size: 14pt; margin-top: -2px;}
+.header ul > .logo > a {width:94px;}
+.header ul.right-buttons li a {padding: 0 6px;}
+.header ul.right-buttons > li a:hover, .header ul.left-buttons > li a:hover,
+.header ul.right-buttons > li a:active, .header ul.left-buttons > li a:active,
+.header ul.right-buttons > li a:focus, .header ul.left-buttons > li a:focus  {background-color: #FFD566; }
 .header input {width: 330px;}
 .header .you {position: relative;}
 .header .you .my-profile-container {border-left: 1px solid #A0702E; border-right: 1px solid #A0702E; display: none; font-size: 8pt; left: 0; position: absolute; top: 43px; width: 80px;}

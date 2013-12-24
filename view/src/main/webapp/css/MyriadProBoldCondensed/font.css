@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'MyriadProBoldCondensed';
+	src: url('./MyriadProBoldCondensed.eot');
+	src: local('MyriadProBoldCondensed'), url('./MyriadProBoldCondensed.woff') format('woff'), url('./MyriadProBoldCondensed.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_6603">Text with this font applied</p> */
+.fontsforweb_fontid_6603 {
+	font-family: 'MyriadProBoldCondensed' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */
