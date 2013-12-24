@@ -13,17 +13,45 @@
 .inline {display: inline;}
 .inline-block {display: inline-block;}
 
+.margin-top {margin-top: 12px;}
+.margin-right {margin-right: 12px;}
+.margin-bottom {margin-bottom: 12px;}
+.margin-left {margin-left: 12px;}
+
+[class$="-icon"] {background: url("../img/bundles.png") no-repeat transparent; cursor: pointer;}
 .x-icon {height: 32px; width: 32px;}
 
-/* 			BODY 							*/
-body { background: #F0E8D5;}
+.friend-icon {background-position: -67px -1px;}
+.chat-icon {background-position: -100px -1px;}
+.book-icon {background-position: -133px -1px;}
+.search-icon {background-position: -36px -6px;}
+
+/* 			DEFAULTS 							*/
+* {
+	color: #505050;
+			transition: all ease-in-out 0.15s;
+	-webkit-transition: all ease-in-out 0.15s;
+}
+body { background: #F0E8D5; font-family: sans-serif; font-size: 12pt;}
+input[type="text"] {color: #505050; height: 17px; padding: 3px; outline: 0;}
+input[type="text"]:focus {box-shadow: 0 0 3px 2px #A0702E; outline: 0;}
+input[type="text"], .input-wrapper {border: 1px solid #A0702E; line-height: 1.5;}
+.input-wrapper {background: #FFFFFF; height: 28px; line-height: 28px; position: relative;}
+.input-wrapper > input[type="text"] {border: none; float: left; height: 100%; margin: 0; padding: 0 32px 0 7px;}
+.input-wrapper > i {border-left: 1px solid #505050; display: inline-block; height: 16px; margin: 3px 3px 3px 0; padding: 3px; position: absolute; right: 0; width: 23px;}
+
+/* 			CONTAINERS					 		*/
 .wrapper {background: #FFFFFF; margin: 0 auto;}
 .main-content {width: 1037px;}
+
 /* 			HEADER							*/
-.header {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 0 1px 1px #E6D0BB; text-align: center; width: 100%;}
+.header {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 0 3px 3px #E6D0BB; text-align: center; width: 100%;}
+.header .logo {font-family: "Crete Round"; font-size: 14pt;}
 .header-wrapper{margin: 0 auto; width: 1037px; height: 42px;}
 .header ul > li {float: left; line-height: 41px;}
 .header ul > li > * {display: inline-block; vertical-align: middle;}
 .header ul > li > .logo {width:94px;}
 .header ul > li > input {width: 330px;}
-.header ul.right-buttons li {margin-left: 25px;}
+.header ul.right-buttons li {padding: 0 6px;}
+.header ul.right-buttons > li:hover, .header ul.left-buttons > li:hover {background: #FFD566;}
+.header input {width: 330px;}

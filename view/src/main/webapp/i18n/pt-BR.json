@@ -1,7 +1,9 @@
 {
+	"willpoe-min" : "willpoe",
+	"what-would-you-like-to-read" : "O que voc&ecirc quer de ler?",
 	"you" : "Voc&ecirc",
 	"communities" : "Comunidades",
-	"contests" : "Contests",
+	"contests" : "Concursos",
 	"explore" : "Explorar",
 	"write" : "Escrever"
 }
