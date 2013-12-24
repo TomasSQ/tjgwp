@@ -6,4 +6,4 @@ eclipse-launch-profiles/
 *.jar
 *.war
 *.ear
-**target/**
+*/target
