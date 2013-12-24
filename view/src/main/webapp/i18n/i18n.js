@@ -7,7 +7,7 @@
 	});
 
 	i18n = function(key) {
-		return bundles_pt[key] || key;
+		return bundles_pt[key] || key.replace(/\-/g, ' ');
 	};
 
 })();
