@@ -16,5 +16,13 @@
 	<script type="text/javascript" src="i18n/i18n.js"></script>
 	<script type="text/javascript" src="js/doT.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+		$(document).ready(function() {
+			$.getJSON('i18n/pt-BR.json', function(bundles) {
+				i18n_bundles_pt = bundles;
+				index.init();
+			});
+		});
+	</script>
 </body>
 </html>

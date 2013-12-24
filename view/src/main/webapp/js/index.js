@@ -34,5 +34,9 @@
 			});
 	};
 
-	$.load('body > div.header');
+	index = {};
+
+	index.init = function() {
+		$.load('body > div.header');
+	}
 })(jQuery);
