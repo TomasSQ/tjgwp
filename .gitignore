@@ -1,6 +1,9 @@
 *.class
 
+eclipse-launch-profiles/
+
 # Package Files #
 *.jar
 *.war
 *.ear
+**target/**
