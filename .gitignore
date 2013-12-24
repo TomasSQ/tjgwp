@@ -1,9 +1,12 @@
 *.class
 
 eclipse-launch-profiles/
+**/.classpath
+**/.project
+**/.settings
 
 # Package Files #
 *.jar
 *.war
 *.ear
-*/target
+**/target
