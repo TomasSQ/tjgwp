@@ -100,4 +100,29 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <activation>
+                 <property>
+                     <name>debugOn</name>
+                 </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.appengine</groupId>
+                        <artifactId>appengine-maven-plugin</artifactId>
+                        <version>${appengine.target.version}</version>
+                        <configuration>
+                            <jvmFlags>
+                                <jvmFlag>-Xdebug</jvmFlag>
+                                <jvmFlag>-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</jvmFlag>
+                            </jvmFlags>
+                            <disableUpdateCheck>true</disableUpdateCheck>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
