@@ -1,1 +1,29 @@
 @CHARSET "UTF-8";
+
+
+/*			PHANTOM CLASSES					*/
+.fixed {position: fixed !important;}
+.relative {position: relative !important;}
+.absolute {position: absolute !important;}
+
+.float-left {float: left;}
+.float-right {float: right;}
+
+.block {display: block;}
+.inline {display: inline;}
+.inline-block {display: inline-block;}
+
+.x-icon {height: 32px; width: 32px;}
+
+/* 			BODY 							*/
+body { background: #F0E8D5;}
+.wrapper {background: #FFFFFF; margin: 0 auto;}
+.main-content {width: 1037px;}
+/* 			HEADER							*/
+.header {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 0 1px 1px #E6D0BB; text-align: center; width: 100%;}
+.header-wrapper{margin: 0 auto; width: 1037px; height: 42px;}
+.header ul > li {float: left; line-height: 41px;}
+.header ul > li > * {display: inline-block; vertical-align: middle;}
+.header ul > li > .logo {width:94px;}
+.header ul > li > input {width: 330px;}
+.header ul.right-buttons li {margin-left: 25px;}

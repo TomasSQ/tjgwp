@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dot>
-	<ul class="float-left">
-		<li><a class="logo" href="#"><i class="logo-header"></i></a></li>
-		<li><a class="friends" href="#"><i class="friend-icon xicon"></i></a></li>
-		<li><a class="chat" href="#"><i class="chat-icon xicon"></i></a></li>
-		<li><a class="my-book" href="#"><i class="book-icon xicon"></i></a></li>
-	</ul>
-	<ul class="float-left">
-		<li><input class="search search-field" type="text" /><i class="search search-icon"></i></li>
-	</ul>
-	<ul class="float-left">
-		<li><a class="you" href="#">{{=i18n('you')}}</a></li>
-		<li><a class="communities" href="#">{{=i18n('communities')}}</a></li>
-		<li><a class="contests" href="#">{{=i18n('contests')}}</a></li>
-		<li><a class="explore" href="#">{{=i18n('explore')}}</a></li>
-		<li><a class="write" href="#">{{=i18n('write')}}</a></li>
-	</ul>
+	<div class="header-wrapper">
+		<ul class="float-left">
+			<li><a class="logo logo-header" href="#"></a></li>
+			<li><a class="friends friend-icon x-icon" href="#"></a></li>
+			<li><a class="chat chat-icon x-icon" href="#"></a></li>
+			<li><a class="my-book book-icon x-icon" href="#"></a></li>
+		</ul>
+		<ul class="float-left">
+			<li><input class="search search-field" type="text" /><i class="search search-icon x-icon inline-block"></i></li>
+		</ul>
+		<ul class="right-buttons float-right">
+			<li><a class="you" href="#">{{=i18n('you')}}</a></li>
+			<li><a class="communities" href="#">{{=i18n('communities')}}</a></li>
+			<li><a class="contests" href="#">{{=i18n('contests')}}</a></li>
+			<li><a class="explore" href="#">{{=i18n('explore')}}</a></li>
+			<li><a class="write" href="#">{{=i18n('write')}}</a></li>
+		</ul>
+	</div>
 </dot>
