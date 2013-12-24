@@ -14,7 +14,7 @@
     <groupId>br.com.tjgwp</groupId>
     <artifactId>tjgwp</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>${project.name}</name>
+    <name>TJGWP</name>
     <packaging>pom</packaging>
 
     <modules>

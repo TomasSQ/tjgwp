@@ -12,7 +12,7 @@
     <groupId>br.com.tjgwp</groupId>
     <artifactId>business</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>${project.name} - Business</name>
+    <name>TJGWP - Business</name>
 
     <dependencies>
     </dependencies>

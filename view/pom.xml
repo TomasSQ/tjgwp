@@ -13,7 +13,7 @@
     <artifactId>view</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>${project.name} - View</name>
+    <name>TJGWP - View</name>
 
     <dependencies>
         <dependency>
