@@ -22,8 +22,15 @@ public class UserRS {
 
 	@GET
 	@Path("/loginUrl")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getLoginUrl(@Context HttpServletRequest req) {
-		return Response.ok(GsonUtils.toJson(new UserService().getLoginUrl(req))).build();
+		return Response.ok(new UserService().getLoginUrl(req)).build();
+	}
+
+	@GET
+	@Path("/logoutUrl")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getLogoutUrl(@Context HttpServletRequest req) {
+		return Response.ok(new UserService().getLogoutUrl(req)).build();
 	}
 }

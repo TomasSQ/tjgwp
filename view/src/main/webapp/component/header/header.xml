@@ -1,25 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dot>
-	<div class="header-wrapper">
-		<ul class="left-buttons float-left margin-right">
-			<li><a class="logo logo-header" href="#">{{=i18n('willpoe-min')}}</a></li>
-			<li><a class="friends friend-icon x-icon" href="#"></a></li>
-			<li><a class="chat chat-icon x-icon" href="#"></a></li>
-			<li><a class="my-book book-icon x-icon" href="#"></a></li>
-		</ul>
-		<ul class="float-left">
-			<li>
-				<div class="input-wrapper">
-					<input class="search search-field" type="text" placeholder="{{=i18n('what-would-you-like-to-read')}}"/><i class="search search-icon x-icon"></i>
-				</div>
-			</li>
-		</ul>
-		<ul class="right-buttons float-right">
-			<li><a class="you" href="#">{{=i18n('you')}}</a></li>
-			<li><a class="communities" href="#">{{=i18n('communities')}}</a></li>
-			<li><a class="contests" href="#">{{=i18n('contests')}}</a></li>
-			<li><a class="explore" href="#">{{=i18n('explore')}}</a></li>
-			<li><a class="write" href="#">{{=i18n('write')}}</a></li>
-		</ul>
-	</div>
-</dot>
+<engine>
+	<dot>
+		<div class="header-container">
+			<ul class="left-buttons float-left margin-right">
+				<li class="logo logo-header margin-right"><a href="#">{{=i18n('willpoe-min')}}</a></li>
+				<li class="friends"><a class="friend-icon x-icon" href="#"></a></li>
+				<li class="chat"><a class="chat-icon x-icon" href="#"></a></li>
+				<li class=my-book"><a class="book-icon x-icon" href="#"></a></li>
+			</ul>
+			<ul class="float-left">
+				<li>
+					<div class="input-container">
+						<input class="search search-field" type="text" placeholder="{{=i18n('what-would-you-like-to-read')}}"/><i class="search search-icon x-icon"></i>
+					</div>
+				</li>
+			</ul>
+			<ul class="right-buttons float-right">
+				<li class="you hidden">
+					<a href="#">{{=i18n('you')}}</a>
+					<ul class="my-profile-container">
+						<li class="my-profile"><a href="#">{{=i18n('my-profile')}}</a></li>
+						<li class="logout"><a href="#">{{=i18n('logout')}}</a></li>
+					</ul>
+				</li>
+				<li class="communities"><a href="#">{{=i18n('communities')}}</a></li>
+				<li class="contests"><a href="#">{{=i18n('contests')}}</a></li>
+				<li class="explore"><a href="#">{{=i18n('explore')}}</a></li>
+				<li class="write"><a href="#">{{=i18n('write')}}</a></li>
+				<li class="login"><a href="#">{{=i18n('login')}}</a></li>
+			</ul>
+		</div>
+	</dot>
+	<script>
+		$.getJSON('s/user', function(user) {
+			if (user && user.email)
+				$.ajax({
+					type : 'GET',
+					url : 's/user/logoutUrl',
+					dataType : 'text',
+					success : function(logoutUrl) {
+						$('.header .login a').addClass('hidden')
+							.parent()
+								.siblings('.you').removeClass('hidden')
+								.find('.logout a').attr('href', logoutUrl);
+					}
+				});
+			else
+				$.ajax({
+					type : 'GET',
+					url : 's/user/loginUrl',
+					dataType : 'text',
+					success : function(loginUrl) {
+						$('.header .login a').attr('href', loginUrl);
+					}
+				});
+		});
+	</script>
+</engine>

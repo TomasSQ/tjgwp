@@ -15,8 +15,14 @@ public class UserService extends Service {
 
 	public String getLoginUrl(HttpServletRequest req) {
 		if (getUser() == null)
-			return UserServiceFactory.getUserService().createLoginURL(req.getRequestURI());
-		return null;
+			return UserServiceFactory.getUserService().createLoginURL("/");
+		return "";
+	}
+
+	public String getLogoutUrl(HttpServletRequest req) {
+		if (getUser() != null)
+			return UserServiceFactory.getUserService().createLogoutURL("/");
+		return "";
 	}
 
 }

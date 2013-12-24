@@ -2,10 +2,15 @@
 
 	var doTCache = {};
 
-	var render = function(templateFunction, selector, context, complete) {
-		var template = $(templateFunction(context)).children();
+	var render = function(templateFunction, template, selector, context, complete) {
+		var $template = $(templateFunction(context));
 
-		$(selector).empty().append(template);
+		$(selector).empty().append($template);
+
+		template.children('script').each(function() {
+			eval($(this).html());
+		});
+		
 
 		if (typeof complete == 'function')
 			complete(context, template);
@@ -22,8 +27,9 @@
 				url: 'component/' + componentPath + '/' + componentName + '.xml',
 				dataType: 'text',
 				success: function(template) {
-					doTCache[componentPath + componentName] = doT.template(template);
-					render(doTCache[componentPath + componentName], selector, context, complete);
+					template = $(template);
+					doTCache[componentPath + componentName] = doT.template(template.children('dot').html());
+					render(doTCache[componentPath + componentName], template, selector, context, complete);
 				}
 			});
 	};

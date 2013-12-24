@@ -5,5 +5,8 @@
 	"communities" : "Comunidades",
 	"contests" : "Concursos",
 	"explore" : "Explorar",
-	"write" : "Escrever"
+	"write" : "Escrever",
+	"login" : "Entrar",
+	"my-profile" : "Meu perfil",
+	"logout" : "Sair"
 }
