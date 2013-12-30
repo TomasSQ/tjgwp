@@ -7,7 +7,7 @@
 	<link type="text/css" rel="stylesheet" href="css/MyriadProBoldCondensed/font.css">
 	<title>Willpoe</title>
 </head>
-<body>
+<body style="display: none;">
 	<div class="header fixed clearfix" data-component="header"></div>
 	<div class="wraper">
 		<div class="main-content">
@@ -18,6 +18,8 @@
 	<script type="text/javascript" src="js/doT.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script>
+		$('body > div').hide();
+		$('body').show();
 		$(document).ready(function() {
 			$.getJSON('i18n/pt-BR.json', function(bundles) {
 				i18n_bundles_pt = bundles;

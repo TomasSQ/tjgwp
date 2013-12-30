@@ -6,7 +6,7 @@
 				<li class="logo logo-header margin-right"><a href="#">{{=i18n('willpoe-min')}}</a></li>
 				<li class="friends"><a class="friend-icon x-icon" href="#"></a></li>
 				<li class="chat"><a class="chat-icon x-icon" href="#"></a></li>
-				<li class=my-book"><a class="book-icon x-icon" href="#"></a></li>
+				<li class="my-book"><a class="book-icon x-icon" href="#"></a></li>
 			</ul>
 			<ul class="float-left">
 				<li>
@@ -43,6 +43,7 @@
 							.parent()
 								.siblings('.you').removeClass('hidden')
 								.find('.logout a').attr('href', logoutUrl);
+						$('body > *').fadeIn();
 					}
 				});
 			else
@@ -52,6 +53,7 @@
 					dataType : 'text',
 					success : function(loginUrl) {
 						$('.header .login a').attr('href', loginUrl);
+						$('body > *').fadeIn();
 					}
 				});
 		});
