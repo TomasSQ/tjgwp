@@ -10,7 +10,6 @@
 		template.children('script').each(function() {
 			eval($(this).html());
 		});
-		
 
 		if (typeof complete == 'function')
 			complete(context, template);
