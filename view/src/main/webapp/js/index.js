@@ -36,6 +36,8 @@
 	index = {};
 
 	index.init = function() {
-		$.load('body > div.header');
+		$.getJSON('s/user/', function(user) {
+			$.load('body > div.header', user);
+		});
 	}
 })(jQuery);

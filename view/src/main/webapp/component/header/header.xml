@@ -32,30 +32,28 @@
 		</div>
 	</dot>
 	<script>
-		$.getJSON('s/user', function(user) {
-			if (user && user.email)
-				$.ajax({
-					type : 'GET',
-					url : 's/user/logoutUrl',
-					dataType : 'text',
-					success : function(logoutUrl) {
-						$('.header .login a').addClass('hidden')
-							.parent()
-								.siblings('.you').removeClass('hidden')
-								.find('.logout a').attr('href', logoutUrl);
-						$('body > *').fadeIn();
-					}
-				});
-			else
-				$.ajax({
-					type : 'GET',
-					url : 's/user/loginUrl',
-					dataType : 'text',
-					success : function(loginUrl) {
-						$('.header .login a').attr('href', loginUrl);
-						$('body > *').fadeIn();
-					}
-				});
-		});
+		if (context.user && context.user.email)
+			$.ajax({
+				type : 'GET',
+				url : 's/user/logoutUrl',
+				dataType : 'text',
+				success : function(logoutUrl) {
+					$('.header .login a').addClass('hidden')
+						.parent()
+							.siblings('.you').removeClass('hidden')
+							.find('.logout a').attr('href', logoutUrl);
+					$('body > *').fadeIn();
+				}
+			});
+		else
+			$.ajax({
+				type : 'GET',
+				url : 's/user/loginUrl',
+				dataType : 'text',
+				success : function(loginUrl) {
+					$('.header .login a').attr('href', loginUrl);
+					$('body > *').fadeIn();
+				}
+			});
 	</script>
 </engine>
