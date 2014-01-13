@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
-		<div class="header-container">
+		<div class="header-container title">
 			<ul class="left-buttons float-left margin-right">
 				<li class="logo logo-header margin-right"><a href="#">{{=i18n('willpoe-min')}}</a></li>
 				<li class="friends"><a class="friend-icon x-icon" href="#"></a></li>
@@ -43,6 +43,8 @@
 							.siblings('.you').removeClass('hidden')
 							.find('.logout a').attr('href', logoutUrl);
 					$('body > *').fadeIn();
+					//TODO see if the hash has an valid page, is has not, do the line below
+					$.load('.main-content', {user : context.user}, {componentName : 'home'})
 				}
 			});
 		else
@@ -53,6 +55,7 @@
 				success : function(loginUrl) {
 					$('.header .login a').attr('href', loginUrl);
 					$('body > *').fadeIn();
+					$.load('.main-content', {}, {componentName : 'notLogged'})
 				}
 			});
 	</script>

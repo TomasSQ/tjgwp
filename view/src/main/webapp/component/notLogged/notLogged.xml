@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<dot>
+		<h3 class="title padding">{{=i18n('welcome')}}</h3>
+		<p class="padding">
+			{{=i18n('not-logged-in-message')}}
+		</p>
+	</dot>
+</engine>

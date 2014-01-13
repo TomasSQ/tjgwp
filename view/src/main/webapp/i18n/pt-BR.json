@@ -8,5 +8,17 @@
 	"write" : "Escrever",
 	"login" : "Entrar",
 	"my-profile" : "Meu perfil",
-	"logout" : "Sair"
+	"logout" : "Sair",
+
+	"welcome" : "Seja bem-vindo",
+	"not-logged-in-message" : "Voc&ecirc; est&aacute; a um passo de ser um grande escritor, ou ter acesso a &oacute;timos conte&uacute;dos de gra&ccedil;a<br>Logue-se para come&ccedil;ar",
+
+	"texts" : "textos",
+	"no-texts" : "Sem textos",
+	"awards" : "awards",
+	"no-awards" : "Sem awards",
+	"followers" : "seguidores",
+	"no-followers" : "Sem seguidores",
+	"following" : "seguindo",
+	"no-following" : "Seguindo ningu&iacute;m"
 }

@@ -2,7 +2,7 @@
 
 	var doTCache = {};
 
-	var render = function(templateFunction, template, selector, context, complete) {
+	var render = function(templateFunction, template, selector, context, opts) {
 		var $template = $(templateFunction(context));
 
 		$(selector).empty().append($template);
@@ -11,24 +11,25 @@
 			eval($(this).html());
 		});
 
-		if (typeof complete == 'function')
-			complete(context, template);
+		if (typeof opts.complete == 'function')
+			opts.complete(context, template);
 	};
 
-	$.load = function(selector, context, complete) {
-		var componentName = $(selector).data('component');
-		var componentPath = $(selector).data('path') || componentName;
+	$.load = function(selector, context, opts) {
+		var opts = opts || {};
+		var componentName = opts.componentName || $(selector).data('component');
+		var componentPath = opts.componentPath || $(selector).data('path') || componentName;
 		if (doTCache[componentPath + componentName])
-			render(doTCache[componentPath + componentName], selector, context, complete);
+			render(doTCache[componentPath + componentName], selector, context, opts);
 		else
 			$.ajax({
 				type: 'GET',
-				url: 'component/' + componentPath + '/' + componentName + '.xml',
+				url: 'component/' + componentPath + '/' + componentName + '.xml?_' + new Date().getTime(),
 				dataType: 'text',
 				success: function(template) {
 					template = $(template);
 					doTCache[componentPath + componentName] = doT.template(template.children('dot').html());
-					render(doTCache[componentPath + componentName], template, selector, context, complete);
+					render(doTCache[componentPath + componentName], template, selector, context, opts);
 				}
 			});
 	};
@@ -37,7 +38,7 @@
 
 	index.init = function() {
 		$.getJSON('s/user/', function(user) {
-			$.load('body > div.header', user);
+			$.load('body > div.header', {user : user});
 		});
 	}
 })(jQuery);
