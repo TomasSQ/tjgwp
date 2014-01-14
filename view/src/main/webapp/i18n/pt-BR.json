@@ -20,5 +20,6 @@
 	"followers" : "seguidores",
 	"no-followers" : "Sem seguidores",
 	"following" : "seguindo",
-	"no-following" : "Seguindo ningu&iacute;m"
+	"no-following" : "Seguindo ningu&eacute;m",
+	"follow" : "Seguir"
 }

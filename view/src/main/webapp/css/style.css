@@ -30,7 +30,7 @@
 
 .friend-icon {background-position: -67px -1px;}
 .chat-icon {background-position: -100px -1px;}
-.book-icon {background-position: -133px -1px;}
+.book-icon {background-position: -131px -1px;}
 .search-icon {background-position: -36px -6px;}
 
 .title {font-family: "Open Sans", sans-serif; font-weight: bold;}
@@ -59,7 +59,7 @@ input[type="text"], .input-container {border: 1px solid #A0702E; line-height: 1.
 .main-content {margin-top: 42px; width: 1037px;}
 
 /*					HEADER								*/
-.header, .header .you .my-profile-container {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 5px 3px 0 #E6D0BB;}
+.header, .header .you .my-profile-container {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 3px 3px 0 #E6D0BB;}
 .header { height: 40px; text-align: center; top: 0; width: 100%; z-index: 100;}
 .header-container{margin: 0 auto; width: 1037px; height: 40px;}
 .header ul > li {float: left; font-size: 14px; line-height: 40px;}
@@ -82,3 +82,4 @@ input[type="text"], .input-container {border: 1px solid #A0702E; line-height: 1.
 .profile-header > * {float: left; vertical-align: bottom;}
 .profile-header .profile-pic {border-radius: 50px; height: 50px; width: 50px;}
 .profile-header ul li {float: left; margin-right: 60px;}
+.profile-header .follow-button {background-color: #F9B546; border-bottom: 1px solid #A0702E; color: #505050; cursor: pointer; height: 16px; float: right; margin: 24px 12px 0; padding: 9px; text-align: right; width: 82px;};
