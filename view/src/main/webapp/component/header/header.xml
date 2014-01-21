@@ -30,7 +30,7 @@
 					<ul class="my-profile-container block">
 						<li class="my-profile"><a href="#">{{=i18n('my-profile')}}</a></li>
 						<li class="my-connections"><a href="#">{{=i18n('my-connections')}}</a></li>
-						<li class="configurations"><a href="#">{{=i18n('configurations')}}</a></li>
+						<li class="configurations"><a href="#configuration">{{=i18n('configurations')}}</a></li>
 						<li class="help"><a href="#">{{=i18n('help')}}</a></li>
 						<li class="logout"><a href="#">{{=i18n('logout')}}</a></li>
 					</ul>
@@ -54,7 +54,7 @@
 				success : function(logoutUrl) {
 					$('.header .logout a').attr('href', logoutUrl);
 					$('body > *').fadeIn();
-					//TODO see if the hash has an valid page, is has not, do the line below
+					$('body').data('user', context.user);
 					window.onhashchange();
 				}
 			});
