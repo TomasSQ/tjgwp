@@ -2,52 +2,63 @@
 <engine>
 	<dot>
 		<div class="header-container title">
-			<ul class="left-buttons float-left margin-right">
+			<ul class="left-buttons float-left margin-right inline">
 				<li class="logo logo-header margin-right"><a href="#">{{=i18n('willpoe-min')}}</a></li>
-				<li class="friends"><a class="friend-icon x-icon" href="#"></a></li>
-				<li class="chat"><a class="chat-icon x-icon" href="#"></a></li>
+				{{? it.user}}
 				<li class="my-book"><a class="book-icon x-icon" href="#"></a></li>
+				{{?}}
+				<li class="communities"><a href="#">{{=i18n('communities')}}</a></li>
+				<li class="contests"><a href="#">{{=i18n('contests')}}</a></li>
+				<li class="explore drop-down">
+					<a href="#">{{=i18n('explore')}}</a>
+					<ul class="explore-container block">
+						<li class="search-and-explore"><a href="#">{{=i18n('search-and-explore')}}</a></li>
+						<li class="writters-to-follow"><a href="#">{{=i18n('writters-to-follow')}}</a></li>
+						<li class="writters-to-follow"><a href="#">{{=i18n('random-text')}}</a></li>
+					</ul>
+				</li>
+				<li class="write"><a href="#" class="write-button">{{=i18n('write')}}</a></li>
 			</ul>
-			<ul class="float-left">
+			<ul class="right-buttons float-right inline">
+				{{? !it.user || !it.user.email}}
+				<li class="login"><a href="#">{{=i18n('login')}}</a></li>
+				<li class="sign-in"><a href="#">{{=i18n('sign-in')}}</a></li>
+				{{??}}
+				<li><img class="profile-pic margin-left radius small-square"/></li>
+				<li class="you drop-down">
+					<a href="#">{{=i18n('you')}}</a>
+					<ul class="my-profile-container block">
+						<li class="my-profile"><a href="#">{{=i18n('my-profile')}}</a></li>
+						<li class="my-connections"><a href="#">{{=i18n('my-connections')}}</a></li>
+						<li class="configurations"><a href="#">{{=i18n('configurations')}}</a></li>
+						<li class="help"><a href="#">{{=i18n('help')}}</a></li>
+						<li class="logout"><a href="#">{{=i18n('logout')}}</a></li>
+					</ul>
+				</li>
+				{{?}}
 				<li>
 					<div class="input-container">
 						<input class="search search-field" type="text" placeholder="{{=i18n('what-would-you-like-to-read')}}"/><i class="search search-icon x-icon"></i>
 					</div>
 				</li>
 			</ul>
-			<ul class="right-buttons float-right">
-				<li class="you hidden">
-					<a href="#">{{=i18n('you')}}</a>
-					<ul class="my-profile-container">
-						<li class="my-profile"><a href="#">{{=i18n('my-profile')}}</a></li>
-						<li class="logout"><a href="#">{{=i18n('logout')}}</a></li>
-					</ul>
-				</li>
-				<li class="communities"><a href="#">{{=i18n('communities')}}</a></li>
-				<li class="contests"><a href="#">{{=i18n('contests')}}</a></li>
-				<li class="explore"><a href="#">{{=i18n('explore')}}</a></li>
-				<li class="write"><a href="#">{{=i18n('write')}}</a></li>
-				<li class="login"><a href="#">{{=i18n('login')}}</a></li>
-			</ul>
 		</div>
 	</dot>
 	<script>
-		if (context.user && context.user.email)
+		if (context.user && context.user.email) {
+			$('.header-container img.profile-pic').attr('src', context.user.profileImage ? context.user.profileImage : 'img/profile.png');
 			$.ajax({
 				type : 'GET',
 				url : 's/user/logoutUrl',
 				dataType : 'text',
 				success : function(logoutUrl) {
-					$('.header .login a').addClass('hidden')
-						.parent()
-							.siblings('.you').removeClass('hidden')
-							.find('.logout a').attr('href', logoutUrl);
+					$('.header .logout a').attr('href', logoutUrl);
 					$('body > *').fadeIn();
 					//TODO see if the hash has an valid page, is has not, do the line below
-					$.load('.main-content', {user : context.user}, {componentName : 'home'})
+					window.onhashchange();
 				}
 			});
-		else
+		} else
 			$.ajax({
 				type : 'GET',
 				url : 's/user/loginUrl',

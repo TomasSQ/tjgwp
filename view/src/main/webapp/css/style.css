@@ -12,12 +12,20 @@
 .inline {display: inline;}
 .inline-block {display: inline-block;}
 .hidden {display: none !important;}
+ul.inline > li {float: left; font-size: 12px; line-height: 40px; margin-right: 10px;}
+ul.block > li {display: block; font-size: 10px; line-height: 20px; white-space: nowrap;}
+ul > li.drop-down {position: relative;}
+ul > li.drop-down > ul {display: none;}
+ul > li.drop-down:hover > ul {display: block; position: absolute; top: 40px;}
 
 .margin-top {margin-top: 12px;}
 .margin-right {margin-right: 12px;}
 .margin-bottom {margin-bottom: 12px;}
 .margin-left {margin-left: 12px;}
 .margin {margin: 12px;}
+
+.small-square {height: 25px; width: 25px;}
+.radius {border-radius: 100px;}
 
 .padding-top {padding-top: 12px;}
 .padding-right {padding-right: 12px;}
@@ -30,7 +38,7 @@
 
 .friend-icon {background-position: -67px -1px;}
 .chat-icon {background-position: -100px -1px;}
-.book-icon {background-position: -131px -1px;}
+.book-icon {background-position: -133px -1px;}
 .search-icon {background-position: -36px -6px;}
 
 .title {font-family: "Open Sans", sans-serif; font-weight: bold;}
@@ -59,22 +67,18 @@ input[type="text"], .input-container {border: 1px solid #A0702E; line-height: 1.
 .main-content {margin-top: 42px; width: 1037px;}
 
 /*					HEADER								*/
-.header, .header .you .my-profile-container {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 3px 3px 0 #E6D0BB;}
+.header, .header li.drop-down ul {background: #F9B546; border-bottom: 1px solid #A0702E; box-shadow: 0 3px 3px 0 #E6D0BB;}
 .header { height: 40px; text-align: center; top: 0; width: 100%; z-index: 100;}
 .header-container{margin: 0 auto; width: 1037px; height: 40px;}
-.header ul > li {float: left; font-size: 14px; line-height: 40px;}
 .header ul > li > * {display: inline-block; vertical-align: middle;}
 .header ul > li > input {width: 330px;}
 .header ul > .logo {font-family: "Crete Round"; font-size: 14pt; margin-top: -2px;}
-.header ul > .logo > a {width:94px;}
-.header ul.right-buttons li a {padding: 0 6px;}
-.header ul.right-buttons > li a:hover, .header ul.left-buttons > li a:hover,
-.header ul.right-buttons > li a:active, .header ul.left-buttons > li a:active,
-.header ul.right-buttons > li a:focus, .header ul.left-buttons > li a:focus  {background-color: #FFD566; }
+.header ul > .logo > a {margin-right: 0; width:75px;}
+.header ul li a:not(.x-icon) {padding: 0 6px; width: 89%}
+.header ul > li a:hover, .header ul > li a:active, .header ul > li a:focus  {background-color: #FFD566; }
 .header input {width: 330px;}
 .header .you {position: relative;}
-.header .you .my-profile-container {border-left: 1px solid #A0702E; border-right: 1px solid #A0702E; display: none; font-size: 8pt; left: 0; position: absolute; top: 40px; width: 80px;}
-.header .you:hover .my-profile-container { display: block;}
+.header li.drop-down > ul {border-left: 1px solid #A0702E; border-right: 1px solid #A0702E; font-size: 8pt; left: 0;}
 
 /*					PROFILE								*/
 .profile-header {background: #CCC; height: 60px; padding: 130px 12px 12px; position: relative;}

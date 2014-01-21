@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
-		<div class="profile-header clearfix" style="{{?it.user.backgroundImage}}background: url('{{=it.user.backgroundImage}}');{{?}}">
+		<div class="profile-header clearfix" style="{{?it.user.backgroundImage}}background: url('{{=it.user.backgroundImage}}');{{??}}padding-top:10px;{{?}}">
 			<img class="profile-pic margin-left"/>
 			<div class="profile-info margin-left">
 				<h1 class="title">{{=it.user.nickname}}</h1>
