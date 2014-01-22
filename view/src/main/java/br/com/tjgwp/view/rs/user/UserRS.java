@@ -2,6 +2,7 @@ package br.com.tjgwp.view.rs.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -33,4 +34,12 @@ public class UserRS {
 	public Response getLogoutUrl(@Context HttpServletRequest req) {
 		return Response.ok(new UserService().getLogoutUrl(req)).build();
 	}
+
+	@POST
+	@Path("/profilePic")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response saveProfilePic(@Context HttpServletRequest req) {
+		return Response.ok(GsonUtils.toJson(new UserService().saveProfilePic(req))).build();
+	}
+	
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<dot>
+		<div class="configuration-content">
+			<h3 class="bold">{{=i18n('configurations')}}</h3>
+			<form id="profile-configuration" method="post" enctype="multipart/form-data">
+				<div class="field">
+					<label for="profile-pic-uploader">{{=i18n('profile-pic')}}</label>
+					<input id="profile-pic-uploader" type="file" name="profile" data-url="{{=it.uploadUrl}}" />
+				</div>
+			</form>
+		</div>
+	</dot>
+	<script>
+		$('#profile-pic-uploader').fileupload({
+			dataType: 'json',
+			done: function (e, data) {
+				$.each(data.result.files, function (index, file) {
+					$('<p />').text(file.name).appendTo(document.body);
+				});
+			}
+		});
+	</script>
+</engine>

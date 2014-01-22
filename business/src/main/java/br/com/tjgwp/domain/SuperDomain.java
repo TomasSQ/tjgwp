@@ -23,7 +23,7 @@ public class SuperDomain {
 		return ObjectifyService.factory();
 	}
 
-	public static Key<?> save(Object o) {
+	public Key<?> save(Object o) {
 		return ofy().save().entity(o).now();
 	}
 

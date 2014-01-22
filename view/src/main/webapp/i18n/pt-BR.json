@@ -28,5 +28,7 @@
 	"no-followers" : "Sem seguidores",
 	"following" : "seguindo",
 	"no-following" : "Seguindo ningu&eacute;m",
-	"follow" : "Seguir"
+	"follow" : "Seguir",
+
+	"profile-pic" : "Foto de perfil"
 }
