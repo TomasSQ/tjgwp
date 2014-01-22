@@ -11,9 +11,9 @@ import br.com.tjgwp.business.service.Service;
 
 public class ImageService extends Service {
 
-	public String getUploadUrl(String image) {
+	public String getUploadUrl(String callback) {
 		if (getUser() != null)
-			return BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/" + image);
+			return BlobstoreServiceFactory.getBlobstoreService().createUploadUrl(callback);
 		return "";
 	}
 

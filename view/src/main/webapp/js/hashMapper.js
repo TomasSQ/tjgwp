@@ -11,8 +11,13 @@
 			$.load('.main-content', {user : $('body').data('user')}, {componentName : 'home'});
 			break;
 		case 'configuration' :
-			$.getJSON('s/user/uploadUrl/profile', function(uploadUrl) {
-				$.load('.main-content', {uploadUrl : uploadUrl, user : $('body').data('user')}, {componentName : 'configuration'});
+			$.ajax({
+				type : 'GET',
+				url : 's/image/uploadUrl',
+				data : {callback : '/s/user/profilePic' },
+				success : function(uploadUrl) {
+					$.load('.main-content', {uploadUrl : uploadUrl, user : $('body').data('user')}, {componentName : 'configuration'});
+				}
 			});
 			break;
 		}

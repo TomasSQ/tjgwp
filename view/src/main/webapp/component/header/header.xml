@@ -46,7 +46,7 @@
 	</dot>
 	<script>
 		if (context.user && context.user.email) {
-			$('.header-container img.profile-pic').attr('src', context.user.profileImage ? context.user.profileImage : 'img/profile.png');
+			$('.header-container img.profile-pic').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
 			$.ajax({
 				type : 'GET',
 				url : 's/user/logoutUrl',
