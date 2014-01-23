@@ -37,11 +37,6 @@
             <artifactId>resteasy-jettison-provider</artifactId>
             <version>3.0.6.Final</version>
         </dependency>
-	<dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>1.1</version>
-        </dependency>
     </dependencies>
 </project>
 

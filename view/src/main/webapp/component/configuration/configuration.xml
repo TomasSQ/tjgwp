@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
-		<div class="configuration-content">
+		<div class="configuration-content padding">
 			<h3 class="bold">{{=i18n('configurations')}}</h3>
 			<form id="profile-configuration" method="post" enctype="multipart/form-data">
-				<div class="field">
+				<div class="field margin-bottom">
 					<label for="profile-pic-uploader">{{=i18n('profile-pic')}}</label>
-					<input id="profile-pic-uploader" type="file" name="profile" data-url="{{=it.uploadUrl}}" />
+					<input id="profile-pic-uploader" type="file" name="profile" data-url="{{=it.uploadUrls[0]}}" />
+				</div>
+				<div class="field margin-bottom">
+					<label for="background-pic-uploader">{{=i18n('background-pic')}}</label>
+					<input id="background-pic-uploader" type="file" name="background" data-url="{{=it.uploadUrls[1]}}" />
 				</div>
 			</form>
 		</div>
@@ -15,8 +19,21 @@
 		$('#profile-pic-uploader').fileupload({
 			dataType: 'json',
 			done: function (e, data) {
-				$.each(data.result.files, function (index, file) {
-					$('<p />').text(file.name).appendTo(document.body);
+				userHelper.update(function(user) {
+					$('.profile-pic').attr('src', user.profileImageUrl);
+				});
+				$.getJSON('s/image/uploadUrl?' + $.param({callbackUrl : '/s/user/profilePic' }), function(uploadUrl) {
+					$('#profile-pic-uploader').data('url', uploadUrl);
+				});
+			}
+		});
+
+		$('#background-pic-uploader').fileupload({
+			dataType: 'json',
+			done : function(e, data) {
+				userHelper.update();
+				$.getJSON('s/image/uploadUrl?' + $.param({callbackUrl : '/s/user/backgroundPic' }), function(uploadUrl) {
+					$('#background-pic-uploader').data('url', uploadUrl);
 				});
 			}
 		});

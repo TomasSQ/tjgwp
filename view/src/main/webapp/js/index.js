@@ -3,6 +3,7 @@
 	var doTCache = {};
 
 	var render = function(templateFunction, template, selector, context, opts) {
+		context = $.extend({user : $('body').data('user')}, context);
 		var $template = $(templateFunction(context));
 
 		$(selector).empty().append($template);
@@ -37,8 +38,9 @@
 	index = {};
 
 	index.init = function() {
-		$.getJSON('s/user/', function(user) {
-			$.load('body > div.header', {user : user});
+		userHelper.update(function() {
+			$.load('body > div.header');
 		});
-	}
+	};
+
 })(jQuery);

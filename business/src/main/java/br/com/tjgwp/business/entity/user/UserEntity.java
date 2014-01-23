@@ -1,16 +1,15 @@
 package br.com.tjgwp.business.entity.user;
 
 import br.com.tjgwp.business.entity.SuperEntity;
+import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.users.User;
+import com.google.gson.Gson;
 import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Index;
 
-@EntitySubclass(index=true)
+@EntitySubclass(index = true)
 public class UserEntity extends SuperEntity {
 
 	@Index
@@ -19,6 +18,7 @@ public class UserEntity extends SuperEntity {
 	private BlobKey profile;
 	private String profileImageUrl;
 	private BlobKey background;
+	private String backgroundImageUrl;
 
 	protected UserEntity() {
 	}
@@ -48,11 +48,16 @@ public class UserEntity extends SuperEntity {
 		return profile;
 	}
 	
-	public void setProfile(BlobKey profile) {
-		this.profile = profile;
+	public void updateProfile(BlobKey profile) {
+		ImageService imageService = new ImageService();
+		if (this.profile != null)
+			imageService.deleteBlob(this.profile);
 
-		ImagesService imageService = ImagesServiceFactory.getImagesService();
-        setProfileImageUrl(imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(profile)));
+		if (profile != null) {
+			this.profile = profile;
+	
+			setProfileImageUrl(imageService.getUrlForBlob(profile));
+		}	
 	}
 
 	public String getProfileImageUrl() {
@@ -67,8 +72,27 @@ public class UserEntity extends SuperEntity {
 		return background;
 	}
 
-	public void setBackground(BlobKey background) {
-		this.background = background;
+	public void updateBackground(BlobKey background) {
+		ImageService imageService = new ImageService();
+		if (this.background != null)
+			imageService.deleteBlob(this.background);
+
+		if (background != null) {
+			this.background = background;
+	
+			setBackgroundImageUrl(imageService.getUrlForBlob(background));
+		}
 	}
 
+	public String getBackgroundImageUrl() {
+		return backgroundImageUrl;
+	}
+
+	public void setBackgroundImageUrl(String backgroundImageUrl) {
+		this.backgroundImageUrl = backgroundImageUrl;
+	}
+
+	public String toJson() {
+		return new Gson().toJson(new UserVO(this));
+	}
 }

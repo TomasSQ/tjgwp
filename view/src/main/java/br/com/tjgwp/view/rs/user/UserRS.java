@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.tjgwp.business.service.user.UserService;
-import br.com.tjgwp.view.utils.GsonUtils;
 
 @Path("/user")
 public class UserRS {
@@ -18,8 +17,23 @@ public class UserRS {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response getUser() {
-		return Response.ok(GsonUtils.toJson(new UserService().getLoggedUser())).build();
+		return Response.ok(new UserService().getLoggedUser().toJson()).build();
 	}
+
+	@POST
+	@Path("/profilePic")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response saveProfilePic(@Context HttpServletRequest req) {
+		return Response.ok(new UserService().saveProfilePic(req).toJson()).build();
+	}
+
+	@POST
+	@Path("/backgroundPic")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response saveBackgroundPic(@Context HttpServletRequest req) {
+		return Response.ok(new UserService().saveBackgroundPic(req).toJson()).build();
+	}
+
 
 	@GET
 	@Path("/loginUrl")
@@ -33,13 +47,6 @@ public class UserRS {
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getLogoutUrl(@Context HttpServletRequest req) {
 		return Response.ok(new UserService().getLogoutUrl(req)).build();
-	}
-
-	@POST
-	@Path("/profilePic")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveProfilePic(@Context HttpServletRequest req) {
-		return Response.ok(GsonUtils.toJson(new UserService().saveProfilePic(req))).build();
 	}
 	
 }
