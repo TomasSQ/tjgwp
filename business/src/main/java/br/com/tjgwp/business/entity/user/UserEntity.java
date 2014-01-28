@@ -1,11 +1,15 @@
 package br.com.tjgwp.business.entity.user;
 
+import java.util.List;
+
 import br.com.tjgwp.business.entity.SuperEntity;
+import br.com.tjgwp.business.entity.text.TextPost;
 import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.gson.Gson;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Index;
 
@@ -14,11 +18,14 @@ public class UserEntity extends SuperEntity {
 
 	@Index
 	private String email;
+	@Index
 	private String nickname;
 	private BlobKey profile;
 	private String profileImageUrl;
 	private BlobKey background;
 	private String backgroundImageUrl;
+
+	private List<Ref<TextPost>> postedTexts;
 
 	protected UserEntity() {
 	}
@@ -90,6 +97,14 @@ public class UserEntity extends SuperEntity {
 
 	public void setBackgroundImageUrl(String backgroundImageUrl) {
 		this.backgroundImageUrl = backgroundImageUrl;
+	}
+
+	public List<Ref<TextPost>> getPostedTexts() {
+		return postedTexts;
+	}
+
+	public void setPostedTexts(List<Ref<TextPost>> postedTexts) {
+		this.postedTexts = postedTexts;
 	}
 
 	public String toJson() {

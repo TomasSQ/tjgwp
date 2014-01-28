@@ -1,6 +1,8 @@
 package br.com.tjgwp.domain;
 
 import br.com.tjgwp.business.entity.SuperEntity;
+import br.com.tjgwp.business.entity.text.KeyWord;
+import br.com.tjgwp.business.entity.text.TextPost;
 import br.com.tjgwp.business.entity.user.UserEntity;
 
 import com.googlecode.objectify.Key;
@@ -13,6 +15,8 @@ public class SuperDomain {
 	static {
 		factory().register(SuperEntity.class);
 		factory().register(UserEntity.class);
+		factory().register(KeyWord.class);
+		factory().register(TextPost.class);
 	}
 
 	public static Objectify ofy() {
