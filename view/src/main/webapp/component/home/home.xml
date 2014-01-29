@@ -19,7 +19,7 @@
 					<li class="following"><a href="#following/{{=it.user.id}}">{{=it.user.howManyFollowing ? it.user.howManyFollowing + ' ' + i18n('following') : i18n('no-following')}}</a></li>
 				</ul>
 			</div>
-			<a href="#follow/{{=it.user.id}}" class="follow-button title book-icon x-icon">{{=i18n('follow')}}</a>
+			<a href="#follow/{{=it.user.id}}" class="btn follow-button book-icon x-icon">{{=i18n('follow')}}</a>
 		</div>
 		<div class="sidebar"></div>
 		<div class="profile-content"></div>

@@ -8,6 +8,9 @@
 				$.load('.main-content', {uploadUrls : uploadUrls}, {componentName : 'configuration'});
 			});
 			break;
+		case 'write' :
+			$.load('.main-content', {}, {componentName : 'write'});
+			break;
 		default :
 			$.load('.main-content', {}, {componentName : 'home'});
 		}

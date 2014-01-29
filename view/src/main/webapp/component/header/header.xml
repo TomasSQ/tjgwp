@@ -17,7 +17,7 @@
 						<li class="writters-to-follow"><a href="#">{{=i18n('random-text')}}</a></li>
 					</ul>
 				</li>
-				<li class="write"><a href="#" class="write-button">{{=i18n('write')}}</a></li>
+				<li class="write"><a href="#write" class="write-button">{{=i18n('write')}}</a></li>
 			</ul>
 			<ul class="right-buttons float-right inline">
 				{{? !it.user || !it.user.email}}

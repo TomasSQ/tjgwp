@@ -6,12 +6,23 @@ import br.com.tjgwp.business.entity.SuperEntity;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.EntitySubclass;
+import com.googlecode.objectify.annotation.Index;
 
 @EntitySubclass(index = true)
 public class TextPost extends SuperEntity {
 
-	private List<Ref<KeyWord>> keysWord;
+	@Index
+	private String title;
 	private String textEntry;
+	private List<Ref<KeyWord>> keysWord;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setName(String name) {
+		this.title = name;
+	}
 
 	public List<Ref<KeyWord>> getKeysWord() {
 		return keysWord;

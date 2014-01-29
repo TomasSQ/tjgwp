@@ -31,5 +31,11 @@
 	"follow" : "Seguir",
 
 	"profile-pic" : "Foto de perfil",
-	"background-pic" : "Foto de capa"
+	"background-pic" : "Foto de capa",
+
+	"title" : "T&iacute;tulo",
+	"content" : "Conte&uacute;do",
+	"text-entry-placeholder" : "Digite aqui suas ideias",
+
+	"save" : "Salvar"
 }
