@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.tjgwp.business.service.Service;
+import br.com.tjgwp.business.service.SuperService;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -14,7 +14,7 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
-public class ImageService extends Service {
+public class ImageService extends SuperService {
 
 	private ImagesService imagesService = ImagesServiceFactory.getImagesService();
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();

@@ -10,9 +10,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.tjgwp.business.service.user.UserService;
+import br.com.tjgwp.view.SuperRS;
 
 @Path("/user")
-public class UserRS {
+public class UserRS extends SuperRS {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")

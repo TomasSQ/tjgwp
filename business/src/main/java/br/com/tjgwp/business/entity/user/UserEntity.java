@@ -1,5 +1,6 @@
 package br.com.tjgwp.business.entity.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.tjgwp.business.entity.SuperEntity;
@@ -100,6 +101,8 @@ public class UserEntity extends SuperEntity {
 	}
 
 	public List<Ref<TextPost>> getPostedTexts() {
+		if (postedTexts == null)
+			postedTexts = new ArrayList<Ref<TextPost>>();
 		return postedTexts;
 	}
 

@@ -11,9 +11,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import br.com.tjgwp.business.entity.user.UserEntity;
-import br.com.tjgwp.business.service.Service;
+import br.com.tjgwp.business.service.SuperService;
 
-public class EmailService extends Service {
+public class EmailService extends SuperService {
 
 	public void sendWelcomeMessage(UserEntity userEntity) throws UnsupportedEncodingException {
 		// ...

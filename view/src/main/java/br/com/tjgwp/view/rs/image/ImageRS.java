@@ -9,10 +9,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.tjgwp.business.service.image.ImageService;
-import br.com.tjgwp.view.utils.GsonUtils;
+import br.com.tjgwp.view.SuperRS;
 
 @Path("/image")
-public class ImageRS {
+public class ImageRS extends SuperRS {
 
 	@GET
 	@Path("/uploadUrl")
@@ -25,7 +25,7 @@ public class ImageRS {
 	@Path("/uploadUrls")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response getUploadUrls(@QueryParam("callbacksUrl[]") List<String> callbacksUrl) {
-		return Response.ok(GsonUtils.toJson(new ImageService().getUploadUrls(callbacksUrl))).build();
+		return Response.ok(gsonUtils.toJson(new ImageService().getUploadUrls(callbacksUrl))).build();
 	}
 
 }

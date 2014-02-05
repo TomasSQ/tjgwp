@@ -6,7 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.tjgwp.business.entity.user.UserEntity;
-import br.com.tjgwp.business.service.Service;
+import br.com.tjgwp.business.service.SuperService;
+import br.com.tjgwp.business.service.UnauthorizedException;
 import br.com.tjgwp.business.service.email.EmailService;
 import br.com.tjgwp.business.service.image.ImageService;
 import br.com.tjgwp.domain.user.UserDomain;
@@ -15,10 +16,17 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 
-public class UserService extends Service {
+public class UserService extends SuperService {
 
 	public UserEntity getLoggedUser() {
+		return getLoggedUser(false);
+	}
+
+	public UserEntity getLoggedUser(boolean mustExist) throws UnauthorizedException {
 		User user = getUser();
+		if (user == null && mustExist)
+			throw new UnauthorizedException();
+
 		if (user == null)
 			return new UserEntity(user);
 

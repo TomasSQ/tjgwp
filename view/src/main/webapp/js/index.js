@@ -46,4 +46,14 @@
 		});
 	};
 
-})(jQuery);
+	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+		if ((options.type === 'POST' || options.type === 'PUT') && options.form) {
+			options.data = options.form.attr('name') + '=' + JSON.stringify(options.form.toJson()) + (options.data ? '&' + options.data : '');
+		}
+		options.statusCode = $.extend(options.statusCode, {}, {
+			400 : function() {
+				alert('vish');
+			}
+		});
+	});
+})(window.jQuery);

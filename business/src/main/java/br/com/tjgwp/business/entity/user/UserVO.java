@@ -7,6 +7,7 @@ public class UserVO {
 	private String nickname;
 	private String profileImageUrl;
 	private String backgroundImageUrl;
+	private Integer postedTexts;
 
 	public UserVO(UserEntity userEntity) {
 		setId(userEntity.getId());
@@ -14,6 +15,7 @@ public class UserVO {
 		setNickname(userEntity.getNickname());
 		setProfileImageUrl(userEntity.getProfileImageUrl());
 		setBackgroundImageUrl(userEntity.getBackgroundImageUrl());
+		setPostedTexts(userEntity.getPostedTexts().size());
 	}
 
 	public Long getId() {
@@ -54,6 +56,14 @@ public class UserVO {
 
 	public void setBackgroundImageUrl(String backgroundImageUrl) {
 		this.backgroundImageUrl = backgroundImageUrl;
+	}
+
+	public Integer getPostedTexts() {
+		return postedTexts;
+	}
+
+	public void setPostedTexts(Integer postedTexts) {
+		this.postedTexts = postedTexts;
 	}
 
 }

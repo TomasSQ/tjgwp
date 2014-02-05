@@ -20,4 +20,13 @@
 		<servlet-name>Resteasy</servlet-name>
 		<url-pattern>/s/*</url-pattern>
 	</servlet-mapping>
+
+	<filter>
+		<filter-name>ExceptionFilter</filter-name>
+		<filter-class>br.com.tjgwp.view.filter.ExceptionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ExceptionFilter</filter-name>
+		<url-pattern>/s</url-pattern>
+	</filter-mapping>
 </web-app>

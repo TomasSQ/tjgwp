@@ -3,19 +3,26 @@
 	<dot>
 		<div class="write-content padding clearfix">
 			<h3 class="bold title">{{=i18n('write')}}</h3>
-			<form class="spaced">
+			<form class="spaced" name="textPost">
 				<div class="field margin-bottom">
 					<label for="text-title">{{=i18n('title')}}</label>
 					<input id="text-title" type="text" name="title" placeholder="{{=i18n('title')}}" />
 				</div>
 				<div class="field margin-bottom">
 					<label for="text-entry">{{=i18n('content')}}</label>
-					<textarea id="text-entry" class="full" name="entry" placeholder="{{=i18n('text-entry-placeholder')}}"></textarea>
+					<textarea id="text-entry" class="full" name="textEntry" placeholder="{{=i18n('text-entry-placeholder')}}"></textarea>
 				</div>
-				<input type="button" class="btn float-right margin-top" value="{{=i18n('save')}}" />
+				<input type="button" class="save btn float-right margin-top" value="{{=i18n('save')}}" />
 			</form>
 		</div>
 	</dot>
 	<script>
+		$('.write-content form .save').click(function() {
+			$.ajax({
+				type : 'POST',
+				url : 's/textPost/',
+				form : $(this).closest('form')
+			});
+		});
 	</script>
 </engine>
