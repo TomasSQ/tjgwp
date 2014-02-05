@@ -2,13 +2,13 @@
 
 	var doTCache = {};
 
-	var render = function(templateFunction, template, selector, context, opts) {
+	var render = function(templateObj, selector, context, opts) {
 		context = $.extend({user : $('body').data('user')}, context);
-		var $template = $(templateFunction(context));
+		var $template = $(templateObj.templateFunc(context));
 
 		$(selector).empty().append($template);
 
-		template.children('script').each(function() {
+		templateObj.script.each(function() {
 			eval($(this).html());
 		});
 
@@ -29,8 +29,11 @@
 				dataType: 'text',
 				success: function(template) {
 					template = $(template);
-					doTCache[componentPath + componentName] = doT.template(template.children('dot').html());
-					render(doTCache[componentPath + componentName], template, selector, context, opts);
+					doTCache[componentPath + componentName] = {
+						templateFunc : doT.template(template.children('dot').html()),
+						script : template.children('script')
+					}
+					render(doTCache[componentPath + componentName], selector, context, opts);
 				}
 			});
 	};

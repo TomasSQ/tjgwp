@@ -12,7 +12,7 @@
 					<label for="text-entry">{{=i18n('content')}}</label>
 					<textarea id="text-entry" class="full" name="entry" placeholder="{{=i18n('text-entry-placeholder')}}"></textarea>
 				</div>
-				<a class="btn float-right margin-top" href="#save-text">{{=i18n('save')}}</a>
+				<input type="button" class="btn float-right margin-top" value="{{=i18n('save')}}" />
 			</form>
 		</div>
 	</dot>
