@@ -9,7 +9,7 @@
 			});
 			break;
 		case 'write' :
-			$.load('.main-content', {}, {componentName : 'write'});
+			$.load('.main-content', {}, {componentName : 'textInclude', componentPath : 'text'});
 			break;
 		default :
 			$.load('.main-content', {}, {componentName : 'home'});

@@ -21,7 +21,10 @@
 			$.ajax({
 				type : 'POST',
 				url : 's/textPost/',
-				form : $(this).closest('form')
+				form : $(this).closest('form'),
+				success : function() {
+					userHelper.update();
+				}
 			});
 		});
 	</script>
