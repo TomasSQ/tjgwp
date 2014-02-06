@@ -1,10 +1,12 @@
 package br.com.tjgwp.business.service.user;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.tjgwp.business.entity.text.TextPost;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.UnauthorizedException;
@@ -15,8 +17,11 @@ import br.com.tjgwp.domain.user.UserDomain;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.Ref;
 
 public class UserService extends SuperService {
+
+	private UserDomain userDomain = new UserDomain();
 
 	public UserEntity getLoggedUser() {
 		return getLoggedUser(false);
@@ -30,7 +35,7 @@ public class UserService extends SuperService {
 		if (user == null)
 			return new UserEntity(user);
 
-		List<UserEntity> users = UserDomain.findUsersByEmail(user.getEmail());
+		List<UserEntity> users = userDomain.findByEmail(user.getEmail());
 		if (users.isEmpty()) {
 			UserEntity userEntity = new UserEntity(user);
 			new UserDomain().save(userEntity);
@@ -86,6 +91,16 @@ public class UserService extends SuperService {
 		}
 
 		return user;
+	}
+
+	public List<TextPost> getTextsFromUser(Long id) throws com.googlecode.objectify.NotFoundException {
+		UserEntity user = userDomain.findById(id);
+
+		List<TextPost> texts = new ArrayList<TextPost>();
+		for (Ref<TextPost> ref : user.getPostedTexts())
+			texts.add(ref.get());
+
+		return texts;
 	}
 
 }

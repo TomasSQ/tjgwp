@@ -14,9 +14,9 @@
 				{{?}}
 				<ul class="production italic">
 					<li class="texts"><a href="#texts/{{=it.user.id}}">{{=utils.text({text : it.user.postedTexts, sufix : 'text', noValue : 'no-texts', plural : true, i18n : true})}}</a></li>
-					<li class="awards"><a href="#awards/{{=it.user.id}}">{{=it.user.howManyAwards ? it.user.howManyAwards + ' ' + i18n('awards') : i18n('no-awards')}}</a></li>
-					<li class="followers"><a href="#followers/{{=it.user.id}}">{{=it.user.howManyFollowers ? it.user.howManyFollowers + ' ' + i18n('followers') : i18n('no-followers')}}</a></li>
-					<li class="following"><a href="#following/{{=it.user.id}}">{{=it.user.howManyFollowing ? it.user.howManyFollowing + ' ' + i18n('following') : i18n('no-following')}}</a></li>
+					<li class="awards"><a href="#awards/{{=it.user.id}}">{{=utils.text({text : it.user.awards, sufix : 'awards', noValue : 'no-awards', plural : true, i18n : true})}}</a></li>
+					<li class="followers"><a href="#followers/{{=it.user.id}}">{{=utils.text({text : it.user.followers, sufix : 'followers', noValue : 'no-followers', plural : true, i18n : true})}}</a></li>
+					<li class="following"><a href="#following/{{=it.user.id}}">{{=utils.text({text : it.user.following, sufix : 'following', noValue : 'no-following', plural : true, i18n : true})}}</a></li>
 				</ul>
 			</div>
 			<a href="#follow/{{=it.user.id}}" class="btn follow-button book-icon x-icon">{{=i18n('follow')}}</a>

@@ -53,6 +53,9 @@
 		options.statusCode = $.extend(options.statusCode, {}, {
 			400 : function() {
 				alert('vish');
+			},
+			404 : function() {
+				alert('vish2');
 			}
 		});
 	});

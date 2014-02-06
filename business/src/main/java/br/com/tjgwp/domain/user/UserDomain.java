@@ -7,8 +7,12 @@ import br.com.tjgwp.domain.SuperDomain;
 
 public class UserDomain extends SuperDomain {
 
-	public static List<UserEntity> findUsersByEmail(String email) {
+	public List<UserEntity> findByEmail(String email) {
 		return ofy().load().type(UserEntity.class).filter("email", email).list();
+	}
+
+	public UserEntity findById(Long id) {
+		return ofy().load().type(UserEntity.class).id(id).safe();
 	}
 
 }

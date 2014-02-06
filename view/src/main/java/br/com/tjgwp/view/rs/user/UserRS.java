@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -49,5 +50,11 @@ public class UserRS extends SuperRS {
 	public Response getLogoutUrl(@Context HttpServletRequest req) {
 		return Response.ok(new UserService().getLogoutUrl(req)).build();
 	}
-	
+
+	@GET
+	@Path("/{id}/texts")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getTextsFromUser(@PathParam("id") Long id) throws com.googlecode.objectify.NotFoundException {
+		return Response.ok(gsonUtils.toJson(new UserService().getTextsFromUser(id))).build();
+	}
 }
