@@ -55,6 +55,6 @@ public class UserRS extends SuperRS {
 	@Path("/{id}/texts")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getTextsFromUser(@PathParam("id") Long id) throws com.googlecode.objectify.NotFoundException {
-		return Response.ok(gsonUtils.toJson(new UserService().getTextsFromUser(id))).build();
+		return Response.ok(gsonUtils.toJson(new UserService().getBooksFromUser(id))).build();
 	}
 }

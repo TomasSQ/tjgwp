@@ -1,8 +1,9 @@
 package br.com.tjgwp.business.entity.user;
 
-public class UserVO {
+import br.com.tjgwp.business.entity.SuperVO;
 
-	private Long id;
+public class UserVO extends SuperVO {
+
 	private String email;
 	private String nickname;
 	private String profileImageUrl;
@@ -13,24 +14,16 @@ public class UserVO {
 		setId(userEntity.getId());
 		setEmail(userEntity.getEmail());
 		setNickname(userEntity.getNickname());
-		setProfileImageUrl(userEntity.getProfileImageUrl());
-		setBackgroundImageUrl(userEntity.getBackgroundImageUrl());
-		setPostedTexts(userEntity.getPostedTexts().size());
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		setProfileImageUrl(userEntity.getProfile().getUrl());
+		setBackgroundImageUrl(userEntity.getBackground().getUrl());
+		setPostedTexts(userEntity.getBooks().size());
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	protected void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -38,7 +31,7 @@ public class UserVO {
 		return nickname;
 	}
 
-	public void setNickname(String nickname) {
+	protected void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 
@@ -46,7 +39,7 @@ public class UserVO {
 		return profileImageUrl;
 	}
 
-	public void setProfileImageUrl(String profileImageUrl) {
+	protected void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
 	}
 
@@ -54,7 +47,7 @@ public class UserVO {
 		return backgroundImageUrl;
 	}
 
-	public void setBackgroundImageUrl(String backgroundImageUrl) {
+	protected void setBackgroundImageUrl(String backgroundImageUrl) {
 		this.backgroundImageUrl = backgroundImageUrl;
 	}
 
@@ -62,7 +55,7 @@ public class UserVO {
 		return postedTexts;
 	}
 
-	public void setPostedTexts(Integer postedTexts) {
+	protected void setPostedTexts(Integer postedTexts) {
 		this.postedTexts = postedTexts;
 	}
 

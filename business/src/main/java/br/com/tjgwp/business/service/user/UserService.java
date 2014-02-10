@@ -6,7 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.tjgwp.business.entity.text.TextPost;
+import br.com.tjgwp.business.entity.text.Book;
+import br.com.tjgwp.business.entity.text.BookVO;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.UnauthorizedException;
@@ -17,6 +18,7 @@ import br.com.tjgwp.domain.user.UserDomain;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Ref;
 
 public class UserService extends SuperService {
@@ -37,6 +39,9 @@ public class UserService extends SuperService {
 
 		List<UserEntity> users = userDomain.findByEmail(user.getEmail());
 		if (users.isEmpty()) {
+			if (mustExist)
+				throw new UnauthorizedException();
+	
 			UserEntity userEntity = new UserEntity(user);
 			new UserDomain().save(userEntity);
 
@@ -93,14 +98,17 @@ public class UserService extends SuperService {
 		return user;
 	}
 
-	public List<TextPost> getTextsFromUser(Long id) throws com.googlecode.objectify.NotFoundException {
+	public List<BookVO> getBooksFromUser(Long id) throws NotFoundException {
 		UserEntity user = userDomain.findById(id);
 
-		List<TextPost> texts = new ArrayList<TextPost>();
-		for (Ref<TextPost> ref : user.getPostedTexts())
-			texts.add(ref.get());
+		if (user == null)
+			throw new NotFoundException();
 
-		return texts;
+		List<BookVO> books = new ArrayList<BookVO>();
+		for (Ref<Book> ref : user.getBooks())
+			books.add(new BookVO(ref.get()));
+
+		return books;
 	}
 
 }
