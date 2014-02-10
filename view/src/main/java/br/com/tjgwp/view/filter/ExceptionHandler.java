@@ -17,7 +17,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
 		if (e instanceof UnauthorizedException)
 			return Response.status(Response.Status.FORBIDDEN).build();
-		if (e instanceof NotFoundException)
+		if (e instanceof NotFoundException || e instanceof javax.ws.rs.NotFoundException)
 			return Response.status(Response.Status.NOT_FOUND).build();
 
 		return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
