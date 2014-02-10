@@ -23,10 +23,17 @@ public class BookVO extends SuperVO {
 	private String capeImageUrl;
 
 	public BookVO(Book book) {
+		this(book, true);
+	}
+
+	public BookVO(Book book, boolean loadChapter) {
 		super.setId(book.getId());
 		setTitle(book.getTitle());
 		setSynopsis(book.getSynopsis());
-		setChapters(book.getChapters());
+
+		if (loadChapter)
+			setChapters(book.getChapters());
+
 		setSingleChapter(book.isSingleChapter());
 		setKeysWord(book.getKeysWord());
 		setPublished(book.getPublishDate() != null);

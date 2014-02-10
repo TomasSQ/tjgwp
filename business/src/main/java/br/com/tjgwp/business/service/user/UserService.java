@@ -1,13 +1,10 @@
 package br.com.tjgwp.business.service.user;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.tjgwp.business.entity.text.Book;
-import br.com.tjgwp.business.entity.text.BookVO;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.UnauthorizedException;
@@ -18,8 +15,6 @@ import br.com.tjgwp.domain.user.UserDomain;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.googlecode.objectify.NotFoundException;
-import com.googlecode.objectify.Ref;
 
 public class UserService extends SuperService {
 
@@ -96,19 +91,6 @@ public class UserService extends SuperService {
 		}
 
 		return user;
-	}
-
-	public List<BookVO> getBooksFromUser(Long id) throws NotFoundException {
-		UserEntity user = userDomain.findById(id);
-
-		if (user == null)
-			throw new NotFoundException();
-
-		List<BookVO> books = new ArrayList<BookVO>();
-		for (Ref<Book> ref : user.getBooks())
-			books.add(new BookVO(ref.get()));
-
-		return books;
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.tjgwp.view.text;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,4 +31,17 @@ public class TextPostRS extends SuperRS {
 		return Response.ok(gsonUtils.toJson(new TextsService().saveChapter(bookId, gsonUtils.fromJson(chapter, ChapterVO.class)))).build();
 	}
 
+	@GET
+	@Path("/{userId}/books")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getBooksFromUser(@PathParam("userId") Long userId) throws com.googlecode.objectify.NotFoundException {
+		return Response.ok(gsonUtils.toJson(new TextsService().getBooksFromUser(userId))).build();
+	}
+
+	@GET
+	@Path("/{userId}/books/{bookId}")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getBookFromUser(@PathParam("userId") Long userId, @PathParam("bookId") Long bookId) throws com.googlecode.objectify.NotFoundException {
+		return Response.ok(gsonUtils.toJson(new TextsService().getChaptersFromBook(userId, bookId))).build();
+	}
 }

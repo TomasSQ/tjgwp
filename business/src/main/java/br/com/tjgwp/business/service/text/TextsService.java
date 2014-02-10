@@ -1,5 +1,8 @@
 package br.com.tjgwp.business.service.text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.BookVO;
 import br.com.tjgwp.business.entity.text.Chapter;
@@ -11,17 +14,20 @@ import br.com.tjgwp.business.service.user.UserService;
 import br.com.tjgwp.domain.text.TextsDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
+import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Ref;
 
 public class TextsService extends SuperService {
 
+	private UserDomain userDomain = new UserDomain();
+	private UserService userSerivce = new UserService();
 	private TextsDomain textsDomain = new TextsDomain();
 
 	public BookVO saveBook(BookVO newBook) {
 		if (newBook == null)
 			throw new BadRequestException();
 
-		UserEntity loggedUser = new UserService().getLoggedUser(true);
+		UserEntity loggedUser = userSerivce.getLoggedUser(true);
 		Book book = newBook.getId() != null ? mergeBook(newBook, loggedUser) : new Book(newBook);
 
 		textsDomain.save(book);
@@ -50,7 +56,7 @@ public class TextsService extends SuperService {
 		if (newChapter == null || bookId == null)
 			throw new BadRequestException();
 
-		UserEntity loggedUser = new UserService().getLoggedUser(true);
+		UserEntity loggedUser = userSerivce.getLoggedUser(true);
 		Book book = findBookFromUserById(loggedUser, bookId);
 
 		if (book == null)
@@ -98,6 +104,31 @@ public class TextsService extends SuperService {
 		}
 
 		throw new BadRequestException();
+	}
+
+	public List<BookVO> getBooksFromUser(Long id) throws NotFoundException {
+		UserEntity user = userDomain.findById(id);
+
+		if (user == null)
+			throw new NotFoundException();
+
+		List<BookVO> books = new ArrayList<BookVO>();
+		for (Ref<Book> ref : user.getBooks())
+			books.add(new BookVO(ref.get(), false));
+
+		return books;
+	}
+
+	public BookVO getChaptersFromBook(Long userId, Long bookId) throws NotFoundException {
+		UserEntity user = userDomain.findById(userId);
+		if (user == null)
+			throw new NotFoundException();
+
+		Book book = findBookFromUserById(user, bookId);
+		if (book == null)
+			throw new NotFoundException();
+
+		return new BookVO(book);
 	}
 
 }
