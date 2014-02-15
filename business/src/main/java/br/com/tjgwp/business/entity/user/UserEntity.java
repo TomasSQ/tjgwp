@@ -8,7 +8,6 @@ import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 
 import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.users.User;
 import com.google.gson.Gson;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.EntitySubclass;
@@ -29,12 +28,8 @@ public class UserEntity extends SuperEntity {
 
 	private List<Ref<Book>> books;
 
-	protected UserEntity() {
-	}
-
-	public UserEntity(User user) {
-		email = user == null ? "" : user.getEmail();
-		nickname = user == null ? "" : user.getNickname();
+	public UserEntity() {
+		super();
 	}
 
 	public String getEmail() {

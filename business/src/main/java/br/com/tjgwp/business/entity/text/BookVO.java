@@ -11,8 +11,6 @@ import com.googlecode.objectify.Ref;
 
 public class BookVO extends SuperVO {
 
-	private SuperDomain superDomain = new SuperDomain();
-
 	private String title;
 	private String synopsis;
 	private List<ChapterVO> chapters;
@@ -62,11 +60,11 @@ public class BookVO extends SuperVO {
 	}
 
 	protected void setChapters(List<Ref<Chapter>> chaptersRef) {
-		List<Chapter> chapters = superDomain.get(chaptersRef);
+		List<Chapter> chapters = new SuperDomain().get(chaptersRef);
 
 		this.chapters = new ArrayList<ChapterVO>();
 		for (Chapter chapter : chapters)
-			this.chapters.add(new ChapterVO(chapter));
+			this.chapters.add(new ChapterVO(chapter, getId()));
 	}
 
 	public boolean isSingleChapter() {
@@ -82,7 +80,7 @@ public class BookVO extends SuperVO {
 	}
 
 	protected void setKeysWord(List<Ref<KeyWord>> keysWord) {
-		this.keysWord = superDomain.get(keysWord);
+		this.keysWord = new SuperDomain().get(keysWord);
 	}
 
 	public boolean isPublished() {

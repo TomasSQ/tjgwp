@@ -27,7 +27,7 @@ public class TextPostRS extends SuperRS {
 	@Path("/{bookId}/chapter")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveNewText(@PathParam("bookId") Long bookId, @FormParam("chapter") String chapter) {
+	public Response saveNewText(@PathParam("bookId") String bookId, @FormParam("chapter") String chapter) {
 		return Response.ok(gsonUtils.toJson(new TextsService().saveChapter(bookId, gsonUtils.fromJson(chapter, ChapterVO.class)))).build();
 	}
 
@@ -41,7 +41,14 @@ public class TextPostRS extends SuperRS {
 	@GET
 	@Path("/{userId}/books/{bookId}")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-	public Response getBookFromUser(@PathParam("userId") Long userId, @PathParam("bookId") Long bookId) throws com.googlecode.objectify.NotFoundException {
+	public Response getBookFromUser(@PathParam("userId") Long userId, @PathParam("bookId") Long bookId) {
 		return Response.ok(gsonUtils.toJson(new TextsService().getChaptersFromBook(userId, bookId))).build();
+	}
+
+	@GET
+	@Path("/write")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getDataBookFromUser() {
+		return Response.ok(gsonUtils.toJson(new TextsService().getWriteVO())).build();
 	}
 }

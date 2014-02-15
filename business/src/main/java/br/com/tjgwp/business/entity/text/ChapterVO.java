@@ -6,19 +6,29 @@ import br.com.tjgwp.business.entity.SuperVO;
 
 public class ChapterVO extends SuperVO {
 
+	private Long bookId;
 	private String title;
 	private String textEntry;
 	private String capeImageUrl;
 	private boolean isPublished;
 	private Date publishDate;
 
-	public ChapterVO(Chapter chapter) {
+	public ChapterVO(Chapter chapter, Long bookId) {
 		super.setId(chapter.getId());
 		setTitle(chapter.getTitle());
 		setTextEntry(chapter.getTextEntry());
 		setCapeImageUrl(chapter.getCape().getUrl());
 		setPublished(chapter.getPublishDate() != null);
 		setPublishDate(chapter.getPublishDate());
+		setBookId(bookId);
+	}
+
+	public Long getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Long bookId) {
+		this.bookId = bookId;
 	}
 
 	public String getTitle() {

@@ -37,6 +37,9 @@
 	"title" : "T&iacute;tulo",
 	"content" : "Conte&uacute;do",
 	"text-entry-placeholder" : "Digite aqui suas ideias",
+	"book" : "Livro",
+	"new-book" : "Novo livro",
+	"new-chapter" : "Novo cap&iacute;tulo",
 
 	"save" : "Salvar"
 }

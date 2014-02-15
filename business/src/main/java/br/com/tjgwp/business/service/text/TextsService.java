@@ -3,6 +3,8 @@ package br.com.tjgwp.business.service.text;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.BookVO;
 import br.com.tjgwp.business.entity.text.Chapter;
@@ -52,12 +54,12 @@ public class TextsService extends SuperService {
 		return book;
 	}
 
-	public ChapterVO saveChapter(Long bookId, ChapterVO newChapter) {
+	public ChapterVO saveChapter(String bookId, ChapterVO newChapter) {
 		if (newChapter == null || bookId == null)
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);
-		Book book = findBookFromUserById(loggedUser, bookId);
+		Book book = findBookFromUserById(loggedUser, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : loggedUser.getId());
 
 		if (book == null)
 			throw new BadRequestException();
@@ -70,7 +72,7 @@ public class TextsService extends SuperService {
 		
 		new UserDomain().save(loggedUser);
 
-		return new ChapterVO(chapter);
+		return new ChapterVO(chapter, book.getId());
 	}
 
 	protected Chapter mergeChapter(ChapterVO newChapter, Book book) {
@@ -107,17 +109,22 @@ public class TextsService extends SuperService {
 	}
 
 	public List<BookVO> getBooksFromUser(Long id) throws NotFoundException {
-		UserEntity user = userDomain.findById(id);
+		return getBooksFromUser(id, false);
+	}
+
+	public List<BookVO> getBooksFromUser(Long id, boolean loadChapters) throws NotFoundException {
+		UserEntity user = id == null ? new UserService().getLoggedUser(true) : userDomain.findById(id);
 
 		if (user == null)
 			throw new NotFoundException();
 
 		List<BookVO> books = new ArrayList<BookVO>();
 		for (Ref<Book> ref : user.getBooks())
-			books.add(new BookVO(ref.get(), false));
+			books.add(new BookVO(ref.get(), loadChapters));
 
 		return books;
 	}
+
 
 	public BookVO getChaptersFromBook(Long userId, Long bookId) throws NotFoundException {
 		UserEntity user = userDomain.findById(userId);
@@ -129,6 +136,10 @@ public class TextsService extends SuperService {
 			throw new NotFoundException();
 
 		return new BookVO(book);
+	}
+
+	public WriteVO getWriteVO() {
+		return new WriteVO(getBooksFromUser(null, true));
 	}
 
 }

@@ -21,16 +21,18 @@
 			});
 			break;
 		case 'write' :
-			$.load('.main-content', {}, {componentName : 'textInclude', componentPath : 'text'});
+			$.getJSON('s/texts/write', function(user) {
+				$.load('.main-content', { userVO : user }, {componentName : 'chapterInclude', componentPath : 'book'});
+			})
 			break;
-		case 'text' :
-			$.getJSON('s/user/' + params[0] + '/texts', function(uploadUrls) {
-				$.load('.main-content', {uploadUrls : uploadUrls}, {componentName : 'configuration'});
+		case 'books' :
+			$.getJSON('s/texts/' + params[0] + '/books', function(uploadUrls) {
+				$.load('.main-content', {}, {componentName : 'bookList', componentPath : 'book'});
 			});
 		default :
 			$.load('.main-content', {}, {componentName : 'home'});
 		}
 
 		return false;
-	}
+	};
 })(window.jQuery);

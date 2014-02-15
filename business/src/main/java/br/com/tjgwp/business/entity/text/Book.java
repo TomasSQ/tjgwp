@@ -55,6 +55,9 @@ public class Book extends SuperEntity {
 	}
 
 	public List<Ref<Chapter>> getChapters() {
+		if (chapters == null)
+			chapters = new ArrayList<Ref<Chapter>>();
+
 		return chapters;
 	}
 

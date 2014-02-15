@@ -5,20 +5,25 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.tjgwp.business.entity.text.Book;
+import br.com.tjgwp.business.entity.text.Chapter;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.UnauthorizedException;
 import br.com.tjgwp.business.service.email.EmailService;
 import br.com.tjgwp.business.service.image.ImageService;
+import br.com.tjgwp.domain.SuperDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.Ref;
 
 public class UserService extends SuperService {
 
 	private UserDomain userDomain = new UserDomain();
+	private SuperDomain superDomain = new SuperDomain();
 
 	public UserEntity getLoggedUser() {
 		return getLoggedUser(false);
@@ -30,20 +35,18 @@ public class UserService extends SuperService {
 			throw new UnauthorizedException();
 
 		if (user == null)
-			return new UserEntity(user);
+			return new UserEntity();
 
 		List<UserEntity> users = userDomain.findByEmail(user.getEmail());
 		if (users.isEmpty()) {
 			if (mustExist)
 				throw new UnauthorizedException();
 	
-			UserEntity userEntity = new UserEntity(user);
-			new UserDomain().save(userEntity);
+			UserEntity userEntity = newUserEntity(user);
 
 			try {
 				new EmailService().sendWelcomeMessage(userEntity);
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -51,6 +54,26 @@ public class UserService extends SuperService {
 		}
 
 		return users.get(0);
+	}
+
+	private UserEntity newUserEntity(User user) {
+		UserEntity userEntity = new UserEntity();
+		userEntity.setEmail(user.getEmail());
+		userEntity.setNickname(user.getNickname());
+
+		Chapter chapter = new Chapter();
+		chapter.setTitle("Chapter 1");
+		superDomain.save(chapter);
+
+		Book book = new Book();
+		book.setTitle("My first Book");
+		book.getChapters().add(Ref.create(chapter));
+		superDomain.save(book);
+
+		userEntity.getBooks().add(Ref.create(book));
+		superDomain.save(userEntity);
+
+		return userEntity;
 	}
 
 	public String getLoginUrl(HttpServletRequest req) {

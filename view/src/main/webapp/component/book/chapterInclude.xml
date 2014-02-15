@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<dot>
+		<div class="chapter-content padding clearfix">
+			<h3 class="bold title">{{=i18n('write')}}</h3>
+			<form class="spaced" name="textPost">
+				<div class="field margin-bottom">
+					<label for="book">{{=i18n('book')}}</label>
+					<select id="book">
+						<option value="new-book">{{=i18n('new-book')}}</option>
+						{{~it.user.books :book}}
+						<option value="{{book.id}}">{{=book.title}}</option>
+						{{~}}
+					</select>
+				</div>
+				<div class="field margin-bottom book-title hidden">
+					<label for="book-title">{{=i18n('title')}}</label>
+					<input id="book-title" type="text" name="bookTitle" placeholder="{{=i18n('title')}}" />
+				</div>
+				<div class="field margin-bottom">
+					<label for="chapter">{{=i18n('chapter')}}</label>
+					<select id="chapter">
+						<option value="new-chapter">{{=i18n('new-chapter')}}</option>
+						{{~it.user.chapters :chapter}}
+						<option data-book-id="{{=chapter.book.id}}" value="{{chapter.id}}">{{=chapter.title}}</option>
+						{{~}}
+					</select>
+				</div>
+				<div class="field margin-bottom book-title hidden">
+					<label for="chapter-title">{{=i18n('title')}}</label>
+					<input id="chapter-title" type="text" name="chapterTitle" placeholder="{{=i18n('title')}}" />
+				</div>
+				<div class="field margin-bottom">
+					<label for="text-entry">{{=i18n('content')}}</label>
+					<textarea id="text-entry" class="full" name="textEntry" placeholder="{{=i18n('text-entry-placeholder')}}">
+					{{=it.text || ''}}
+					</textarea>
+				</div>
+				<input type="button" class="save btn float-right margin-top" value="{{=i18n('save')}}" />
+			</form>
+		</div>
+	</dot>
+	<script>
+		$('.chapter-content form .save').click(function() {
+			$.ajax({
+				type : 'POST',
+				url : 's/texts/',
+				form : $(this).closest('form'),
+				success : function() {
+					userHelper.update();
+				}
+			});
+		});
+	</script>
+</engine>
