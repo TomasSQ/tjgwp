@@ -17,17 +17,22 @@
 		if (!$.isPlainObject(opts))
 			opts = {text : opts};
 
-		var messageDiv = $('<div class="message ' + (opts.type ? opts.type : 'success') + '" data-animation="true">' + opts.text + '</div>').hide().click(function() {
+		if (!opts.text)
+			return $(this);
+
+		var messageDiv = $('<div class="message ' + (opts.type ? opts.type : 'success') + '" data-animation="true">' + i18n(opts.text) + '</div>').hide().click(function() {
 			$(this).hide('fast');
 		});
 
 		$(this)
-			.find('message').hide('fast', function() {
+			.find('.message').hide('fast', function() {
 				$(this).remove();
 			}).end()
 			.prepend(messageDiv);
 
 		messageDiv.show('fast');
+		if (!opts.noScroll)
+			$(window).scrollTop($(this).find('.message').position().top - $('.header').outerHeight(), 'fast');
 
 		return this;
 	};

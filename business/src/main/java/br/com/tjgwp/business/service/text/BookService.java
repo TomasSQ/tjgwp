@@ -12,6 +12,7 @@ import br.com.tjgwp.business.entity.text.ChapterVO;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.BadRequestException;
 import br.com.tjgwp.business.service.SuperService;
+import br.com.tjgwp.business.service.ValidationException;
 import br.com.tjgwp.business.service.user.UserService;
 import br.com.tjgwp.domain.text.BookDomain;
 import br.com.tjgwp.domain.user.UserDomain;
@@ -25,9 +26,13 @@ public class BookService extends SuperService {
 	private UserService userSerivce = new UserService();
 	private BookDomain bookDomain = new BookDomain();
 
-	public WriteVO save(String bookId, String chapterId, WriteVO writeVO) {
-		if (StringUtils.isBlank(bookId) || StringUtils.isBlank(chapterId) || writeVO == null)
+	public WriteVO save(String bookId, String chapterId, WriteVO writeVO) throws ValidationException {
+		if (writeVO == null)
 			throw new BadRequestException();
+		if (StringUtils.isBlank(bookId) || StringUtils.isBlank(chapterId) ||
+				(writeVO.getBookId() == null && StringUtils.isBlank(writeVO.getBookTitle())) ||
+				(writeVO.getChapterId() == null && StringUtils.isBlank(writeVO.getChapterTitle())))
+			throw new ValidationException("fill-the-titles");
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);
 		Book book = getBook(bookId, writeVO);

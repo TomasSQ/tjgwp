@@ -50,17 +50,35 @@
 		});
 	};
 
-	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-		if ((options.type === 'POST' || options.type === 'PUT') && options.form) {
-			options.data = options.form.attr('name') + '=' + JSON.stringify(options.form.toJson()) + (options.data ? '&' + options.data : '');
-		}
-		options.statusCode = $.extend(options.statusCode, {}, {
-			400 : function() {
-				alert('vish');
+	$.ajaxSetup({
+		statusCode : {
+			400 : function(message) {
+				if (!message.responseText)
+					return;
+				message = eval(message.responseText);
+				if ($.isArray(message))
+					for (var i in message)
+						$('.main-content').message({text : message[i], type : 'error'});
+				else
+					$('.main-content').message({text : message, type : 'error'});
+			},
+			401 : function() {
+				$('.main-content').message({text : 'sign-in', type : 'error'});
+			},
+			403 : function() {
+				$('.main-content').message({text : i18n('unauthorized'), type : 'error'});
 			},
 			404 : function() {
-				alert('vish2');
 			}
-		});
+		},
+		error : function(error) {
+			if (error.statusCode > 404 && error.responseText)
+				$('.main-content').message({text : error.responseText, type : 'error'});
+		}
+	});
+
+	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+		if ((options.type === 'POST' || options.type === 'PUT') && options.form)
+			options.data = options.form.attr('name') + '=' + JSON.stringify(options.form.toJson()) + (options.data ? '&' + options.data : '');
 	});
 })(window.jQuery);
