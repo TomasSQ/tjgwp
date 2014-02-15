@@ -5,8 +5,12 @@
 	var render = function(templateObj, selector, context, opts) {
 		context = $.extend({user : $('body').data('user')}, context);
 		var $template = $(templateObj.templateFunc(context));
+		$template.find('hidden').hide();
 
-		$(selector).empty().append($template);
+		var container = $(selector); 
+		if (!opts.append)
+			container.empty();
+		container.append($template);
 
 		templateObj.script.each(function() {
 			eval($(this).html());

@@ -11,7 +11,6 @@
 .block {display: block;}
 .inline {display: inline;}
 .inline-block {display: inline-block;}
-.hidden {display: none !important;}
 ul.inline > li {float: left; font-size: 12px; line-height: 40px; margin-right: 10px;}
 ul.block > li {display: block; font-size: 10px; line-height: 20px; white-space: nowrap;}
 ul > li.drop-down {position: relative;}
@@ -52,10 +51,12 @@ h1 {font-size: 20px;}
 form.spaced > * {margin: 12px;}
 form.spaced label {display: block; margin-bottom: 5px;}
 
-
+select {margin: 3px;}
 /*					DEFAULTS 							*/
 * {
 	color: #505050;
+}
+*:not([data-animation]) {
 			transition: all ease-in-out 0.15s;
 	-webkit-transition: all ease-in-out 0.15s;
 }

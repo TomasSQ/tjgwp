@@ -21,8 +21,8 @@
 			});
 			break;
 		case 'write' :
-			$.getJSON('s/texts/write', function(user) {
-				$.load('.main-content', { userVO : user }, {componentName : 'chapterInclude', componentPath : 'book'});
+			$.getJSON('s/texts/write', function(write) {
+				$.load('.main-content', { write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
 			})
 			break;
 		case 'books' :

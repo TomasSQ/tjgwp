@@ -13,6 +13,9 @@ public class ChapterVO extends SuperVO {
 	private boolean isPublished;
 	private Date publishDate;
 
+	public ChapterVO() {
+	}
+
 	public ChapterVO(Chapter chapter, Long bookId) {
 		super.setId(chapter.getId());
 		setTitle(chapter.getTitle());
@@ -35,7 +38,7 @@ public class ChapterVO extends SuperVO {
 		return title;
 	}
 
-	protected void setTitle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -59,7 +62,7 @@ public class ChapterVO extends SuperVO {
 		return isPublished;
 	}
 
-	protected  void setPublished(boolean isPublished) {
+	protected void setPublished(boolean isPublished) {
 		this.isPublished = isPublished;
 	}
 

@@ -4,31 +4,35 @@
 		<div class="chapter-content padding clearfix">
 			<h3 class="bold title">{{=i18n('write')}}</h3>
 			<form class="spaced" name="textPost">
-				<div class="field margin-bottom">
-					<label for="book">{{=i18n('book')}}</label>
-					<select id="book">
-						<option value="new-book">{{=i18n('new-book')}}</option>
-						{{~it.user.books :book}}
-						<option value="{{book.id}}">{{=book.title}}</option>
-						{{~}}
-					</select>
+				<div class="clearfix">
+					<div class="field margin-bottom float-left">
+						<label for="book">{{=i18n('book')}}</label>
+						<select id="book">
+							{{ for (var id in it.write.books) { }}
+							<option value="{{=id}}">{{=it.write.books[id]}}</option>
+							{{ } }}
+							<option value="new-book">{{=i18n('new-book')}}</option>
+						</select>
+					</div>
+					<div class="book-title field margin-bottom hidden float-left" data-animation="true">
+						<label for="book-title">{{=i18n('title')}}</label>
+						<input id="book-title" type="text" name="bookTitle" placeholder="{{=i18n('title')}}" />
+					</div>
 				</div>
-				<div class="field margin-bottom book-title hidden">
-					<label for="book-title">{{=i18n('title')}}</label>
-					<input id="book-title" type="text" name="bookTitle" placeholder="{{=i18n('title')}}" />
-				</div>
-				<div class="field margin-bottom">
-					<label for="chapter">{{=i18n('chapter')}}</label>
-					<select id="chapter">
-						<option value="new-chapter">{{=i18n('new-chapter')}}</option>
-						{{~it.user.chapters :chapter}}
-						<option data-book-id="{{=chapter.book.id}}" value="{{chapter.id}}">{{=chapter.title}}</option>
-						{{~}}
-					</select>
-				</div>
-				<div class="field margin-bottom book-title hidden">
-					<label for="chapter-title">{{=i18n('title')}}</label>
-					<input id="chapter-title" type="text" name="chapterTitle" placeholder="{{=i18n('title')}}" />
+				<div class="clearfix">
+					<div class="field margin-bottom float-left">
+						<label for="chapter">{{=i18n('chapter')}}</label>
+						<select id="chapter">
+							<option value="new-chapter">{{=i18n('new-chapter')}}</option>
+							{{ for (var id in it.write.chapters) { }}
+							<option data-book-id="{{=it.write.chapters[id].bookId}}" value="{{=id}}">{{=it.write.chapters[id].title}}</option>
+							{{ } }}
+						</select>
+					</div>
+					<div class="chapter-title field margin-bottom hidden float-left" data-animation="true">
+						<label for="chapter-title">{{=i18n('title')}}</label>
+						<input id="chapter-title" type="text" name="chapterTitle" placeholder="{{=i18n('title')}}" />
+					</div>
 				</div>
 				<div class="field margin-bottom">
 					<label for="text-entry">{{=i18n('content')}}</label>
@@ -41,15 +45,42 @@
 		</div>
 	</dot>
 	<script>
-		$('.chapter-content form .save').click(function() {
-			$.ajax({
-				type : 'POST',
-				url : 's/texts/',
-				form : $(this).closest('form'),
-				success : function() {
-					userHelper.update();
+		container
+			.find('form .save').click(function() {
+				$.ajax({
+					type : 'POST',
+					url : 's/texts/',
+					form : $(this).closest('form'),
+					success : function() {
+						userHelper.update();
+					}
+				});
+			}).end()
+			.find('select#book').change(function() {
+				container
+					.find('select#chapter')
+						.children(':not([value="new-chapter"])').hide().end()
+						.children('[data-book-id=' + $(this).val() + ']').show();
+				if ($(this).val() === 'new-book')
+					container.find('.book-title').show('fast');
+				else
+					container.find('.book-title').hide('fast');
+			}).change().end()
+			.find('select#chapter').change(function() {
+				if ($(this).val() === 'new-chapter')
+					container.find('.chapter-title').show('fast');
+				else {
+					container
+						.find('select#book')
+							.children(':not([value="new-book"])').hide().end()
+							.children('[value=' + $(this).find('option:selected').data('book-id') + ']').show();
+					container.find('.chapter-title').hide('fast');
 				}
-			});
-		});
+			}).change().end();
+
+		if (context.bookId)
+			container.find('select#book').val(context.bookId);
+		if (context.chapterId)
+			container.find('select#chapter').val(context.chapterId);
 	</script>
 </engine>
