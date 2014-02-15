@@ -15,6 +15,10 @@ public class WriteVO {
 	private String chapterTitle;
 	private String textEntry;
 
+	public WriteVO() {
+
+	}
+
 	public WriteVO(List<BookVO> booksVO) {
 		for (BookVO book : booksVO) {
 			books.put(book.getId(), book.getTitle());

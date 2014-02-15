@@ -3,7 +3,7 @@
 	<dot>
 		<div class="chapter-content padding clearfix">
 			<h3 class="bold title">{{=i18n('write')}}</h3>
-			<form class="spaced" name="textPost">
+			<form class="spaced" name="write">
 				<div class="clearfix">
 					<div class="field margin-bottom float-left">
 						<label for="book">{{=i18n('book')}}</label>

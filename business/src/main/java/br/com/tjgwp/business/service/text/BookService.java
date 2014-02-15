@@ -33,10 +33,14 @@ public class BookService extends SuperService {
 		Book book = getBook(bookId, writeVO);
 		Chapter chapter = getChapter(chapterId, writeVO);
 
+		boolean isNewChapter = chapter.getId() == null;
+		boolean isNewBook = book.getId() == null;
 		bookDomain.save(chapter);
-		book.getChapters().add(Ref.create(chapter));
+		if (isNewChapter)
+			book.getChapters().add(Ref.create(chapter));
 		bookDomain.save(book);
-		loggedUser.getBooks().add(Ref.create(book));
+		if (isNewBook)
+			loggedUser.getBooks().add(Ref.create(book));
 		userDomain.save(loggedUser);
 	}
 
