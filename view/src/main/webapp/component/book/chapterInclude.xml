@@ -68,9 +68,10 @@
 					.find('select#chapter')
 						.children(':not([value="new-chapter"])').hide().end()
 						.children('[data-book-id=' + $(this).val() + ']').show();
-				if ($(this).val() === 'new-book')
+				if ($(this).val() === 'new-book') {
 					container.find('.book-title').show('fast');
-				else
+					container.find('select#chapter').val('new-book').change();
+				} else
 					container.find('.book-title').hide('fast');
 			}).end()
 			.find('select#chapter').change(function() {

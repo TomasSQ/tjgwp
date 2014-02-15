@@ -65,14 +65,14 @@ form.spaced label {display: block; margin-bottom: 5px;}
 	-webkit-transition: all ease-in-out 0.15s;
 }
 body { background: #F0E8D5; font-family: Georgia, serif; font-size: 12pt;}
-input[type="text"], textarea {color: #505050; height: 17px; padding: 3px; outline: 0;}
+input[type="text"], textarea, select {color: #505050; height: 17px; padding: 3px; outline: 0;}
+select {margin: 0;}
 textarea.full {height: 250px; width: 98%;}
-input[type="text"]:focus, textarea:focus {box-shadow: 0 0 3px 2px #A0702E; outline: 0;}
-input[type="text"], .input-container, textarea {border: 1px solid #A0702E; line-height: 1.5;}
+input[type="text"]:focus, textarea:focus, select:focus {box-shadow: 0 0 3px 2px #A0702E; outline: 0;}
+input[type="text"], .input-container, textarea, select {border: 1px solid #A0702E; line-height: 1.5;}
 .input-container {background: #FFFFFF; height: 28px; line-height: 28px; position: relative;}
 .input-container > input[type="text"] {border: none; float: left; height: 100%; margin: 0; padding: 0 32px 0 7px;}
 .input-container > i {border-left: 1px solid #A0A0A0; display: inline-block; height: 16px; margin: 3px 3px 3px 0; padding: 3px; position: absolute; right: 0; width: 23px;}
-select {margin: 3px;}
 
 /*					CONTAINERS					 		*/
 .container {background: #FFFFFF; margin: 0 auto;}
