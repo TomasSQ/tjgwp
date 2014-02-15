@@ -70,7 +70,7 @@
 						.children('[data-book-id=' + $(this).val() + ']').show();
 				if ($(this).val() === 'new-book') {
 					container.find('.book-title').show('fast');
-					container.find('select#chapter').val('new-book').change();
+					container.find('select#chapter').val('new-chapter').change();
 				} else
 					container.find('.book-title').hide('fast');
 			}).end()
