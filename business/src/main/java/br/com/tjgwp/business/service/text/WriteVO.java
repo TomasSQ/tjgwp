@@ -11,6 +11,9 @@ public class WriteVO {
 
 	private Map<Long, String> books = new HashMap<Long, String>();
 	private Map<Long, ChapterVO> chapters = new HashMap<Long, ChapterVO>();
+	private String bookTitle;
+	private String chapterTitle;
+	private String textEntry;
 
 	public WriteVO(List<BookVO> booksVO) {
 		for (BookVO book : booksVO) {
@@ -32,6 +35,38 @@ public class WriteVO {
 
 	public Map<Long, ChapterVO> getChapters() {
 		return chapters;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public String getChapterTitle() {
+		return chapterTitle;
+	}
+
+	public void setChapterTitle(String chapterTitle) {
+		this.chapterTitle = chapterTitle;
+	}
+
+	public String getTextEntry() {
+		return textEntry;
+	}
+
+	public void setTextEntry(String textEntry) {
+		this.textEntry = textEntry;
+	}
+
+	public void setBooks(Map<Long, String> books) {
+		this.books = books;
+	}
+
+	public void setChapters(Map<Long, ChapterVO> chapters) {
+		this.chapters = chapters;
 	}
 
 }

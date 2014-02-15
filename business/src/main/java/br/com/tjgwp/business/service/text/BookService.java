@@ -13,32 +13,34 @@ import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.BadRequestException;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.user.UserService;
-import br.com.tjgwp.domain.text.TextsDomain;
+import br.com.tjgwp.domain.text.BookDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
 import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Ref;
 
-public class TextsService extends SuperService {
+public class BookService extends SuperService {
 
 	private UserDomain userDomain = new UserDomain();
 	private UserService userSerivce = new UserService();
-	private TextsDomain textsDomain = new TextsDomain();
+	private BookDomain bookDomain = new BookDomain();
 
-	public BookVO saveBook(BookVO newBook) {
+	public void save(String book, String chapter, WriteVO fromJson) {
+		if (StringUtils.isBlank(book) || StringUtils.isBlank(chapter))
+			throw new BadRequestException();
+	}
+
+	public void saveBook(BookVO newBook) {
 		if (newBook == null)
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);
 		Book book = newBook.getId() != null ? mergeBook(newBook, loggedUser) : new Book(newBook);
 
-		textsDomain.save(book);
+		bookDomain.save(book);
 		loggedUser.getBooks().add(Ref.create(book));
 		
 		new UserDomain().save(loggedUser);
-
-		return new BookVO(book);
-
 	}
 
 	protected Book mergeBook(BookVO newBook, UserEntity loggedUser) {
@@ -54,7 +56,7 @@ public class TextsService extends SuperService {
 		return book;
 	}
 
-	public ChapterVO saveChapter(String bookId, ChapterVO newChapter) {
+	public void saveChapter(String bookId, ChapterVO newChapter) {
 		if (newChapter == null || bookId == null)
 			throw new BadRequestException();
 
@@ -66,13 +68,11 @@ public class TextsService extends SuperService {
 
 		Chapter chapter = newChapter.getId() != null ? mergeChapter(newChapter, book) : new Chapter(newChapter);
 
-		textsDomain.save(chapter);
+		bookDomain.save(chapter);
 		book.getChapters().add(Ref.create(chapter));
-		textsDomain.save(book);
+		bookDomain.save(book);
 		
 		new UserDomain().save(loggedUser);
-
-		return new ChapterVO(chapter, book.getId());
 	}
 
 	protected Chapter mergeChapter(ChapterVO newChapter, Book book) {

@@ -49,7 +49,7 @@
 			.find('form .save').click(function() {
 				$.ajax({
 					type : 'POST',
-					url : 's/texts/',
+					url : 's/book/' + $('select#book').val() + '/chapter/' + $('select#chapter').val(),
 					form : $(this).closest('form'),
 					success : function() {
 						userHelper.update();

@@ -21,12 +21,12 @@
 			});
 			break;
 		case 'write' :
-			$.getJSON('s/texts/write', function(write) {
+			$.getJSON('s/book/write', function(write) {
 				$.load('.main-content', { write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
 			})
 			break;
 		case 'books' :
-			$.getJSON('s/texts/' + params[0] + '/books', function(uploadUrls) {
+			$.getJSON('s/book/fromUser/' + params[0], function(uploadUrls) {
 				$.load('.main-content', {}, {componentName : 'bookList', componentPath : 'book'});
 			});
 		default :
