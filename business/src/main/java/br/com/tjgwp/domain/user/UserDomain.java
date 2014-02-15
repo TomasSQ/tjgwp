@@ -11,8 +11,4 @@ public class UserDomain extends SuperDomain {
 		return ofy().load().type(UserEntity.class).filter("email", email).list();
 	}
 
-	public UserEntity findById(Long id) {
-		return ofy().load().type(UserEntity.class).id(id).safe();
-	}
-
 }

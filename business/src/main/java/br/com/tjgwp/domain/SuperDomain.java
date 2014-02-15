@@ -41,6 +41,10 @@ public class SuperDomain {
 		return ofy().save().entity(entity).now();
 	}
 
+	public <T> T findById(Long id, Class<T> clazz) {
+		return ofy().load().type(clazz).id(id).safe();
+	}
+
 	public <T> List<T> get(List<Ref<T>> refList) {
 		List<T> list = new ArrayList<T>();
 
