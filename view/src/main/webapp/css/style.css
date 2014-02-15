@@ -64,7 +64,8 @@ form.spaced label {display: block; margin-bottom: 5px;}
 			transition: all ease-in-out 0.15s;
 	-webkit-transition: all ease-in-out 0.15s;
 }
-body { background: #F0E8D5; font-family: Georgia, serif; font-size: 12pt;}
+body { background: #F0E8D5;}
+body, textarea {font-family: Georgia, serif; font-size: 12pt;}
 input[type="text"], textarea, select {color: #505050; height: 17px; padding: 3px; outline: 0;}
 select {background: white; height: 25px;}
 textarea.full {height: 250px; width: 98%;}
