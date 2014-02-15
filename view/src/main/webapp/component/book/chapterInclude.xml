@@ -52,9 +52,14 @@
 					url : 's/book/' + $('select#book').val() + '/chapter/' + $('select#chapter').val(),
 					form : $(this).closest('form'),
 					success : function(write) {
-						container.message('save-successed');
 						userHelper.update();
-						$.load('.main-content', { bookId: write.bookId, chapterId : write.chapterId, write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
+						$.load('.main-content', { bookId: write.bookId, chapterId : write.chapterId, write : write }, {
+							componentName : 'chapterInclude',
+							componentPath : 'book',
+							complete : function() {
+								container.message(i18n('save-successed'));
+							}
+						});
 					}
 				});
 			}).end()

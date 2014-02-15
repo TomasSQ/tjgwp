@@ -17,7 +17,7 @@
 		});
 
 		if (typeof opts.complete == 'function')
-			opts.complete(context, template);
+			opts.complete();
 	};
 
 	$.load = function(selector, context, opts) {

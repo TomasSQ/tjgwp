@@ -41,7 +41,7 @@ ul > li.drop-down:hover > ul {display: block; position: absolute; top: 40px;}
 .search-icon {background-position: -36px -6px;}
 
 .btn {background-color: #F9B546; border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #A0702E; color: #505050; cursor: pointer; padding: 2px 9px;}
-.title, .btn {font-family: "Open Sans", sans-serif; font-weight: bold;}
+.title, .btn, .message {font-family: "Open Sans", sans-serif; font-weight: bold;}
 h1, h2, h3, h4, h5, h6, h7 {margin-bottom: 12px;}
 h1 {font-size: 20px;}
 .italic {font-style: italic;}
