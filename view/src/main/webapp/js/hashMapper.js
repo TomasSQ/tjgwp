@@ -23,7 +23,7 @@
 		case 'write' :
 			$.getJSON('s/book/write', function(write) {
 				$.load('.main-content', { write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
-			})
+			});
 			break;
 		case 'books' :
 			$.getJSON('s/book/fromUser/' + params[0], function(uploadUrls) {

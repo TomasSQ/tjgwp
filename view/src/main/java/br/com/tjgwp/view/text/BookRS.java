@@ -40,9 +40,14 @@ public class BookRS extends SuperRS {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response saveNewBook(@PathParam("book") String book, @PathParam("chapter") String chapter, @FormParam("write") String write) {
-		new BookService().save(book, chapter, gsonUtils.fromJson(write, WriteVO.class));
+		return Response.ok(gsonUtils.toJson(new BookService().save(book, chapter, gsonUtils.fromJson(write, WriteVO.class)))).build();
+	}
 
-		return Response.ok().build();
+	@Path("/{bookId}/chapter/{chapterId}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response getChapterFromBook(@PathParam("bookId") Long book, @PathParam("chapterId") Long chapter, @FormParam("write") String write) {
+		return Response.ok(gsonUtils.toJson(new BookService().getChapterFromBook(book, chapter))).build();
 	}
 
 	@GET
@@ -56,7 +61,7 @@ public class BookRS extends SuperRS {
 	@Path("/fromUser/{userId}/{bookId}")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getBookFromUser(@PathParam("userId") Long userId, @PathParam("bookId") Long bookId) {
-		return Response.ok(gsonUtils.toJson(new BookService().getChaptersFromBook(userId, bookId))).build();
+		return Response.ok(gsonUtils.toJson(new BookService().getFullBook(userId, bookId))).build();
 	}
 
 	@GET

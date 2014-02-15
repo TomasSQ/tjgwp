@@ -42,5 +42,6 @@
 	"chapter" : "Cap&iacute;tulo",
 	"new-chapter" : "Novo cap&iacute;tulo",
 
-	"save" : "Salvar"
+	"save" : "Salvar",
+	"save-successed" : "Salvo com sucesso!"
 }

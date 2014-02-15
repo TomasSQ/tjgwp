@@ -37,7 +37,7 @@
 				<div class="field margin-bottom">
 					<label for="text-entry">{{=i18n('content')}}</label>
 					<textarea id="text-entry" class="full" name="textEntry" placeholder="{{=i18n('text-entry-placeholder')}}">
-					{{=it.text || ''}}
+					{{=it.write.textEntry || ''}}
 					</textarea>
 				</div>
 				<input type="button" class="save btn float-right margin-top" value="{{=i18n('save')}}" />
@@ -51,8 +51,10 @@
 					type : 'POST',
 					url : 's/book/' + $('select#book').val() + '/chapter/' + $('select#chapter').val(),
 					form : $(this).closest('form'),
-					success : function() {
+					success : function(write) {
+						container.message('save-successed');
 						userHelper.update();
+						$.load('.main-content', { bookId: write.bookId, chapterId : write.chapterId, write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
 					}
 				});
 			}).end()
@@ -65,7 +67,7 @@
 					container.find('.book-title').show('fast');
 				else
 					container.find('.book-title').hide('fast');
-			}).change().end()
+			}).end()
 			.find('select#chapter').change(function() {
 				if ($(this).val() === 'new-chapter')
 					container.find('.chapter-title').show('fast');
@@ -75,12 +77,17 @@
 							.children(':not([value="new-book"])').hide().end()
 							.children('[value=' + $(this).find('option:selected').data('book-id') + ']').show();
 					container.find('.chapter-title').hide('fast');
+					$.getJSON('s/book/' + container.find('select#book').val() + '/chapter/' + $(this).val(), function(chapter) {
+						container.find('[name="textEntry"]').text(chapter.textEntry);
+					});
 				}
-			}).change().end();
+			}).end();
 
 		if (context.bookId)
 			container.find('select#book').val(context.bookId);
 		if (context.chapterId)
 			container.find('select#chapter').val(context.chapterId);
+
+		container.find('select#book, select#chapter').change();
 	</script>
 </engine>

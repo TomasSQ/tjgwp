@@ -51,6 +51,11 @@ h1 {font-size: 20px;}
 form.spaced > * {margin: 12px;}
 form.spaced label {display: block; margin-bottom: 5px;}
 
+.message {border-radius: 0 0 2px 2px; color: #FAFAFA; font-size: 14px; padding: 10px;}
+.message.success {background: #ADA; border: 2px solid #5D5;}
+.message.error {background: #DAA; border: 2px solid #D55;}
+.message.info {background: #AAD; border: 2px solid #55D;}
+
 /*					DEFAULTS 							*/
 * {
 	color: #505050;
