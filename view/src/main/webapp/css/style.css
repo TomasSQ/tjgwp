@@ -51,7 +51,7 @@ h1 {font-size: 20px;}
 form.spaced > * {margin: 12px;}
 form.spaced label {display: block; margin-bottom: 5px;}
 
-.message {border-radius: 0 0 2px 2px; color: #FAFAFA; font-size: 14px; padding: 10px;}
+.message {border-radius: 0 0 2px 2px; color: #FAFAFA; cursor : pointer; font-size: 14px; padding: 10px;}
 .message.success {background: #ADA; border: 2px solid #5D5;}
 .message.error {background: #DAA; border: 2px solid #D55;}
 .message.info {background: #AAD; border: 2px solid #55D;}
@@ -99,4 +99,8 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 .profile-header > * {float: left; vertical-align: bottom;}
 .profile-header .profile-pic {border-radius: 50px; height: 50px; width: 50px;}
 .profile-header ul li {float: left; margin-right: 60px;}
-.profile-header .follow-button {float: right; height: 23px; margin: 24px 12px 0; padding: 9px 9px 0 9px; text-align: right; width: 82px;};
+.profile-header .follow-button {float: right; height: 23px; margin: 24px 12px 0; padding: 9px 9px 0 9px; text-align: right; width: 82px;}
+
+.books-list .book {border: 1px solid #A0702E; width: 200px;}
+.books-list .book .book-cape {border-bottom: 1px solid #A0702E; font-size: 12px; height: 300px; margin-bottom: 2px;}
+.books-list .book .book-cape img {height: 100%; width: 100%;}

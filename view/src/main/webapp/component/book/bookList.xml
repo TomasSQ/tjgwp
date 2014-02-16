@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
-		<div class="profile-header clearfix" style="{{?it.user.backgroundImageUrl}}background: url('{{=it.user.backgroundImageUrl}}') 0 0 no-repeat;{{??}}padding-top:10px;{{?}}">
-			<img class="profile-pic margin-left"/>
-			<div class="profile-info margin-left">
-				<h1 class="title">{{=it.user.nickname}}</h1>
-				{{? it.user.social}}
-				<div class="social">
-					{{~it.user.social :social}}
-						<a href="{{=social.link}}" class="social-{{=social.name}}"></a>
-					{{~}}
-				</div>
+		<div class="books-list clearfix">
+		{{~it.books :book}}
+			<div class="book">
+				<div class="book-cape">
+				{{? book.capeImageUrl}}
+					<img class="book-cape-url" src="" title="{{=book.title}}"></img>
+				{{??}}
+					{{=book.title}}
 				{{?}}
-				<ul class="production italic">
-					<li class="texts"><a href="#texts/{{=it.user.id}}">{{=it.user.postedTexts ? it.user.postedTexts + ' ' + i18n('texts') : i18n('no-texts')}}</a></li>
-					<li class="awards"><a href="#awards/{{=it.user.id}}">{{=it.user.howManyAwards ? it.user.howManyAwards + ' ' + i18n('awards') : i18n('no-awards')}}</a></li>
-					<li class="followers"><a href="#followers/{{=it.user.id}}">{{=it.user.howManyFollowers ? it.user.howManyFollowers + ' ' + i18n('followers') : i18n('no-followers')}}</a></li>
-					<li class="following"><a href="#following/{{=it.user.id}}">{{=it.user.howManyFollowing ? it.user.howManyFollowing + ' ' + i18n('following') : i18n('no-following')}}</a></li>
-				</ul>
+				</div>
+				{{? book.capeImageUrl}}
+				<div class="book-title">{{=book.title}}</div>
+				{{?}}
+				<div class="book-details">
+					{{=book.chaptersCount}}
+				</div>
 			</div>
-			<a href="#follow/{{=it.user.id}}" class="btn follow-button book-icon x-icon">{{=i18n('follow')}}</a>
+		{{~}}
 		</div>
-		<div class="sidebar"></div>
-		<div class="profile-content"></div>
 	</dot>
 	<script>
-		$('.profile-header img').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
 	</script>
 </engine>

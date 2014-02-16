@@ -51,6 +51,13 @@ public class BookRS extends SuperRS {
 	}
 
 	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getBooksFromUser() throws com.googlecode.objectify.NotFoundException {
+		return Response.ok(gsonUtils.toJson(new BookService().getBooksFromUser(null))).build();
+	}
+
+	@GET
 	@Path("/fromUser/{userId}")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getBooksFromUser(@PathParam("userId") Long userId) throws com.googlecode.objectify.NotFoundException {

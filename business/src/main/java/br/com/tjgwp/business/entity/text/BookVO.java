@@ -14,6 +14,7 @@ public class BookVO extends SuperVO {
 	private String title;
 	private String synopsis;
 	private List<ChapterVO> chapters;
+	private Integer chaptersCount;
 	private boolean isSingleChapter;
 	private List<KeyWord> keysWord;
 	private boolean isPublished;
@@ -31,6 +32,7 @@ public class BookVO extends SuperVO {
 
 		if (loadChapter)
 			setChapters(book.getChapters());
+		setChaptersCount(book.getChapters().size());
 
 		setSingleChapter(book.isSingleChapter());
 		setKeysWord(book.getKeysWord());
@@ -65,6 +67,14 @@ public class BookVO extends SuperVO {
 		this.chapters = new ArrayList<ChapterVO>();
 		for (Chapter chapter : chapters)
 			this.chapters.add(new ChapterVO(chapter, getId()));
+	}
+
+	public Integer getChaptersCount() {
+		return chaptersCount;
+	}
+
+	public void setChaptersCount(Integer chaptersCount) {
+		this.chaptersCount = chaptersCount;
 	}
 
 	public boolean isSingleChapter() {

@@ -26,8 +26,8 @@
 			});
 			break;
 		case 'books' :
-			$.getJSON('s/book/fromUser/' + params[0], function(uploadUrls) {
-				$.load('.main-content', {}, {componentName : 'bookList', componentPath : 'book'});
+			$.getJSON('s/book' + (params[0] ? '/fromUser/' + params[0] : ''), function(books) {
+				$.load('.main-content', {books : books}, {componentName : 'bookList', componentPath : 'book'});
 			});
 		default :
 			$.load('.main-content', {me : true}, {componentName : 'home'});
