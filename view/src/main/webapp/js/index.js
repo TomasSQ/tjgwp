@@ -6,6 +6,7 @@
 		context = $.extend({user : $('body').data('user')}, context);
 		var $template = $(templateObj.templateFunc(context));
 		$template.find('hidden').hide();
+		$template.find('input[type="file"]').inputFile();
 
 		var container = $(selector); 
 		if (!opts.append)
@@ -40,14 +41,6 @@
 					render(doTCache[componentPath + componentName], selector, context, opts);
 				}
 			});
-	};
-
-	index = {};
-
-	index.init = function() {
-		userHelper.update(function() {
-			$.load('body > div.header');
-		});
 	};
 
 	$.ajaxSetup({

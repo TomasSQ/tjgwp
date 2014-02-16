@@ -60,7 +60,7 @@ form.spaced label {display: block; margin-bottom: 5px;}
 * {
 	color: #505050;
 }
-*:not([data-animation]) {
+*:not([data-no-animation]) {
 			transition: all ease-in-out 0.15s;
 	-webkit-transition: all ease-in-out 0.15s;
 }
@@ -101,6 +101,9 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 .profile-header ul li {float: left; margin-right: 60px;}
 .profile-header .follow-button {float: right; height: 23px; margin: 24px 12px 0; padding: 9px 9px 0 9px; text-align: right; width: 82px;}
 
-.books-list .book {border: 1px solid #A0702E; width: 200px;}
-.books-list .book .book-cape {border-bottom: 1px solid #A0702E; font-size: 12px; height: 300px; margin-bottom: 2px;}
+.books-list .book {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 200px;}
+.books-list .book .book-cape {height: 300px; margin-bottom: 2px; position: relative; text-align: center;}
+.books-list .book .buttons {border-bottom: 1px solid #A0702E; height: 20px;}
+.books-list .book .buttons [class^=btn] {border: none;}
+.books-list .book .book-cape div {font-size: 40px; line-height: 40px;}
 .books-list .book .book-cape img {height: 100%; width: 100%;}

@@ -9,7 +9,7 @@
 		return json;
 	};
 
-	window.onhashchange = function(e) {
+	window.onhashchange = function() {
 		var hash = location.hash.substring(1).split('/');
 		var params = hash.splice(1);
 		hash = hash[0];
@@ -29,6 +29,7 @@
 			$.getJSON('s/book' + (params[0] ? '/fromUser/' + params[0] : ''), function(books) {
 				$.load('.main-content', {books : books}, {componentName : 'bookList', componentPath : 'book'});
 			});
+			break;
 		default :
 			$.load('.main-content', {me : true}, {componentName : 'home'});
 		}

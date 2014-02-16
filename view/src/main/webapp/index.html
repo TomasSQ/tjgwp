@@ -30,7 +30,9 @@
 		$(document).ready(function() {
 			$.getJSON('i18n/pt-BR.json', function(bundles) {
 				i18n_bundles_pt = bundles;
-				index.init();
+				userHelper.update(function() {
+					$.load('body > div.header');
+				});
 			});
 		});
 	</script>

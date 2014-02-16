@@ -5,12 +5,10 @@
 			<h3 class="bold">{{=i18n('configurations')}}</h3>
 			<form id="profile-configuration" method="post" enctype="multipart/form-data">
 				<div class="field margin-bottom">
-					<label for="profile-pic-uploader">{{=i18n('profile-pic')}}</label>
-					<input id="profile-pic-uploader" type="file" name="profile" data-url="{{=it.uploadUrls[0]}}" />
+					<input id="profile-pic-uploader" type="file" name="profile" data-url="{{=it.uploadUrls[0]}}" data-message="{{=i18n('profile-pic')}}"/>
 				</div>
 				<div class="field margin-bottom">
-					<label for="background-pic-uploader">{{=i18n('background-pic')}}</label>
-					<input id="background-pic-uploader" type="file" name="background" data-url="{{=it.uploadUrls[1]}}" />
+					<input id="background-pic-uploader" type="file" name="background" data-url="{{=it.uploadUrls[1]}}" data-message="{{=i18n('background-pic')}}"/>
 				</div>
 			</form>
 		</div>

@@ -14,7 +14,7 @@
 							<option value="new-book">{{=i18n('new-book')}}</option>
 						</select>
 					</div>
-					<div class="book-title field margin-bottom hidden float-left" data-animation="true">
+					<div class="book-title field margin-bottom hidden float-left" data-no-animation="true">
 						<label for="book-title">{{=i18n('title')}} *</label>
 						<input id="book-title" type="text" name="bookTitle" placeholder="{{=i18n('title')}}" />
 					</div>
@@ -29,7 +29,7 @@
 							{{ } }}
 						</select>
 					</div>
-					<div class="chapter-title field margin-bottom hidden float-left" data-animation="true">
+					<div class="chapter-title field margin-bottom hidden float-left" data-no-animation="true">
 						<label for="chapter-title">{{=i18n('title')}} *</label>
 						<input id="chapter-title" type="text" name="chapterTitle" placeholder="{{=i18n('title')}}" />
 					</div>
