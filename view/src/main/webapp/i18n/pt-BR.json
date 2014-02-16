@@ -46,7 +46,10 @@
 	"new-chapter" : "Novo cap&iacute;tulo",
 	"fill-the-titles" : "Preecha os t&iacute;tulos",
 	"cape" : "Capa",
+	"publish" : "Publicar",
+	"unpublish" : "Despublicar",
 
+	"edit" : "Editar",
 	"save" : "Salvar",
 	"save-successed" : "Salvo com sucesso!",
 	"with" : "com"
