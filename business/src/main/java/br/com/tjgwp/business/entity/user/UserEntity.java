@@ -82,6 +82,18 @@ public class UserEntity extends SuperEntity {
 	}
 
 	public String toJson() {
-		return new Gson().toJson(new UserVO(this));
+		int publishedBooks = 0;
+		int publishedChapters = 0;
+
+		for (Ref<Book> refBook : getBooks()) {
+			Book book = refBook.get();
+			if (book.getPublishDate() != null) {
+				publishedBooks++;
+				publishedChapters += book.publishedChaptersCount();
+			}
+		}
+
+		return new Gson().toJson(new UserVO(this, publishedBooks, publishedChapters));
 	}
+
 }

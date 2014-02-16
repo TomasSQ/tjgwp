@@ -103,4 +103,16 @@ public class Book extends SuperEntity {
 		this.publishDate = publishDate;
 	}
 
+	public int publishedChaptersCount() {
+		int publishedChapters = 0;
+
+		for (Ref<Chapter> refChapter : getChapters()) {
+			Chapter chapter = refChapter.get();
+			if (chapter.getPublishDate() != null)
+				publishedChapters++;
+		}
+
+		return publishedChapters;
+	}
+
 }

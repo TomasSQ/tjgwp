@@ -9,14 +9,14 @@
 		}
 
 		if (opts.plural && Math.abs(opts.number || opts.text) >= 2) {
-			if (opts.sufix)
-				return opts.text + ' ' + (opts.i18n ? i18n(opts.sufix + 's') : opts.sufix + 's');
+			if (opts.suffix)
+				return opts.text + ' ' + (opts.i18n ? i18n(opts.suffix + 's') : opts.suffix + 's');
 
 			return opts.i18n ? i18n(opts.text + 's') : opts.text + 's';
 		}
 
-		if (opts.sufix)
-			return opts.text + ' ' + (opts.i18n ? i18n(opts.sufix) : opts.sufix);
+		if (opts.suffix)
+			return opts.text + ' ' + (opts.i18n ? i18n(opts.suffix) : opts.suffix);
 
 		return opts.text;
 	};

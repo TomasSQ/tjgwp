@@ -30,7 +30,7 @@
 				$.load('.main-content', {}, {componentName : 'bookList', componentPath : 'book'});
 			});
 		default :
-			$.load('.main-content', {}, {componentName : 'home'});
+			$.load('.main-content', {me : true}, {componentName : 'home'});
 		}
 
 		return false;

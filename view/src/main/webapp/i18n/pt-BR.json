@@ -20,9 +20,12 @@
 	"welcome" : "Seja bem-vindo",
 	"not-logged-in-message" : "Voc&ecirc; est&aacute; a um passo de ser um grande escritor, ou ter acesso a &oacute;timos conte&uacute;dos de gra&ccedil;a<br>Logue-se para come&ccedil;ar",
 
-	"text" : "texto",
-	"texts" : "textos",
-	"no-texts" : "Sem textos",
+	"book" : "livro",
+	"books" : "livros",
+	"no-books" : "Sem livros",
+	"chapter" : "cap&iacute;tulo",
+	"chapters" : "cap&iacute;tulos",
+	"no-chapters" : "Sem cap&iacute;tulos",
 	"awards" : "awards",
 	"no-awards" : "Sem awards",
 	"followers" : "seguidores",
@@ -44,5 +47,6 @@
 	"fill-the-titles" : "Preecha os t&iacute;tulos",
 
 	"save" : "Salvar",
-	"save-successed" : "Salvo com sucesso!"
+	"save-successed" : "Salvo com sucesso!",
+	"with" : "com"
 }

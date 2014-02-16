@@ -8,15 +8,17 @@ public class UserVO extends SuperVO {
 	private String nickname;
 	private String profileImageUrl;
 	private String backgroundImageUrl;
-	private Integer postedTexts;
+	private Integer publishedBooks;
+	private Integer publishedChapters;
 
-	public UserVO(UserEntity userEntity) {
+	public UserVO(UserEntity userEntity, int publishedBooks, int publishedChapters) {
 		setId(userEntity.getId());
 		setEmail(userEntity.getEmail());
 		setNickname(userEntity.getNickname());
 		setProfileImageUrl(userEntity.getProfile().getUrl());
 		setBackgroundImageUrl(userEntity.getBackground().getUrl());
-		setPostedTexts(userEntity.getBooks().size());
+		setPublishedBooks(publishedBooks);
+		setPublishedChapters(publishedChapters);
 	}
 
 	public String getEmail() {
@@ -52,11 +54,19 @@ public class UserVO extends SuperVO {
 	}
 
 	public Integer getPostedTexts() {
-		return postedTexts;
+		return publishedBooks;
 	}
 
-	protected void setPostedTexts(Integer postedTexts) {
-		this.postedTexts = postedTexts;
+	protected void setPublishedBooks(Integer postedTexts) {
+		this.publishedBooks = postedTexts;
+	}
+
+	public Integer getPublishedChapters() {
+		return publishedChapters;
+	}
+
+	public void setPublishedChapters(Integer publishedChapters) {
+		this.publishedChapters = publishedChapters;
 	}
 
 }

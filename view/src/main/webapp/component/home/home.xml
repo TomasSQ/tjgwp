@@ -13,13 +13,31 @@
 				</div>
 				{{?}}
 				<ul class="production italic">
-					<li class="texts"><a href="#texts/{{=it.user.id}}">{{=utils.text({text : it.user.postedTexts, sufix : 'text', noValue : 'no-texts', plural : true, i18n : true})}}</a></li>
-					<li class="awards"><a href="#awards/{{=it.user.id}}">{{=utils.text({text : it.user.awards, sufix : 'awards', noValue : 'no-awards', plural : true, i18n : true})}}</a></li>
-					<li class="followers"><a href="#followers/{{=it.user.id}}">{{=utils.text({text : it.user.followers, sufix : 'followers', noValue : 'no-followers', plural : true, i18n : true})}}</a></li>
-					<li class="following"><a href="#following/{{=it.user.id}}">{{=utils.text({text : it.user.following, sufix : 'following', noValue : 'no-following', plural : true, i18n : true})}}</a></li>
+					<li class="books">
+						<a href="#books{{=it.me ? '' : '/' + it.user.id}}">
+							{{=utils.text({text : it.user.publishedBooks, suffix : 'book', noValue : 'no-books', plural : true, i18n : true})}}{{?it.user.publishedBooks}} {{=i18n('with')}} {{=utils.text({text : it.user.publishedChapters, suffix : 'chapter', noValue : 'no-chapters', plural : true, i18n : true})}}{{?}}
+						</a>
+					</li>
+					<li class="awards">
+						<a href="#awards{{=it.me ? '' : '/' + it.user.id}}">
+							{{=utils.text({text : it.user.awards, suffix : 'awards', noValue : 'no-awards', plural : true, i18n : true})}}
+						</a>
+					</li>
+					<li class="followers">
+						<a href="#followers{{=it.me ? '' : '/' + it.user.id}}">
+							{{=utils.text({text : it.user.followers, suffix : 'followers', noValue : 'no-followers', plural : true, i18n : true})}}
+						</a>
+					</li>
+					<li class="following">
+						<a href="#following{{=it.me ? '' : '/' + it.user.id}}">
+							{{=utils.text({text : it.user.following, suffix : 'following', noValue : 'no-following', plural : true, i18n : true})}}
+						</a>
+					</li>
 				</ul>
 			</div>
+			{{? !it.me}}
 			<a href="#follow/{{=it.user.id}}" class="btn follow-button book-icon x-icon">{{=i18n('follow')}}</a>
+			{{?}}
 		</div>
 		<div class="sidebar"></div>
 		<div class="profile-content"></div>
