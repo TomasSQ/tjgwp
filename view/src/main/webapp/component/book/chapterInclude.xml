@@ -2,7 +2,6 @@
 <engine>
 	<dot>
 		<div class="chapter-content padding clearfix">
-			<h3 class="bold title">{{=i18n('write')}}</h3>
 			<form class="spaced" name="write">
 				<div class="clearfix">
 					<div class="field margin-bottom float-left">
@@ -95,5 +94,8 @@
 			container.find('select#chapter').val(context.chapterId);
 
 		container.find('select#book, select#chapter').change();
+
+		utils.breadcrumb('books', true);
+		utils.breadcrumb('write');
 	</script>
 </engine>

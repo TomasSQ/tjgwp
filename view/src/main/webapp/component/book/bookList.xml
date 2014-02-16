@@ -47,5 +47,7 @@
 			.find('.book.new').click(function() {
 				location.hash = 'write/new-book';
 			});
+
+		utils.breadcrumb('books', true);
 	</script>
 </engine>
