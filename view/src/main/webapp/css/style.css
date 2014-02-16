@@ -102,9 +102,12 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 .profile-header .follow-button {float: right; height: 23px; margin: 24px 12px 0; padding: 9px 9px 0 9px; text-align: right; width: 82px;}
 
 .books-list .book {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 200px;}
-.books-list .book .book-cape {height: 300px; margin-bottom: 2px; position: relative; text-align: center;}
-.books-list .book .buttons {border-bottom: 1px solid #A0702E;}
-.books-list .book .buttons [class^=btn] {border: none; float: left; font-size: 12px; height: 0; margin-right: 1px; overflow : hidden; padding: 0}
-.books-list .book:hover .buttons [class^=btn] {height: 14px; padding: 2px 9px;}
-.books-list .book .book-cape div {font-size: 40px; line-height: 40px;}
+.books-list .book .book-cape {border-bottom: 1px solid #A0702E; height: 300px; margin-bottom: 2px; overflow: hidden; position: relative; text-align: center;}
+.books-list .book .book-cape div {font-size: 40px;}
 .books-list .book .book-cape img {height: 100%; width: 100%;}
+.books-list .book .book-cape .buttons {bottom: -18px; position: absolute;}
+.books-list .book:hover .book-cape .buttons {bottom: 0;}
+.books-list .book .book-cape .buttons [class^=btn] {border: none; float: left; font-size: 12px; height:14px; margin-right: 1px; overflow: hidden;}
+.books-list .book.new {background: #F0E8D5;}
+.books-list .book.new .book-cape {border: none; height: 341px; margin: none;}
+.books-list .book.new .book-cape .title {color: #AAA;}

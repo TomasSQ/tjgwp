@@ -22,7 +22,7 @@
 			break;
 		case 'write' :
 			$.getJSON('s/book/write', function(write) {
-				$.load('.main-content', { write : write }, {componentName : 'chapterInclude', componentPath : 'book'});
+				$.load('.main-content', { write : write, bookId : params[0]}, {componentName : 'chapterInclude', componentPath : 'book'});
 			});
 			break;
 		case 'books' :

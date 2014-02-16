@@ -10,13 +10,13 @@
 				{{? book.capeImageUrl}}
 					<img class="book-cape-url" src="" title="{{=book.title}}"></img>
 				{{??}}
-					<div data-no-animation="true">{{=book.title}}</div>
+					<div class="title" data-no-animation="true">{{=book.title}}</div>
 				{{?}}
-				</div>
-				<div class="buttons clearfix">
-					<input type="file" name="bookCape" data-url="{{=book.uploadUrl}}" data-message="{{=i18n('cape')}}"/>
-					<span class="btn edit">{{=i18n('edit')}}</span>
-					<span class="btn {{=book.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(book.publishDate ? 'unpublish' : 'publish')}}</span>
+					<div class="buttons clearfix">
+						<input type="file" name="bookCape" data-url="{{=book.uploadUrl}}" data-message="{{=i18n('cape')}}"/>
+						<span class="btn edit">{{=i18n('edit')}}</span>
+						<span class="btn {{=book.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(book.publishDate ? 'unpublish' : 'publish')}}</span>
+					</div>
 				</div>
 				{{? book.capeImageUrl}}
 				<div class="book-title">{{=book.title}}</div>
@@ -27,9 +27,14 @@
 			</div>
 		{{~}}
 		{{?}}
-		{{??}}
-			<span>{{=i18n('no-books')}}</span>
 		{{?}}
+			<div class="book new float-left margin-right">
+				<div class="book-cape">
+					<div class="title" data-no-animation="true">
+						{{=i18n('new-book')}}
+					</div>
+				</div>
+			</div>
 		</div>
 	</dot>
 	<script>
@@ -37,6 +42,10 @@
 			for (var i = 0; context.books.length > i; i++)
 				container.find('[data-book-id="' + context.books[i].id + '"] img').attr('src', context.books[i].capeImageUrl);
 
-		container.find('.book .book-cape div').fitText();
+		container
+			.find('.book .book-cape .title').fitText().end()
+			.find('.book.new').click(function() {
+				location.hash = 'write/new-book';
+			});
 	</script>
 </engine>

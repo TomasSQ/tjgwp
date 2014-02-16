@@ -41,7 +41,7 @@
 		opts.minFontSize = opts.minFontSize || 12;
 		opts.maxFontSize = opts.maxFontSize || 40;
 
-		return $(this).each(function() {
+		return this.each(function() {
 
 			opts.preferedWidth = opts.preferedWidth || $(this).outerWidth();
 			var fontSize = parseInt($(this).css('font-size').replace('px', ''));
@@ -66,8 +66,7 @@
 	};
 
 	$.fn.inputFile = function() {
-
-		return $(this).each(function() {
+		return this.each(function() {
 			var span = $('<span class="btn btn-fileinput"></span>').css({
 				'position' : $(this).data('position') || 'relative',
 				'overflow' : 'hidden',
