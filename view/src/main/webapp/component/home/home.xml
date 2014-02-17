@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
 		<div class="profile-header clearfix" style="{{?it.user.backgroundImageUrl}}background: url('{{=it.user.backgroundImageUrl}}') 0 0 no-repeat;{{??}}padding-top:10px;{{?}}">

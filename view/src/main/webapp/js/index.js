@@ -12,7 +12,7 @@
 		if (!opts.append)
 			container.empty();
 		container.append($template);
-console.info(templateObj.script.eq(0).html());
+
 		templateObj.script.each(function() {
 			eval($(this).html());
 		});
@@ -33,10 +33,8 @@ console.info(templateObj.script.eq(0).html());
 				url: 'component/' + componentPath + '/' + componentName + '.xml?_' + new Date().getTime(),
 				dataType: 'text',
 				success: function(template) {
-					template = $.parseHTML(template);
-					var t = getHTML(template[0].children[0].children[0]);
 					doTCache[componentPath + componentName] = {
-						templateFunc : doT.template(t),
+						templateFunc : doT.template(getHTML($.parseHTML(template)[0].children[0])),
 						script : $(template).children('script')
 					}
 					render(doTCache[componentPath + componentName], selector, context, opts);

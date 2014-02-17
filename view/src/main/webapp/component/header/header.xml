@@ -44,8 +44,7 @@
 		</div>
 	</dot>
 	<script>
-		alert('as');
-		if (!(context.user || context.user.email)) {
+		if (context.user && context.user.email) {
 			$('.header-container img.profile-pic').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
 			$.ajax({
 				type : 'GET',
