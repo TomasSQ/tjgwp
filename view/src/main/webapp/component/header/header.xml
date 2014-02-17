@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
 		<div class="header-container title">
@@ -45,7 +44,8 @@
 		</div>
 	</dot>
 	<script>
-		if (context.user && context.user.email) {
+		alert('as');
+		if (!(context.user || context.user.email)) {
 			$('.header-container img.profile-pic').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
 			$.ajax({
 				type : 'GET',

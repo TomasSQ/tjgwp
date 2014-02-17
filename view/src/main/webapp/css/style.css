@@ -107,7 +107,7 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 .profile-header .follow-button {float: right; height: 23px; margin: 24px 12px 0; padding: 9px 9px 0 9px; text-align: right; width: 82px;}
 
 /*					BOOK								*/
-.books-list .book {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 200px;}
+.books-list .book {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 239px;}
 .books-list .book .book-cape {border-bottom: 1px solid #A0702E; height: 300px; margin-bottom: 2px; overflow: hidden; position: relative; text-align: center;}
 .books-list .book .book-cape div {font-size: 40px;}
 .books-list .book .book-cape img {height: 100%; width: 100%;}

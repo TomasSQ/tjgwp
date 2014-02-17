@@ -49,7 +49,7 @@
 		
 		$('.breadcrumb').html(breadcrumb).data('crumbs', crumbs).data('links', links).show();
 
-		$('.breadcrumb a').click(function() {
+		$('.breadcrumb a').unbind().click(function() {
 			var crumbs = $('.breadcrumb').data('crumbs');
 			var links = $('.breadcrumb').data('links');
 
@@ -60,6 +60,6 @@
 			$('.breadcrumb').data('crumbs', crumbs).data('links', links);
 			utils.breadcrumb();
 		});
-	}
+	};
 
 })(window.jQuery);

@@ -3,6 +3,7 @@ package br.com.tjgwp.view.text;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -19,16 +20,16 @@ import br.com.tjgwp.view.SuperRS;
 public class BookRS extends SuperRS {
 
 	@Path("/")
-	@POST
+	@PUT
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveNewBook(@FormParam("book") String book) {
+	public Response updateBook(@FormParam("book") String book) {
 		new BookService().saveBook(gsonUtils.fromJson(book, BookVO.class));
 
 		return Response.ok().build();
 	}
 
-	@Path("/{bookId}/chapter")
-	@POST
+	@Path("/{bookId}/chapter/")
+	@PUT
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response saveNewChapter(@PathParam("bookId") String bookId, @FormParam("chapter") String chapter) {
 		new BookService().saveChapter(bookId, gsonUtils.fromJson(chapter, ChapterVO.class));
@@ -62,6 +63,13 @@ public class BookRS extends SuperRS {
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getBooksFromUser(@PathParam("userId") Long userId) throws com.googlecode.objectify.NotFoundException {
 		return Response.ok(gsonUtils.toJson(new BookService().getBooksFromUser(userId))).build();
+	}
+
+	@GET
+	@Path("/{bookId}")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getBookFromUser(@PathParam("bookId") Long bookId) {
+		return Response.ok(gsonUtils.toJson(new BookService().getFullBook(null, bookId))).build();
 	}
 
 	@GET

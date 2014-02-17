@@ -1,11 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<dot>
 		<div class="books-list padding clearfix">
-		{{? it.books}}
-		{{? it.books.length}}
-		{{~it.books :book}}
-			<div class="book float-left margin-right" data-book-id="{{=book.id}}">
+		{{var indexs = '';}}
+		<![CDATA[
+		{{? it.books && it.books.length}}
+		]]>
+		{{~it.books :book:i}}
+			{{indexs += i + ' ';}}
+			<![CDATA[
+			{{? i != 0 && i % 4 == 0}}
+			]]>
+			<div class="chapter-list {{=indexs}}"></div>
+			{{?}}
+			<div class="book float-left margin-right {{? i >= 4}}margin-top{{?}}" data-book-id="{{=book.id}}">
 				<div class="book-cape">
 				{{? book.capeImageUrl}}
 					<img class="book-cape-url" src="" title="{{=book.title}}"></img>
@@ -25,8 +32,10 @@
 					{{=utils.text({text : book.chaptersCount, suffix : 'chapter', noValue : 'no-chapters', plural : true, i18n : true})}}
 				</div>
 			</div>
+			{{? i + 1 == it.books.length}}
+			<div class="chapter-list {{=indexs}}"></div>
+			{{?}}
 		{{~}}
-		{{?}}
 		{{?}}
 			<div class="book new float-left margin-right">
 				<div class="book-cape">
@@ -46,6 +55,13 @@
 			.find('.book .book-cape .title').fitText().end()
 			.find('.book.new').click(function() {
 				location.hash = 'write/new-book';
+			}).end()
+			.find('.book .edit').click(function() {
+				container.find('.chapter-list').remove();
+				var index = $(this).closest('.book').data('index');
+				$.getJSON('s/book/' + $(this).closest('.book').data('book-id'), function(book) {
+					$.load('.chapter-list.' + index, {book : book}, {componentName : 'chapterList', componentPath : 'book'});
+				});
 			});
 
 		utils.breadcrumb('books', true);

@@ -82,27 +82,17 @@ public class BookService extends SuperService {
 	}
 
 	public void saveBook(BookVO newBook) {
-		if (newBook == null)
+		if (newBook == null || newBook.getId() == null)
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);
-		Book book = newBook.getId() != null ? mergeBook(newBook, loggedUser) : new Book(newBook);
-
-		bookDomain.save(book);
-		if (newBook.getId() == null) {
-			loggedUser.getBooks().add(Ref.create(book));
-			userDomain.save(loggedUser);
-		}
-	}
-
-	protected Book mergeBook(BookVO newBook, UserEntity loggedUser) throws NotFoundException {
 		Book book = findBookFromUserById(loggedUser, newBook.getId());
 
 		book.setSingleChapter(newBook.isSingleChapter());
 		book.setSynopsis(newBook.getSynopsis());
 		book.setTitle(newBook.getTitle());
 
-		return book;
+		bookDomain.save(book);
 	}
 
 	protected Book findBookFromUserById(UserEntity user, Long bookId) throws NotFoundException {
@@ -116,29 +106,18 @@ public class BookService extends SuperService {
 	}
 
 	public void saveChapter(String bookId, ChapterVO newChapter) {
-		if (newChapter == null || bookId == null)
+		if (newChapter == null || bookId == null || newChapter.getId() == null)
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);
 		Book book = findBookFromUserById(loggedUser, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : loggedUser.getId());
 
-		Chapter chapter = newChapter.getId() != null ? mergeChapter(newChapter, book) : new Chapter(newChapter);
-
-		bookDomain.save(chapter);
-		if (newChapter.getId() == null) {
-			book.getChapters().add(Ref.create(chapter));
-			bookDomain.save(book);
-		}
-	}
-
-	protected Chapter mergeChapter(ChapterVO newChapter, Book book) {
 		Chapter chapter = findChapterFromBookById(book, newChapter.getId());
 
 		chapter.setTitle(newChapter.getTitle());
 		chapter.setTextEntry(newChapter.getTextEntry());
-		chapter.setPublishDate(newChapter.getPublishDate());
 
-		return chapter;
+		bookDomain.save(chapter);
 	}
 
 	protected Chapter findChapterFromBookById(Book book, Long chapterId) throws NotFoundException {
@@ -155,18 +134,23 @@ public class BookService extends SuperService {
 		return getBooksFromUser(id, false);
 	}
 
-	public List<BookVO> getBooksFromUser(Long id, boolean loadChapters) throws NotFoundException {
-		UserEntity user = id == null ? new UserService().getLoggedUser(true) : userDomain.findById(id, UserEntity.class);
+	public List<BookVO> getBooksFromUser(Long userId, boolean loadChapters) throws NotFoundException {
+		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
 
 		List<BookVO> books = new ArrayList<BookVO>();
-		for (Ref<Book> ref : user.getBooks())
-			books.add(new BookVO(ref.get(), loadChapters));
+		for (Ref<Book> ref : user.getBooks()) {
+			Book book = ref.get();
+			if (book.getPublishDate() != null || userId == null)
+				books.add(new BookVO(book, loadChapters));
+		}
 
 		return books;
 	}
 
 	public BookVO getFullBook(Long userId, Long bookId) throws NotFoundException {
-		return new BookVO(findBookFromUserById(userDomain.findById(userId, UserEntity.class), bookId));
+		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
+
+		return new BookVO(findBookFromUserById(user, bookId));
 	}
 
 	public ChapterVO getChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
