@@ -43,5 +43,6 @@
 	</dot>
 	<script>
 		$('.profile-header img').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
+		$('.breadcrumb').hide();
 	</script>
 </engine>

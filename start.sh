@@ -1,1 +1,1 @@
-mvn clean install && mvn verify && cd view && mvn appengine:devserver $1 && cd ..
+mvn clean install -o && mvn verify -o && cd view && mvn appengine:devserver $1 && cd ..

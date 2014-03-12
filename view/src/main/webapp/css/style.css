@@ -108,12 +108,14 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 
 /*					BOOK								*/
 .books-list .book {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 239px;}
-.books-list .book .book-cape {border-bottom: 1px solid #A0702E; height: 300px; margin-bottom: 2px; overflow: hidden; position: relative; text-align: center;}
-.books-list .book .book-cape div {font-size: 40px;}
-.books-list .book .book-cape img {height: 100%; width: 100%;}
-.books-list .book .book-cape .buttons {bottom: -18px; position: absolute;}
-.books-list .book:hover .book-cape .buttons {bottom: 0;}
-.books-list .book .book-cape .buttons [class^=btn] {border: none; float: left; font-size: 12px; height:14px; margin-right: 1px; overflow: hidden;}
+.books-list .book .book-cape, .books-list .chapter-list .chapter .chapter-cape {border-bottom: 1px solid #A0702E; height: 300px; overflow: hidden; position: relative; text-align: center;}
+.books-list .book .book-cape div, .books-list .chapter-list .chapter .chapter-cape div {font-size: 40px;}
+.books-list .book .book-cape img, .books-list .chapter-list .chapter .chapter-cape img {height: 100%; width: 100%;}
+.books-list .book .book-cape .buttons, .books-list .chapter-list .chapter .chapter-cape .buttons {bottom: -18px; position: absolute;}
+.books-list .book:hover .book-cape .buttons, .books-list .chapter-list .chapter:hover .chapter-cape .buttons {bottom: 0;}
+.books-list .book .book-cape .buttons [class^=btn], .books-list .chapter .chapter-cape .buttons [class^=btn] {border: none; float: left; font-size: 12px; height:14px; margin-right: 1px; overflow: hidden;}
 .books-list .book.new {background: #F0E8D5;}
 .books-list .book.new .book-cape {border: none; height: 341px; margin: none;}
 .books-list .book.new .book-cape .title {color: #AAA;}
+
+.books-list .chapter-list.active {border: 1px solid #A0702E;}

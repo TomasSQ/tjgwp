@@ -54,7 +54,7 @@
 	var getChildrenHTML = function(e) {
 		var html = [];
 
-		if (e.nodeType == document.TEXT_NODE || e.nodeType == document.CDATA_SECTION_NODE || e.nodeType == document.COMMENT_NODE) {
+		if (e.nodeType == document.TEXT_NODE || e.nodeType == document.COMMENT_NODE) {
 			html.push(e.data);
 		}
 		else if (e.nodeType == document.ELEMENT_NODE) {
