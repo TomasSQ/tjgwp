@@ -56,7 +56,6 @@
 
 			while (opts.minFontSize < fontSize && opts.preferedWidth < actualWidth) {
 				actualWidth = this.scrollWidth;
-				console.info(fontSize, actualWidth);
 				$(this).css('font-size', --fontSize + 'px');
 			}
 

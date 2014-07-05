@@ -29,9 +29,8 @@ public class BookService extends SuperService {
 	public WriteVO save(String bookId, String chapterId, WriteVO writeVO) throws ValidationException {
 		if (writeVO == null)
 			throw new BadRequestException();
-		if (StringUtils.isBlank(bookId) || StringUtils.isBlank(chapterId) ||
-				(writeVO.getBookId() == null && StringUtils.isBlank(writeVO.getBookTitle())) ||
-				(writeVO.getChapterId() == null && StringUtils.isBlank(writeVO.getChapterTitle())))
+		if ((!StringUtils.isNumeric(bookId) && writeVO.getBookId() == null && StringUtils.isBlank(writeVO.getBookTitle())) ||
+				(!StringUtils.isNumeric(chapterId) && writeVO.getChapterId() == null && StringUtils.isBlank(writeVO.getChapterTitle())))
 			throw new ValidationException("fill-the-titles");
 
 		UserEntity loggedUser = userSerivce.getLoggedUser(true);

@@ -21,10 +21,10 @@
 					<div class="field margin-bottom float-left">
 						<label for="chapter">{{=i18n('chapter')}}</label>
 						<select id="chapter">
-							<option value="new-chapter">{{=i18n('new-chapter')}}</option>
 							{{ for (var id in it.write.chapters) { }}
 							<option data-book-id="{{=it.write.chapters[id].bookId}}" value="{{=id}}">{{=it.write.chapters[id].title}}</option>
 							{{ } }}
+							<option value="new-chapter">{{=i18n('new-chapter')}}</option>
 						</select>
 					</div>
 					<div class="chapter-title field margin-bottom hidden float-left" data-no-animation="true">

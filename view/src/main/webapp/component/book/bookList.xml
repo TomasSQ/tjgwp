@@ -27,7 +27,7 @@
 			</div>
 		{{~}}
 		{{?}}
-			<div class="book new float-left margin-right {{=it.books ? it.books.length : ''}}">
+			<div class="book new float-left {{=it.books ? it.books.length : ''}}">
 				<div class="book-cape">
 					<div class="title" data-no-animation="true">
 						{{=i18n('new-book')}}

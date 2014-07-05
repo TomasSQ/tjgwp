@@ -26,7 +26,7 @@
 			</div>
 		{{~}}
 		{{?}}
-			<div class="chapter new float-left margin-right">
+			<div class="chapter new float-left">
 				<div class="chapter-cape">
 					<div class="title" data-no-animation="true">
 						{{=i18n('new-chapter')}}
@@ -40,12 +40,14 @@
 			for (var i = 0; context.book.chapters.length > i; i++)
 				container.find('[data-chapter-id="' + context.book.chapters[i].id + '"] img').attr('src', context.book.chapters[i].capeImageUrl);
 
-		console.info(container);
 		container
 			.addClass('active')
 			.find('.chapter .chapter-cape .title').fitText().end()
+			.find('.chapter .edit').click(function() {
+				location.hash = 'write/' + context.book.id + '/' + $(this).closest('.chapter').data('chapter-id');
+			}).end()
 			.find('.chapter.new').click(function() {
-				location.hash = 'write/' + context.bookId + '/new-chapter';
+				location.hash = 'write/' + context.book.id + '/new-chapter';
 			});
 	</script>
 </engine>
