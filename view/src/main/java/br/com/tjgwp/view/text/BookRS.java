@@ -72,6 +72,15 @@ public class BookRS extends SuperRS {
 		return Response.ok(gsonUtils.toJson(new BookService().getFullBook(null, bookId))).build();
 	}
 
+	@PUT
+	@Path("/{bookId}/publish")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response publishBookFromUser(@PathParam("bookId") Long bookId) {
+		new BookService().publishBook(null, bookId);
+
+		return Response.ok().build();
+	}
+
 	@GET
 	@Path("/fromUser/{userId}/{bookId}")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")

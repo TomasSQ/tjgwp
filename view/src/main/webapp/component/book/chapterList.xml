@@ -42,6 +42,7 @@
 
 		container
 			.addClass('active')
+			.show()
 			.find('.chapter .chapter-cape .title').fitText().end()
 			.find('.chapter .edit').click(function() {
 				location.hash = 'write/' + context.book.id + '/' + $(this).closest('.chapter').data('chapter-id');

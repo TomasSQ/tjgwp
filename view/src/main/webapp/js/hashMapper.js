@@ -26,9 +26,7 @@
 			});
 			break;
 		case 'books' :
-			$.getJSON('s/book' + (params[0] ? '/fromUser/' + params[0] : ''), function(books) {
-				$.load('.main-content', {books : books}, {componentName : 'bookList', componentPath : 'book'});
-			});
+			book.load(params[0]);
 			break;
 		default :
 			$.load('.main-content', {me : true}, {componentName : 'home'});

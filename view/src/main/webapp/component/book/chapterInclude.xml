@@ -43,6 +43,8 @@
 		</div>
 	</dot>
 	<script>
+		$.scrollTop();
+
 		container
 			.find('form .save').click(function() {
 				$.ajax({

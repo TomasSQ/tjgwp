@@ -1,5 +1,9 @@
 (function($) {
 
+	$.scrollTop = function() {
+		$(document).scrollTop(0);
+	};
+
 	$.fn.toJson = function() {
 		var json = {};
 

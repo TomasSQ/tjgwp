@@ -27,7 +27,7 @@
 			</div>
 		{{~}}
 		{{?}}
-			<div class="book new float-left {{=it.books ? it.books.length : ''}}">
+			<div class="book new float-left {{=it.books ? it.books.length : ''}} {{? it.books.length >= 4}}margin-top{{?}}">
 				<div class="book-cape">
 					<div class="title" data-no-animation="true">
 						{{=i18n('new-book')}}
@@ -54,20 +54,43 @@
 
 		container
 			.find('.book .book-cape .title').fitText().end()
+			.find('.book .publish').click(function() {
+				$.ajax({
+					type : 'PUT',
+					url : 's/book/' + $(this).closest('.book').data('book-id') + '/publish',
+					success : function() {
+						userHelper.update();
+						book.load(function() {
+							container.message(i18n('save-successed'));
+						});
+					}
+				});
+			}).end()
 			.find('.book.new').click(function() {
 				location.hash = 'write/new-book';
 			}).end()
 			.find('.book .edit').click(function() {
+				var book = $(this).closest('.book'),
+					index = book.data('index');
+
+				if (container.find('.chapter-list').data('active-index') === index)
+					return false;
+
 				container
-					.find('.chapter-list > *').remove().end()
+					.find('.chapter-list')
+						.data('active-index', index)
+						.children()
+							.remove().end()
+						.hide().end()
 					.find('.book.active')
 						.removeClass('active').removeAttr('style').end()
 						.find('.book-details').show();
 
-				var book = $(this).closest('.book');
-				book.addClass('active').css('border-bottom', 0).height(book.outerHeight() + 12);
+				book
+					.addClass('active')
+					.css('border-bottom', 0)
+					.height(book.outerHeight() + 12);
 
-				var index = $(this).closest('.book').data('index');
 				$.getJSON('s/book/' + $(this).closest('.book').data('book-id'), function(book) {
 					$.load('.chapter-list.' + index, {book : book}, {componentName : 'chapterList', componentPath : 'book'});
 				});

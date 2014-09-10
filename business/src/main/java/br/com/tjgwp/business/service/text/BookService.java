@@ -1,6 +1,8 @@
 package br.com.tjgwp.business.service.text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -98,7 +100,7 @@ public class BookService extends SuperService {
 		for (Ref<Book> bookRef : user.getBooks()) {
 			Book book = bookRef.get();
 			if (book.getId().equals(bookId))
-				return bookRef.get();
+				return book;
 		}
 
 		throw new NotFoundException();
@@ -160,4 +162,18 @@ public class BookService extends SuperService {
 		return new WriteVO(getBooksFromUser(null, true));
 	}
 
+	public void publishBook(Long userId, Long bookId) throws NotFoundException {
+		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
+
+		Book book = findBookFromUserById(user, bookId);
+
+		Date publishDate = Calendar.getInstance().getTime();
+		book.setPublishDate(publishDate);
+		for (Chapter chapter : bookDomain.get(book.getChapters())) {
+			chapter.setPublishDate(publishDate);
+			bookDomain.save(chapter);
+		}
+
+		bookDomain.save(book);
+	}
 }

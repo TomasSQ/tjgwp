@@ -4,7 +4,7 @@
 			<ul class="left-buttons float-left margin-right inline">
 				<li class="logo logo-header margin-right"><a href="#">{{=i18n('willpoe-min')}}</a></li>
 				{{? it.user}}
-				<li class="my-book"><a class="book-icon x-icon" href="#"></a></li>
+				<li class="my-book"><a class="book-icon x-icon" href="#books"></a></li>
 				{{?}}
 				<li class="communities"><a href="#">{{=i18n('communities')}}</a></li>
 				<li class="contests"><a href="#">{{=i18n('contests')}}</a></li>
