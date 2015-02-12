@@ -8,9 +8,18 @@
 		<param-value>/s</param-value>
 	</context-param>
 	<context-param>
-        <param-name>resteasy.providers</param-name>
-        <param-value>br.com.tjgwp.view.filter.ExceptionHandler</param-value>
+		<param-name>resteasy.providers</param-name>
+		<param-value>br.com.tjgwp.view.filter.ExceptionHandler</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/s/*</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>Resteasy</servlet-name>
