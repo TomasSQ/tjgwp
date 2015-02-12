@@ -10,11 +10,11 @@ import br.com.tjgwp.business.entity.text.Book;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.gson.Gson;
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
+import com.googlecode.objectify.annotation.Subclass;
 
-@EntitySubclass(index = true)
+@Subclass(index = true)
 public class UserEntity extends SuperEntity {
 
 	@Index

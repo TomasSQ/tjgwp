@@ -9,10 +9,10 @@ import br.com.tjgwp.business.entity.SuperEntity;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Load;
+import com.googlecode.objectify.annotation.Subclass;
 
-@EntitySubclass(index = true)
+@Subclass(index = true)
 public class Book extends SuperEntity {
 
 	private String title;

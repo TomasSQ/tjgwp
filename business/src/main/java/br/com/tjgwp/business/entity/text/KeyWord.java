@@ -2,10 +2,10 @@ package br.com.tjgwp.business.entity.text;
 
 import br.com.tjgwp.business.entity.SuperEntity;
 
-import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Subclass;
 
-@EntitySubclass(index = true)
+@Subclass(index = true)
 public class KeyWord extends SuperEntity {
 
 	@Index

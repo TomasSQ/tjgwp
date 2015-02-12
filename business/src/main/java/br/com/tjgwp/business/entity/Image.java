@@ -3,9 +3,9 @@ package br.com.tjgwp.business.entity;
 import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
-import com.googlecode.objectify.annotation.EntitySubclass;
+import com.googlecode.objectify.annotation.Subclass;
 
-@EntitySubclass(index = false)
+@Subclass(index = false)
 public class Image extends SuperEntity {
 
 	private BlobKey blob;
