@@ -10,3 +10,4 @@ eclipse-launch-profiles/
 *.war
 *.ear
 **/target
+**~
