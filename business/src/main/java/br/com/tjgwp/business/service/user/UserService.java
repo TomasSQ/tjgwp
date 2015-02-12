@@ -1,29 +1,32 @@
 package br.com.tjgwp.business.service.user;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
 import br.com.tjgwp.business.entity.user.UserEntity;
+import br.com.tjgwp.business.entity.user.UserHistory;
+import br.com.tjgwp.business.entity.user.UserHistoryType;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.UnauthorizedException;
 import br.com.tjgwp.business.service.email.EmailService;
 import br.com.tjgwp.business.service.image.ImageService;
-import br.com.tjgwp.domain.SuperDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.JsonArray;
 import com.googlecode.objectify.Ref;
 
 public class UserService extends SuperService {
 
 	private UserDomain userDomain = new UserDomain();
-	private SuperDomain superDomain = new SuperDomain();
 
 	public UserEntity getLoggedUser() {
 		return getLoggedUser(false);
@@ -63,15 +66,20 @@ public class UserService extends SuperService {
 
 		Chapter chapter = new Chapter();
 		chapter.setTitle("Chapter 1");
-		superDomain.save(chapter);
+		userDomain.save(chapter);
 
 		Book book = new Book();
 		book.setTitle("My first Book");
-		book.getChapters().add(Ref.create(chapter));
-		superDomain.save(book);
+		Ref<Chapter> chapterRef = Ref.create(chapter);
+		book.getChapters().add(chapterRef);
+		userDomain.save(book);
 
-		userEntity.getBooks().add(Ref.create(book));
-		superDomain.save(userEntity);
+		Ref<Book> bookRef = Ref.create(book);
+		userEntity.getBooks().add(bookRef);
+
+		userDomain.save(userEntity);
+
+		createNewUserHistory(userEntity, chapterRef, bookRef);
 
 		return userEntity;
 	}
@@ -114,6 +122,51 @@ public class UserService extends SuperService {
 		}
 
 		return user;
+	}
+
+	public UserEntity getUserOrMe(Long id) {
+		return id == null ? getLoggedUser(true) : userDomain.findById(id, UserEntity.class);
+	}
+
+	public List<UserHistory> getLastestHistoryFromUser(Long id) {
+		return userDomain.getLastedHistoryFromUser(getUserOrMe(id));
+	}
+
+	public String getLastestHistoryFromUserAsJson(Long id) {
+		List<UserHistory> history = userDomain.getLastedHistoryFromUser(getUserOrMe(id));
+
+		JsonArray historyJson = new JsonArray();
+		for (UserHistory hist : history)
+			historyJson.add(hist.toJson());
+
+		return historyJson.toString();
+	}
+
+	public void createNewUserHistory(UserEntity userEntity, Ref<Chapter> chapterRef, Ref<Book> bookRef) {
+		newUserHistory(UserHistoryType.SIGNED_IN, userEntity);
+	}
+
+	public void createNewBookUserHistory(UserEntity userEntity, Ref<Book> bookRef) {
+		newUserHistory(UserHistoryType.NEW_BOOK, bookRef, userEntity);
+	}
+
+	public void createNewChapterUserHistory(UserEntity userEntity, Ref<Book> bookRef, Ref<Chapter> chapterRef) {
+		newUserHistory(UserHistoryType.NEW_CHAPTER, Arrays.asList(bookRef, chapterRef), userEntity);
+	}
+
+	@SuppressWarnings("unchecked")
+	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, UserEntity userEntity) {
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, userEntity)));
+	}
+
+	@SuppressWarnings("unchecked")
+	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, Ref<? extends SuperEntity> bookRef, UserEntity userEntity) {
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, bookRef, userEntity)));
+	}
+
+	@SuppressWarnings("unchecked")
+	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, List<Ref<? extends SuperEntity>> targets, UserEntity userEntity) {
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, targets, userEntity)));
 	}
 
 }

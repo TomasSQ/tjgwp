@@ -8,6 +8,7 @@ import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
 import br.com.tjgwp.business.entity.text.KeyWord;
 import br.com.tjgwp.business.entity.user.UserEntity;
+import br.com.tjgwp.business.entity.user.UserHistory;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.NotFoundException;
@@ -21,6 +22,7 @@ public class SuperDomain {
 	static {
 		factory().register(SuperEntity.class);
 		factory().register(UserEntity.class);
+		factory().register(UserHistory.class);
 		factory().register(KeyWord.class);
 		factory().register(Chapter.class);
 		factory().register(Book.class);
@@ -50,6 +52,15 @@ public class SuperDomain {
 
 		for (Ref<T> ref : refList)
 			list.add(ref.get());
+
+		return list;
+	}
+
+	public List<Long> getIds(List<Ref<? extends SuperEntity>> targets) {
+		List<Long> list = new ArrayList<Long>();
+
+		for (Ref<? extends SuperEntity> ref : targets)
+			list.add(ref.get().getId());
 
 		return list;
 	}

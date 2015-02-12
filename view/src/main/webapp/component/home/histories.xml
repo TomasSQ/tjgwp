@@ -1,0 +1,12 @@
+<engine>
+	<dot>
+		<div class="histories-list padding clearfix">
+		{{~it.histories :history:i}}
+			<div class="history">
+			    {{= history.type}}
+			</div>
+		{{~}}
+	</dot>
+	<script>
+	</script>
+</engine>

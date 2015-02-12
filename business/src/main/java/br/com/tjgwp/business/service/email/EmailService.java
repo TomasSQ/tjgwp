@@ -16,7 +16,6 @@ import br.com.tjgwp.business.service.SuperService;
 public class EmailService extends SuperService {
 
 	public void sendWelcomeMessage(UserEntity userEntity) throws UnsupportedEncodingException {
-		// ...
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 

@@ -50,4 +50,11 @@ public class UserRS extends SuperRS {
 		return Response.ok(new UserService().getLogoutUrl(req)).build();
 	}
 
+	@GET
+	@Path("/history")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response getHistory() {
+		return Response.ok(new UserService().getLastestHistoryFromUserAsJson(null)).build();
+	}
+
 }

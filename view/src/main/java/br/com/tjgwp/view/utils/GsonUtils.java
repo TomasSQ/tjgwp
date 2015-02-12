@@ -6,8 +6,7 @@ import com.google.gson.GsonBuilder;
 public class GsonUtils {
 
 	public String toJson(Object o) {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		return gsonBuilder.create().toJson(o);
+		return new GsonBuilder().create().toJson(o);
 	}
 
 	public <T> T fromJson(String textPost, Class<T> clazz) {

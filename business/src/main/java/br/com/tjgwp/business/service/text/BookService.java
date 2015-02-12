@@ -24,8 +24,8 @@ import com.googlecode.objectify.Ref;
 
 public class BookService extends SuperService {
 
-	private UserDomain userDomain = new UserDomain();
 	private UserService userSerivce = new UserService();
+	private UserDomain userDomain = new UserDomain();
 	private BookDomain bookDomain = new BookDomain();
 
 	public WriteVO save(String bookId, String chapterId, WriteVO writeVO) throws ValidationException {
@@ -136,7 +136,7 @@ public class BookService extends SuperService {
 	}
 
 	public List<BookVO> getBooksFromUser(Long userId, boolean loadChapters) throws NotFoundException {
-		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
+		UserEntity user = userSerivce.getUserOrMe(userId);
 
 		List<BookVO> books = new ArrayList<BookVO>();
 		for (Ref<Book> ref : user.getBooks()) {
@@ -149,9 +149,7 @@ public class BookService extends SuperService {
 	}
 
 	public BookVO getFullBook(Long userId, Long bookId) throws NotFoundException {
-		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
-
-		return new BookVO(findBookFromUserById(user, bookId));
+		return new BookVO(findBookFromUserById(userSerivce.getUserOrMe(userId), bookId));
 	}
 
 	public ChapterVO getChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
@@ -163,9 +161,9 @@ public class BookService extends SuperService {
 	}
 
 	public void publishBook(Long userId, Long bookId) throws NotFoundException {
-		UserEntity user = userId == null ? new UserService().getLoggedUser(true) : userDomain.findById(userId, UserEntity.class);
+		UserEntity userEntity = userSerivce.getUserOrMe(userId);
 
-		Book book = findBookFromUserById(user, bookId);
+		Book book = findBookFromUserById(userEntity, bookId);
 
 		Date publishDate = Calendar.getInstance().getTime();
 		book.setPublishDate(publishDate);
@@ -175,5 +173,7 @@ public class BookService extends SuperService {
 		}
 
 		bookDomain.save(book);
+
+		userSerivce.createNewBookUserHistory(userEntity, Ref.create(book));
 	}
 }
