@@ -174,8 +174,14 @@ public class BookService extends SuperService {
 		return new WriteVO(getBooksFromUser(null, true));
 	}
 
-	public void publishBook(Long userId, Long bookId) throws NotFoundException {
-		UserEntity userEntity = userSerivce.getUserOrMe(userId);
+	public void updateBookTitle(Long bookId, String title) throws NotFoundException {
+		Book book = findBookFromUserById(userSerivce.getMe(), bookId);
+		book.setTitle(title);
+		bookDomain.save(book);
+	}
+
+	public void publishBook(Long bookId) throws NotFoundException {
+		UserEntity userEntity = userSerivce.getMe();
 
 		Book book = findBookFromUserById(userEntity, bookId);
 

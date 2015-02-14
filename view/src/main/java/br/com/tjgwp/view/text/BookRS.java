@@ -69,8 +69,17 @@ public class BookRS extends SuperRS {
 	@PUT
 	@Path("/{bookId}/publish")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-	public Response publishBookFromUser(@PathParam("bookId") Long bookId) {
-		new BookService().publishBook(null, bookId);
+	public Response publishMyBook(@PathParam("bookId") Long bookId) {
+		new BookService().publishBook(bookId);
+
+		return Response.ok().build();
+	}
+
+	@PUT
+	@Path("/{bookId}/title")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response updateBookTitleFromUser(@PathParam("bookId") Long bookId, @FormParam("title") String title) {
+		new BookService().updateBookTitle(bookId, title);
 
 		return Response.ok().build();
 	}
