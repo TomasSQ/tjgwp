@@ -4,6 +4,7 @@ import java.util.Date;
 
 import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
+import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Ref;
@@ -51,13 +52,17 @@ public class Chapter extends SuperEntity {
 		this.textEntry = textEntry;
 	}
 
+	public Ref<Image> getCapeRef() {
+		return cape;
+	}
+
 	public Image getCape() {
 		return cape == null ? new Image() : cape.get();
 	}
 
 	public void updateCape(BlobKey cape) {
 		if (this.cape == null)
-			this.cape = Ref.create(new Image());
+			this.cape = new ImageService().newImageRef();
 
 		this.cape.get().updateBlob(cape);
 	}

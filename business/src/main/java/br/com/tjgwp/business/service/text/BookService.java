@@ -210,4 +210,27 @@ public class BookService extends SuperService {
 			}
 		});
 	}
+
+	public Chapter saveChapterCape(String id, Long idchapter, HttpServletRequest req) {
+		final BlobKey blobKey = new ImageService().getBlobFromRequest("chapterCape", req);
+		final String bookId = id;
+		final Long chapterId = idchapter;
+
+		return ObjectifyService.run(new Work<Chapter>() {
+			@Override
+			public Chapter run() {
+				UserEntity user = userSerivce.getLoggedUser(true);
+				Chapter chapter = findChapterFromBookById(findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId()), chapterId);
+
+				if (blobKey != null) {
+					chapter.updateCape(blobKey);
+					userSerivce.createNewUserHistory(user, chapter.getCapeRef(), UserHistoryType.CHANGED_BOOK_CAPE);
+					new UserDomain().save(chapter.getCape());
+					new UserDomain().save(chapter);
+				}
+
+				return chapter;
+			}
+		});
+	}
 }

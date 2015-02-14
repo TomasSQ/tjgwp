@@ -55,11 +55,11 @@ public class BookRS extends SuperRS {
 		return Response.ok().build();
 	}
 
-	@Path("/{book}/chapter/{chapter}")
+	@Path("/{bookId}/chapter/{chapter}")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveNewBook(@PathParam("book") String book, @PathParam("chapter") String chapter, @FormParam("write") String write) {
-		return Response.ok(gsonUtils.toJson(new BookService().save(book, chapter, gsonUtils.fromJson(write, WriteVO.class)))).build();
+	public Response saveNewBook(@PathParam("bookId") String bookId, @PathParam("chapter") String chapter, @FormParam("write") String write) {
+		return Response.ok(gsonUtils.toJson(new BookService().save(bookId, chapter, gsonUtils.fromJson(write, WriteVO.class)))).build();
 	}
 
 	@Path("/{bookId}/chapter/{chapterId}")
@@ -67,6 +67,22 @@ public class BookRS extends SuperRS {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response getChapterFromBook(@PathParam("bookId") Long book, @PathParam("chapterId") Long chapter, @FormParam("write") String write) {
 		return Response.ok(gsonUtils.toJson(new BookService().getChapterFromBook(book, chapter))).build();
+	}
+
+	@POST
+	@Path("/{bookId}/chapter/{chapterId}/capePic")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response saveChapterCape(@PathParam("bookId") String bookId, @PathParam("chapterId") Long chapterId, @Context HttpServletRequest req) {
+		new BookService().saveChapterCape(bookId, chapterId, req);
+
+		return Response.ok().build();
+	}
+
+	@GET
+	@Path("/{bookId}/chapter/{chapterId}/capePic")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getChapterCape(@PathParam("bookId") Long bookId, @PathParam("chapterId") Long chapterId) {
+		return Response.ok(new BookService().getChapterFromBook(bookId, chapterId).getCapeImageUrl()).build();
 	}
 
 	@GET

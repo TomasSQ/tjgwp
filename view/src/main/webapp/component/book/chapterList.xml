@@ -5,22 +5,18 @@
 		{{? it.book.chapters && it.book.chapters.length}}
 		 -->
 		{{~it.book.chapters :chapter}}
-			<div class="chapter float-left margin-right" data-chapter-id="{{=chapter.id}}">
+			<div class="chapter float-left margin-right" data-chapter-id="{{=chapter.id}}" data-book-id="{{=it.book.id}}">
 				<div class="chapter-cape">
-				{{? chapter.capeImageUrl}}
-					<img class="chapter-cape-url" src="" title="{{=chapter.title}}"></img>
-				{{??}}
-					<div class="title" data-no-animation="true">{{=chapter.title}}</div>
-				{{?}}
+					<img class="chapter-cape-url {{? !chapter.capeImageUrl}}hidden{{?}}" src="" title="{{=chapter.title}}"></img>
+					<div class="title {{? chapter.capeImageUrl}}hidden{{?}}" data-no-animation="true">{{=chapter.title}}</div>
 					<div class="buttons clearfix">
-						<input type="file" name="chapterCape" data-url="{{=chapter.uploadUrl}}" data-message="{{=i18n('cape')}}"/>
+						<form class="btn" name="pics" method="post" enctype="multipart/form-data">
+							<input type="file" name="chapterCape" data-callback-url="{{='/s/book/' + it.book.id + '/chapter/' + chapter.id + '/capePic'}}" data-message="{{=i18n('cape')}}"/>
+					    </form>
 						<span class="btn edit">{{=i18n('edit')}}</span>
 						<span class="btn {{=chapter.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(chapter.publishDate ? 'unpublish' : 'publish')}}</span>
 					</div>
 				</div>
-				{{? chapter.capeImageUrl}}
-				<div class="chapter-title">{{=chapter.title}}</div>
-				{{?}}
 				<div class="chapter-details padding">
 				</div>
 			</div>
@@ -39,6 +35,15 @@
 		if (context.book.chapters && context.book.chapters.length > 0)
 			for (var i = 0; context.book.chapters.length > i; i++)
 				container.find('[data-chapter-id="' + context.book.chapters[i].id + '"] img').attr('src', context.book.chapters[i].capeImageUrl);
+
+		utils.fileupload(container.find('input[name="chapterCape"]'), function (e, data) {
+			var $this = $(this);
+			$.get('s/book/' + $(this).closest('.chapter').data('book-id') + '/chapter/' + $(this).closest('.chapter').data('chapter-id') + '/capePic', function(cape) {
+				$this.closest('.chapter')
+					.find('.title').addClass('hidden').end()
+					.find('.chapter-cape-url').removeClass('hidden').attr('src', cape);
+			})
+		})
 
 		container
 			.addClass('active')

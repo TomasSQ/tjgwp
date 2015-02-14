@@ -57,7 +57,7 @@
 					.find('.title').addClass('hidden').end()
 					.find('.book-cape-url').removeClass('hidden').attr('src', cape);
 			})
-		})
+		});
 
 		container
 			.find('.book .book-cape .title').fitText().end()
