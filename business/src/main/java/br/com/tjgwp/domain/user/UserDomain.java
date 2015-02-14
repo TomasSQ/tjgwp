@@ -28,4 +28,8 @@ public class UserDomain extends SuperDomain {
 		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", UserHistory.urlOfBook(userEntity, book)).list());
 	}
 
+	public UserEntity findById(Long id) {
+		return findById(id, UserEntity.class);
+	}
+
 }

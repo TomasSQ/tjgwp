@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -16,9 +17,17 @@ import br.com.tjgwp.view.SuperRS;
 public class UserRS extends SuperRS {
 
 	@GET
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response getUser() {
 		return Response.ok(new UserService().getLoggedUser().toJson()).build();
+	}
+
+	@GET
+	@Path("/{userId}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response getUser(@PathParam("userId") Long id) {
+		return Response.ok(new UserService().getUser(id).toJson()).build();
 	}
 
 	@POST

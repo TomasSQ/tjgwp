@@ -5,6 +5,9 @@
 		{{? it.books && it.books.length}}
 		-->
 		{{~it.books :book:i}}
+			{{? it.userId}}
+			<a href="#books/{{=it.userId}}/{{=book.id}}">
+			{{?}}
 			<div class="book float-left margin-right {{? i >= 4}}margin-top{{?}} {{=i}}" data-book-id="{{=book.id}}" data-index="{{=i}}">
 				<div class="book-cape">
 					<img class="book-cape-url {{? !book.capeImageUrl}}hidden{{?}}" src="" title="{{=book.title}}"></img>
@@ -24,8 +27,14 @@
 					{{=utils.text({text : book.chaptersCount, suffix : 'chapter', noValue : 'no-chapters', plural : true, i18n : true})}}
 				</div>
 			</div>
+			{{? it.userId}}
+			</a>
+			{{?}}
 		{{~}}
+		{{?? it.userId}}
+			{{=i18n('no-books-come-back-latter')}}
 		{{?}}
+		{{? !it.userId}}
 			<div class="book new float-left {{=it.books ? it.books.length : ''}} {{? it.books.length >= 4}}margin-top{{?}}">
 				<div class="book-cape">
 					<div class="title" data-no-animation="true">
@@ -33,6 +42,7 @@
 					</div>
 				</div>
 			</div>
+		{{?}}
 		</div>
 	</dot>
 	<script>
@@ -116,6 +126,8 @@
 				});
 			});
 
-		utils.breadcrumb('books', true);
+		if (context.userId)
+			utils.breadcrumb({text : context.otherUser.nickname, link : 'user/' + context.userId}, true);
+		utils.breadcrumb('books', !context.userId);
 	</script>
 </engine>

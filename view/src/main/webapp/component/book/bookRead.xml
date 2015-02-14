@@ -1,0 +1,63 @@
+<engine>
+	<dot>
+		<div class="book-read padding clearfix">
+			<div class="sidebar inline-block margin-right padding-right">
+				<div class="author-pic">
+					<img src=""/>
+				</div>
+				<div class="synopsis">
+					{{= it.book.synopsis || ''}}
+				</div>
+				<div>
+					{{? it.book.moreInfo}}
+					<hr/>
+					<ul class="more-info">
+						{{~it.book.moreInfo :info}}
+							<li>
+								<span>{{=info.text + (info.metric ? i18n(info.metric) : '')}}</span><span clas="{{=info.ico}}"></span>
+							</li>
+						{{~}}
+					</ul>
+					{{?}}
+				</div>
+				<div>
+					<hr/>
+					<ul class="chapter-list">
+					{{~ it.book.chapters :chapter}}
+						<li>
+							<a href="#books/{{=it.userId}}/{{=it.book.id}}/{{=chapter.id}}" data-chapter-id="{{=chapter.id}}">{{=chapter.title}}</a>
+						</li>
+					{{~}}
+					</ul>
+				</div>
+			</div>
+			<div class="chapter-read inline-block margin-left padding-left">
+				<div class="chapter-cape hidden margin-bottom">
+					<img src="" />
+				</div>
+				<div class="chapter-content margin-top">
+					<h1 class="title"></h1>
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</dot>
+	<script>
+		for (var i = 0; context.book.chapters.length > i; i++) {
+			var chapter = context.book.chapters[i];
+			container.find('.sidebar .chapter-list a[data-chapter-id="' + chapter.id + '"]').data('chapter', chapter);
+		}
+
+		container
+			.find('.sidebar .author-pic img').attr('src', context.otherUser.profileImageUrl ? context.otherUser.profileImageUrl : 'img/profile.png');
+
+		utils.breadcrumb({text : context.otherUser.nickname, link : 'user/' + context.userId}, true);
+		utils.breadcrumb({text : 'books', link : 'books/' + context.userId});
+		utils.breadcrumb(context.book.title);
+
+		if (context.activeChapter)
+			container.find('a[data-chapter-id="' + context.activeChapter +'"]')[0].click();
+		else
+			container.find('a:first')[0].click();
+	</script>
+</engine>

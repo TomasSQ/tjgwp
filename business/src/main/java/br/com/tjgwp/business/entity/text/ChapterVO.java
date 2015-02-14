@@ -17,7 +17,7 @@ public class ChapterVO extends SuperVO {
 	public ChapterVO(Chapter chapter, Long bookId) {
 		super.setId(chapter.getId());
 		setTitle(chapter.getTitle());
-		setTextEntry(chapter.getTextEntry());
+		setTextEntry(chapter.getTextEntry() == null ? "" : chapter.getTextEntry());
 		setCapeImageUrl(chapter.getCape().getUrl());
 		setPublished(chapter.getPublishDate() != null);
 		setPublishDate(chapter.getPublishDate());

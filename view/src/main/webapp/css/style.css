@@ -1,6 +1,5 @@
 @CHARSET "UTF-8";
 
-
 .fixed {position: fixed !important;}
 .relative {position: relative !important;}
 .absolute {position: absolute !important;}
@@ -17,6 +16,9 @@ ul.block > li {display: block; font-size: 10px; line-height: 20px; white-space: 
 ul > li.drop-down {position: relative;}
 ul > li.drop-down > ul {display: none;}
 ul > li.drop-down:hover > ul {display: block; position: absolute; top: 40px;}
+
+hr {border: 0; border-top: 1px solid #505050; display: block; height: 1px; margin: 1em 0; padding: 0;}
+p {line-height: 1.5; text-align: justify;}
 
 .margin-top {margin-top: 12px;}
 .margin-right {margin-right: 12px;}
@@ -121,3 +123,10 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 .books-list .book.new .book-cape .title, .books-list .chapter-list .chapter.new .chapter-cape .title {color: #AAA;}
 
 .books-list .chapter-list.active {border: 1px solid #A0702E;}
+
+.book-read .sidebar {text-align: right; vertical-align: top; width: 200px;}
+.book-read .sidebar .author-pic img {border-radius: 100px; height: 200px; width: 200px;}
+.book-read .sidebar .chapter-list a {font-size: 11px; font-weight: bold;}
+.book-read .sidebar .chapter-list a.active {color : #F9B546;}
+.book-read .chapter-read {width: 765px;}
+.book-read .chapter-read .chapter-cape {height: 220px; overflow: hidden; width: 100%; }

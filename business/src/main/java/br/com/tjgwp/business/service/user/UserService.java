@@ -35,6 +35,14 @@ public class UserService extends SuperService {
 		return getLoggedUser(false);
 	}
 
+	public UserEntity getUser(Long id) {
+		User user = getUser();
+		if (user == null)
+			throw new UnauthorizedException();
+
+		return userDomain.findById(id);
+	}
+
 	public UserEntity getMe() {
 		User user = getUser();
 		if (user == null)

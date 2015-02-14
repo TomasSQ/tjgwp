@@ -47,7 +47,7 @@ public class ChapterRS extends SuperRS {
 	@POST
 	@Path("/{chapterId}/capePic")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveChapterCape(@PathParam("bookId") String bookId, @PathParam("chapterId") Long chapterId, @Context HttpServletRequest req) {
+	public Response saveChapterCape(@PathParam("bookId") Long bookId, @PathParam("chapterId") Long chapterId, @Context HttpServletRequest req) {
 		new BookService().saveChapterCape(bookId, chapterId, req);
 
 		return Response.ok().build();

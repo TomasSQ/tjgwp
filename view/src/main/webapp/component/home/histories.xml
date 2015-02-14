@@ -6,6 +6,7 @@
 			    {{= history.type}}
 			</div>
 		{{~}}
+		</div>
 	</dot>
 	<script>
 	</script>

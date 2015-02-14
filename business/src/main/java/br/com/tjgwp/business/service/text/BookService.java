@@ -97,7 +97,7 @@ public class BookService extends SuperService {
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getMe();
-		Book book = findBookFromUserById(loggedUser, newBook.getId());
+		Book book = findBookFromUserById(loggedUser, newBook.getId(), false);
 
 		book.setSingleChapter(newBook.isSingleChapter());
 		book.setSynopsis(newBook.getSynopsis());
@@ -106,10 +106,13 @@ public class BookService extends SuperService {
 		bookDomain.save(book);
 	}
 
-	public Book findBookFromUserById(UserEntity user, Long bookId) throws NotFoundException {
+	public Book findBookFromUserById(UserEntity user, Long bookId, boolean validatePublishDate) throws NotFoundException {
+		if (bookId == null)
+			throw new NotFoundException();
+
 		for (Ref<Book> bookRef : user.getBooks()) {
 			Book book = bookRef.get();
-			if (book.getId().equals(bookId))
+			if (book.getId().equals(bookId) && (!validatePublishDate || book.getPublishDate() != null))
 				return book;
 		}
 
@@ -121,7 +124,7 @@ public class BookService extends SuperService {
 			throw new BadRequestException();
 
 		UserEntity loggedUser = userSerivce.getMe();
-		Book book = findBookFromUserById(loggedUser, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : loggedUser.getId());
+		Book book = findBookFromUserById(loggedUser, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : null, false);
 
 		Chapter chapter = findChapterFromBookById(book, newChapter.getId());
 
@@ -163,11 +166,11 @@ public class BookService extends SuperService {
 	}
 
 	public BookVO getFullBook(Long userId, Long bookId) throws NotFoundException {
-		return new BookVO(findBookFromUserById(userSerivce.getUserOrMe(userId), bookId));
+		return new BookVO(findBookFromUserById(userSerivce.getUserOrMe(userId), bookId, userId != null));
 	}
 
 	public ChapterVO getChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
-		return new ChapterVO(findChapterFromBookById(findBookFromUserById(userSerivce.getMe(), bookId), chapterId), bookId);
+		return new ChapterVO(findChapterFromBookById(findBookFromUserById(userSerivce.getMe(), bookId, false), chapterId), bookId);
 	}
 
 	public WriteVO getWriteVO() {
@@ -175,7 +178,7 @@ public class BookService extends SuperService {
 	}
 
 	public void updateBookTitle(Long bookId, String title) throws NotFoundException {
-		Book book = findBookFromUserById(userSerivce.getMe(), bookId);
+		Book book = findBookFromUserById(userSerivce.getMe(), bookId, false);
 		book.setTitle(title);
 		bookDomain.save(book);
 	}
@@ -183,7 +186,7 @@ public class BookService extends SuperService {
 	public void publishBook(Long bookId) throws NotFoundException {
 		UserEntity userEntity = userSerivce.getMe();
 
-		Book book = findBookFromUserById(userEntity, bookId);
+		Book book = findBookFromUserById(userEntity, bookId, false);
 
 		Long publishDate = System.currentTimeMillis();
 		book.setPublishDate(publishDate);
@@ -214,7 +217,7 @@ public class BookService extends SuperService {
 	public void deleteChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
 		UserEntity userEntity = userSerivce.getMe();
 
-		Book book = findBookFromUserById(userEntity, bookId);
+		Book book = findBookFromUserById(userEntity, bookId, false);
 		for (int i = 0; i < book.getChapters().size(); i++) {
 			Ref<Chapter> chapterRef = book.getChapters().get(0);
 			Chapter chapter = chapterRef.get();
@@ -226,15 +229,15 @@ public class BookService extends SuperService {
 	}
 
 
-	public Book saveBookCape(String id, HttpServletRequest req) {
+	public Book saveBookCape(Long id, HttpServletRequest req) {
 		final BlobKey blobKey = new ImageService().getBlobFromRequest("bookCape", req);
-		final String bookId = id;
+		final Long bookId = id;
 
 		return ObjectifyService.run(new Work<Book>() {
 			@Override
 			public Book run() {
 				UserEntity user = userSerivce.getMe();
-				Book book = findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId());
+				Book book = findBookFromUserById(user, bookId, false);
 
 				if (blobKey != null) {
 					book.updateCape(blobKey);
@@ -248,16 +251,16 @@ public class BookService extends SuperService {
 		});
 	}
 
-	public Chapter saveChapterCape(String id, Long idchapter, HttpServletRequest req) {
+	public Chapter saveChapterCape(Long id, Long idchapter, HttpServletRequest req) {
 		final BlobKey blobKey = new ImageService().getBlobFromRequest("chapterCape", req);
-		final String bookId = id;
+		final Long bookId = id;
 		final Long chapterId = idchapter;
 
 		return ObjectifyService.run(new Work<Chapter>() {
 			@Override
 			public Chapter run() {
 				UserEntity user = userSerivce.getMe();
-				Chapter chapter = findChapterFromBookById(findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId()), chapterId);
+				Chapter chapter = findChapterFromBookById(findBookFromUserById(user, bookId, false), chapterId);
 
 				if (blobKey != null) {
 					chapter.updateCape(blobKey);

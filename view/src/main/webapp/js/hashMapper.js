@@ -26,8 +26,18 @@
 			});
 			break;
 		case 'books' :
-			book.load(params[0]);
+			if (params.length <= 1)
+				book.load(params[0]);
+			else
+				book.read(params[0], params[1], params[2]);
 			break;
+		case 'user' :
+			if ($('body').data('user').id == params[0])
+				window.location.hash = '#';
+			else
+				$.getJSON('s/user/' + params[0], function(user) {
+					$.load('.main-content', {user : user, me : false}, {componentName : 'home'});
+				});
 		default :
 			$.load('.main-content', {me : true}, {componentName : 'home'});
 		}
