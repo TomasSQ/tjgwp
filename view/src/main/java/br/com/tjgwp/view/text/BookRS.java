@@ -1,6 +1,7 @@
 package br.com.tjgwp.view.text;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,13 +14,25 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.tjgwp.business.entity.text.BookVO;
-import br.com.tjgwp.business.entity.text.ChapterVO;
 import br.com.tjgwp.business.service.text.BookService;
-import br.com.tjgwp.business.service.text.WriteVO;
 import br.com.tjgwp.view.SuperRS;
 
 @Path("/book")
 public class BookRS extends SuperRS {
+
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getMyBooks() throws com.googlecode.objectify.NotFoundException {
+		return Response.ok(gsonUtils.toJson(new BookService().getBooksFromUser(null))).build();
+	}
+
+	@GET
+	@Path("/{bookId}")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response getBookFromUser(@PathParam("bookId") Long bookId) {
+		return Response.ok(gsonUtils.toJson(new BookService().getFullBook(null, bookId))).build();
+	}
 
 	@Path("/")
 	@PUT
@@ -46,64 +59,11 @@ public class BookRS extends SuperRS {
 		return Response.ok(new BookService().getBook(bookId).getCape().getUrl()).build();
 	}
 
-	@Path("/{bookId}/chapter/")
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveNewChapter(@PathParam("bookId") String bookId, @FormParam("chapter") String chapter) {
-		new BookService().saveChapter(bookId, gsonUtils.fromJson(chapter, ChapterVO.class));
-
-		return Response.ok().build();
-	}
-
-	@Path("/{bookId}/chapter/{chapter}")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveNewBook(@PathParam("bookId") String bookId, @PathParam("chapter") String chapter, @FormParam("write") String write) {
-		return Response.ok(gsonUtils.toJson(new BookService().save(bookId, chapter, gsonUtils.fromJson(write, WriteVO.class)))).build();
-	}
-
-	@Path("/{bookId}/chapter/{chapterId}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response getChapterFromBook(@PathParam("bookId") Long book, @PathParam("chapterId") Long chapter, @FormParam("write") String write) {
-		return Response.ok(gsonUtils.toJson(new BookService().getChapterFromBook(book, chapter))).build();
-	}
-
-	@POST
-	@Path("/{bookId}/chapter/{chapterId}/capePic")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Response saveChapterCape(@PathParam("bookId") String bookId, @PathParam("chapterId") Long chapterId, @Context HttpServletRequest req) {
-		new BookService().saveChapterCape(bookId, chapterId, req);
-
-		return Response.ok().build();
-	}
-
-	@GET
-	@Path("/{bookId}/chapter/{chapterId}/capePic")
-	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-	public Response getChapterCape(@PathParam("bookId") Long bookId, @PathParam("chapterId") Long chapterId) {
-		return Response.ok(new BookService().getChapterFromBook(bookId, chapterId).getCapeImageUrl()).build();
-	}
-
-	@GET
-	@Path("/")
-	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-	public Response getBooksFromUser() throws com.googlecode.objectify.NotFoundException {
-		return Response.ok(gsonUtils.toJson(new BookService().getBooksFromUser(null))).build();
-	}
-
 	@GET
 	@Path("/fromUser/{userId}")
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getBooksFromUser(@PathParam("userId") Long userId) throws com.googlecode.objectify.NotFoundException {
 		return Response.ok(gsonUtils.toJson(new BookService().getBooksFromUser(userId))).build();
-	}
-
-	@GET
-	@Path("/{bookId}")
-	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-	public Response getBookFromUser(@PathParam("bookId") Long bookId) {
-		return Response.ok(gsonUtils.toJson(new BookService().getFullBook(null, bookId))).build();
 	}
 
 	@PUT
@@ -127,5 +87,14 @@ public class BookRS extends SuperRS {
 	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
 	public Response getDataBookFromUser() {
 		return Response.ok(gsonUtils.toJson(new BookService().getWriteVO())).build();
+	}
+
+	@DELETE
+	@Path("/{bookId}")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public Response deleteMyBook(@PathParam("bookId") Long bookId) {
+		new BookService().deleteMyBook(bookId);
+
+		return Response.ok().build();
 	}
 }

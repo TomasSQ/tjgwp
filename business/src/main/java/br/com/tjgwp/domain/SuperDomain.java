@@ -66,4 +66,18 @@ public class SuperDomain {
 
 		return list;
 	}
+
+	public void remove(SuperEntity parent, SuperEntity entity) {
+		if (entity == null)
+			return;
+		ofy().delete().type(entity.getClass()).parent(parent).id(entity.getId()).now();
+	}
+
+	public void removeAll(SuperEntity parent, List<? extends SuperEntity> entities) {
+		if (entities == null)
+			return;
+
+		for (SuperEntity entity : entities)
+			remove(parent, entity);
+	}
 }

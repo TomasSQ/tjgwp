@@ -23,6 +23,7 @@ public class UserHistory extends SuperEntity {
 	private UserHistoryType type;
 	@Load
 	private List<Ref<? extends SuperEntity>> targets;
+	@Index
 	private String url;
 	@Parent
 	private Ref<UserEntity> userEntity;
@@ -44,11 +45,20 @@ public class UserHistory extends SuperEntity {
 		this(type, userEntity);
 
 		targets.add(targetRef);
+		if (type.isBook())
+			url = UserHistory.urlOfBook(userEntity, targetRef.get());
 	}
 
 	public UserHistory(UserHistoryType type, List<Ref<? extends SuperEntity>> targetsRef, UserEntity userEntity) {
 		this(type, userEntity);
+
 		targets.addAll(targetsRef);
+		if (type.isChapter()) {
+			if (targets.size() != 2)
+				throw new IllegalArgumentException("chapter must have two targets ref only");
+
+			url = UserHistory.urlOfChapter(userEntity, targets.get(0).get(), targets.get(1).get());
+		}
 	}
 
 	public Long getDate() {
@@ -95,8 +105,16 @@ public class UserHistory extends SuperEntity {
 
 		for (Long target : new SuperDomain().getIds(this.targets))
 			targets.add(new JsonPrimitive(target));
-		
+
 		return history;
+	}
+
+	public static String urlOfChapter(UserEntity userEntity, SuperEntity book, SuperEntity chapter) {
+		return urlOfBook(userEntity, book) + "/chapter/" + chapter.getId();
+	}
+
+	public static String urlOfBook(UserEntity userEntity, SuperEntity book) {
+		return "book/fromUser/" + userEntity.getId() + "/" + book.getId();
 	}
 
 }

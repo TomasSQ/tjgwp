@@ -16,6 +16,7 @@
 					    </form>
 						<span class="btn edit">{{=i18n('edit')}}</span>
 						<span class="btn {{=book.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(book.publishDate ? 'unpublish' : 'publish')}}</span>
+						<span class="btn remove" style="border-radius: 15px; font-size: 10px; margin: 1px 5px; padding: 1px 0px 0px 1px; text-align: center; width: 13px;">x</span>
 					</div>
 				</div>
 				{{?}}
@@ -75,6 +76,18 @@
 			}).end()
 			.find('.book.new').click(function() {
 				location.hash = 'write/new-book';
+			}).end()
+			.find('.book .remove').click(function() {
+				var $this = $(this);
+				$.ajax({
+					type : 'DELETE',
+					url : 's/book/' + $(this).closest('.book').data('book-id'),
+					success : function() {
+						userHelper.update();
+						$this.closest('.book').remove();
+						$('.chapter-list').remove();
+					}
+				});
 			}).end()
 			.find('.book .edit').click(function() {
 				var book = $(this).closest('.book'),

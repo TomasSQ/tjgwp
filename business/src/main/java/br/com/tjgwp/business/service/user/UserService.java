@@ -35,6 +35,18 @@ public class UserService extends SuperService {
 		return getLoggedUser(false);
 	}
 
+	public UserEntity getMe() {
+		User user = getUser();
+		if (user == null)
+			throw new UnauthorizedException();
+
+		List<UserEntity> users = userDomain.findByEmail(user.getEmail());
+		if (users.isEmpty())
+			throw new UnauthorizedException();
+
+		return users.get(0);
+	}
+
 	public UserEntity getLoggedUser(boolean mustExist) throws UnauthorizedException {
 		User user = getUser();
 		if (user == null && mustExist)

@@ -1,8 +1,6 @@
 package br.com.tjgwp.business.service.text;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +40,7 @@ public class BookService extends SuperService {
 				(!StringUtils.isNumeric(chapterId) && writeVO.getChapterId() == null && StringUtils.isBlank(writeVO.getChapterTitle())))
 			throw new ValidationException("fill-the-titles");
 
-		UserEntity loggedUser = userSerivce.getLoggedUser(true);
+		UserEntity loggedUser = userSerivce.getMe();
 		Book book = getBook(bookId, writeVO);
 		Chapter chapter = getChapter(chapterId, writeVO);
 
@@ -98,7 +96,7 @@ public class BookService extends SuperService {
 		if (newBook == null || newBook.getId() == null)
 			throw new BadRequestException();
 
-		UserEntity loggedUser = userSerivce.getLoggedUser(true);
+		UserEntity loggedUser = userSerivce.getMe();
 		Book book = findBookFromUserById(loggedUser, newBook.getId());
 
 		book.setSingleChapter(newBook.isSingleChapter());
@@ -122,7 +120,7 @@ public class BookService extends SuperService {
 		if (newChapter == null || bookId == null || newChapter.getId() == null)
 			throw new BadRequestException();
 
-		UserEntity loggedUser = userSerivce.getLoggedUser(true);
+		UserEntity loggedUser = userSerivce.getMe();
 		Book book = findBookFromUserById(loggedUser, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : loggedUser.getId());
 
 		Chapter chapter = findChapterFromBookById(book, newChapter.getId());
@@ -141,6 +139,10 @@ public class BookService extends SuperService {
 		}
 
 		throw new NotFoundException();
+	}
+
+	public List<BookVO> getMyBooks() throws NotFoundException {
+		return getBooksFromUser(null);
 	}
 
 	public List<BookVO> getBooksFromUser(Long id) throws NotFoundException {
@@ -165,7 +167,7 @@ public class BookService extends SuperService {
 	}
 
 	public ChapterVO getChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
-		return new ChapterVO(findChapterFromBookById(findBookFromUserById(userSerivce.getLoggedUser(true), bookId), chapterId), bookId);
+		return new ChapterVO(findChapterFromBookById(findBookFromUserById(userSerivce.getMe(), bookId), chapterId), bookId);
 	}
 
 	public WriteVO getWriteVO() {
@@ -177,7 +179,7 @@ public class BookService extends SuperService {
 
 		Book book = findBookFromUserById(userEntity, bookId);
 
-		Date publishDate = Calendar.getInstance().getTime();
+		Long publishDate = System.currentTimeMillis();
 		book.setPublishDate(publishDate);
 		for (Chapter chapter : bookDomain.get(book.getChapters())) {
 			chapter.setPublishDate(publishDate);
@@ -189,6 +191,35 @@ public class BookService extends SuperService {
 		userSerivce.createNewBookUserHistory(userEntity, Ref.create(book));
 	}
 
+	public void deleteMyBook(Long bookId) throws NotFoundException {
+		UserEntity userEntity = userSerivce.getMe();
+
+		for (int i = 0; i < userEntity.getBooks().size(); i++) {
+			Ref<Book> bookRef = userEntity.getBooks().get(0);
+			Book book = bookRef.get();
+			if (book.getId().equals(bookId)) {
+				bookDomain.remove(userEntity, book, i);
+				return;
+			}
+		}
+
+	}
+
+	public void deleteChapterFromBook(Long bookId, Long chapterId) throws NotFoundException {
+		UserEntity userEntity = userSerivce.getMe();
+
+		Book book = findBookFromUserById(userEntity, bookId);
+		for (int i = 0; i < book.getChapters().size(); i++) {
+			Ref<Chapter> chapterRef = book.getChapters().get(0);
+			Chapter chapter = chapterRef.get();
+			if (chapter.getId().equals(chapterId)) {
+				bookDomain.remove(userEntity, book, chapter, i);
+				return;
+			}
+		}
+	}
+
+
 	public Book saveBookCape(String id, HttpServletRequest req) {
 		final BlobKey blobKey = new ImageService().getBlobFromRequest("bookCape", req);
 		final String bookId = id;
@@ -196,7 +227,7 @@ public class BookService extends SuperService {
 		return ObjectifyService.run(new Work<Book>() {
 			@Override
 			public Book run() {
-				UserEntity user = userSerivce.getLoggedUser(true);
+				UserEntity user = userSerivce.getMe();
 				Book book = findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId());
 
 				if (blobKey != null) {
@@ -219,7 +250,7 @@ public class BookService extends SuperService {
 		return ObjectifyService.run(new Work<Chapter>() {
 			@Override
 			public Chapter run() {
-				UserEntity user = userSerivce.getLoggedUser(true);
+				UserEntity user = userSerivce.getMe();
 				Chapter chapter = findChapterFromBookById(findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId()), chapterId);
 
 				if (blobKey != null) {

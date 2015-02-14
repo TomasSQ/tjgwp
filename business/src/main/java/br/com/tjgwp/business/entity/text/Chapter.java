@@ -1,7 +1,5 @@
 package br.com.tjgwp.business.entity.text;
 
-import java.util.Date;
-
 import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.service.image.ImageService;
@@ -20,7 +18,7 @@ public class Chapter extends SuperEntity {
 	private String textEntry;
 	@Load
 	private Ref<Image> cape;
-	private Date publishDate;
+	private Long publishDate;
 
 	public Chapter() {
 		super();
@@ -67,11 +65,11 @@ public class Chapter extends SuperEntity {
 		this.cape.get().updateBlob(cape);
 	}
 
-	public Date getPublishDate() {
+	public Long getPublishDate() {
 		return publishDate;
 	}
 
-	public void setPublishDate(Date publishDate) {
+	public void setPublishDate(Long publishDate) {
 		this.publishDate = publishDate;
 	}
 

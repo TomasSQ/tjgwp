@@ -1,7 +1,6 @@
 package br.com.tjgwp.business.entity.text;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.com.tjgwp.business.entity.SuperVO;
@@ -18,7 +17,7 @@ public class BookVO extends SuperVO {
 	private boolean isSingleChapter;
 	private List<KeyWord> keysWord;
 	private boolean isPublished;
-	private Date publishDate;
+	private Long publishDate;
 	private String capeImageUrl;
 
 	public BookVO(Book book) {
@@ -101,11 +100,11 @@ public class BookVO extends SuperVO {
 		this.isPublished = isPublished;
 	}
 
-	public Date getPublishDate() {
+	public Long getPublishDate() {
 		return publishDate;
 	}
 
-	protected void setPublishDate(Date publishDate) {
+	protected void setPublishDate(Long publishDate) {
 		this.publishDate = publishDate;
 	}
 

@@ -6,6 +6,7 @@ import java.util.Set;
 import br.com.tjgwp.view.rs.image.ImageRS;
 import br.com.tjgwp.view.rs.user.UserRS;
 import br.com.tjgwp.view.text.BookRS;
+import br.com.tjgwp.view.text.ChapterRS;
 
 public class Application extends javax.ws.rs.core.Application {
 
@@ -16,6 +17,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(UserRS.class);
 		classes.add(ImageRS.class);
 		classes.add(BookRS.class);
+		classes.add(ChapterRS.class);
 
 		return classes;
 	}

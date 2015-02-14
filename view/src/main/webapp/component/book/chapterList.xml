@@ -14,7 +14,7 @@
 							<input type="file" name="chapterCape" data-callback-url="{{='/s/book/' + it.book.id + '/chapter/' + chapter.id + '/capePic'}}" data-message="{{=i18n('cape')}}"/>
 					    </form>
 						<span class="btn edit">{{=i18n('edit')}}</span>
-						<span class="btn {{=chapter.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(chapter.publishDate ? 'unpublish' : 'publish')}}</span>
+						<span class="btn remove">{{=i18n('remove')}}</span>
 					</div>
 				</div>
 				<div class="chapter-details padding">
@@ -48,6 +48,17 @@
 		container
 			.addClass('active')
 			.show()
+			.find('.chapter .remove').click(function() {
+				var $this = $(this);
+				$.ajax({
+					type : 'DELETE',
+					url : 's/book/' + $(this).closest('.chapter').data('book-id') + '/chapter/' + $(this).closest('.chapter').data('chapter-id'),
+					success : function() {
+						userHelper.update();
+						$this.closest('.chapter').remove();
+					}
+				});
+			}).end()
 			.find('.chapter .chapter-cape .title').fitText().end()
 			.find('.chapter .edit').click(function() {
 				location.hash = 'write/' + context.book.id + '/' + $(this).closest('.chapter').data('chapter-id');
