@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.tjgwp.business.entity.text.Book;
@@ -12,15 +14,20 @@ import br.com.tjgwp.business.entity.text.BookVO;
 import br.com.tjgwp.business.entity.text.Chapter;
 import br.com.tjgwp.business.entity.text.ChapterVO;
 import br.com.tjgwp.business.entity.user.UserEntity;
+import br.com.tjgwp.business.entity.user.UserHistoryType;
 import br.com.tjgwp.business.service.BadRequestException;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.business.service.ValidationException;
+import br.com.tjgwp.business.service.image.ImageService;
 import br.com.tjgwp.business.service.user.UserService;
 import br.com.tjgwp.domain.text.BookDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.NotFoundException;
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.Work;
 
 public class BookService extends SuperService {
 
@@ -72,13 +79,18 @@ public class BookService extends SuperService {
 	}
 
 	protected Book getBook(String bookId, WriteVO writeVO) {
+		Book book = getBook(bookId);
+
+		if (book.getId() == null)
+			book.setTitle(writeVO.getBookTitle());
+		return book;
+	}
+
+	public Book getBook(String bookId) {
 		Book book = StringUtils.isNumeric(bookId) ? bookDomain.findById(Long.parseLong(bookId), Book.class) : new Book();
 
 		if (book == null)
 			throw new NotFoundException();
-
-		if (book.getId() == null)
-			book.setTitle(writeVO.getBookTitle());
 		return book;
 	}
 
@@ -96,7 +108,7 @@ public class BookService extends SuperService {
 		bookDomain.save(book);
 	}
 
-	protected Book findBookFromUserById(UserEntity user, Long bookId) throws NotFoundException {
+	public Book findBookFromUserById(UserEntity user, Long bookId) throws NotFoundException {
 		for (Ref<Book> bookRef : user.getBooks()) {
 			Book book = bookRef.get();
 			if (book.getId().equals(bookId))
@@ -175,5 +187,27 @@ public class BookService extends SuperService {
 		bookDomain.save(book);
 
 		userSerivce.createNewBookUserHistory(userEntity, Ref.create(book));
+	}
+
+	public Book saveBookCape(String id, HttpServletRequest req) {
+		final BlobKey blobKey = new ImageService().getBlobFromRequest("bookCape", req);
+		final String bookId = id;
+
+		return ObjectifyService.run(new Work<Book>() {
+			@Override
+			public Book run() {
+				UserEntity user = userSerivce.getLoggedUser(true);
+				Book book = findBookFromUserById(user, StringUtils.isNumeric(bookId) ? Long.parseLong(bookId) : user.getId());
+
+				if (blobKey != null) {
+					book.updateCape(blobKey);
+					userSerivce.createNewUserHistory(user, book.getCapeRef(), UserHistoryType.CHANGED_BOOK_CAPE);
+					new UserDomain().save(book.getCape());
+					new UserDomain().save(book);
+				}
+
+				return book;
+			}
+		});
 	}
 }

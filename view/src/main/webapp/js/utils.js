@@ -62,4 +62,25 @@
 		});
 	};
 
+	utils.fileupload = function(elements, callback) {
+		return elements.each(function() {
+			$(this).fileupload({
+				submit: function (e, data) {
+					var $this = $(this);
+					$.get('s/image/uploadUrl?' + $.param({callbackUrl : $this.data('callback-url')}), function(uploadUrl) {
+						data.url = uploadUrl;
+
+						$this.closest('form').attr('action', data.url);
+						$this.fileupload('send', data);
+					});
+					return false;
+				},
+				done : function(e, data) {
+					if (typeof callback === 'function')
+						callback.apply(this, [e, data]);
+				}
+			});
+		});
+	};
+
 })(window.jQuery);

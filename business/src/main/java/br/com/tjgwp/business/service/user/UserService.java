@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
@@ -22,7 +23,9 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.JsonArray;
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.Work;
 
 public class UserService extends SuperService {
 
@@ -99,29 +102,43 @@ public class UserService extends SuperService {
 	}
 
 	public UserEntity saveProfilePic(HttpServletRequest req) {
-		ImageService imageService = new ImageService();
-		BlobKey blobKey = imageService.getBlobFromRequest("profile", req);
+		final BlobKey blobKey = new ImageService().getBlobFromRequest("profile", req);
 
-		UserEntity user = getLoggedUser();
-		if (blobKey != null) {
-			user.updateProfile(blobKey);
-			new UserDomain().save(user);
-		}
+		return ObjectifyService.run(new Work<UserEntity>() {
+			@Override
+			public UserEntity run() {
+				UserEntity user = getLoggedUser(true);
 
-		return user;
+				if (blobKey != null) {
+					user.updateProfile(blobKey);
+					createNewUserHistory(user, user.getProfileRef(), UserHistoryType.CHANGED_PROFILE_PICTURE);
+					new UserDomain().save(user.getProfile());
+					new UserDomain().save(user);
+				}
+
+				return user;
+			}
+		});
 	}
 
 	public UserEntity saveBackgroundPic(HttpServletRequest req) {
-		ImageService imageService = new ImageService();
-		BlobKey blobKey = imageService.getBlobFromRequest("background", req);
+		final BlobKey blobKey = new ImageService().getBlobFromRequest("background", req);
 
-		UserEntity user = getLoggedUser();
-		if (blobKey != null) {
-			user.updateBackground(blobKey);
-			new UserDomain().save(user);
-		}
+		return ObjectifyService.run(new Work<UserEntity>() {
+			@Override
+			public UserEntity run() {
+				UserEntity user = getLoggedUser(true);
 
-		return user;
+				if (blobKey != null) {
+					user.updateBackground(blobKey);
+					createNewUserHistory(user, user.getBackgroundRef(), UserHistoryType.CHANGED_CAPE_PICTURE);
+					new UserDomain().save(user.getBackground());
+					new UserDomain().save(user);
+				}
+
+				return user;
+			}
+		});
 	}
 
 	public UserEntity getUserOrMe(Long id) {
@@ -140,6 +157,10 @@ public class UserService extends SuperService {
 			historyJson.add(hist.toJson());
 
 		return historyJson.toString();
+	}
+
+	public void createNewUserHistory(UserEntity userEntity, Ref<Image> imageRef, UserHistoryType changedPicture) {
+		newUserHistory(changedPicture, imageRef, userEntity);
 	}
 
 	public void createNewUserHistory(UserEntity userEntity, Ref<Chapter> chapterRef, Ref<Book> bookRef) {

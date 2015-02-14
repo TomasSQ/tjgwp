@@ -3,6 +3,7 @@ package br.com.tjgwp.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
@@ -26,6 +27,7 @@ public class SuperDomain {
 		factory().register(KeyWord.class);
 		factory().register(Chapter.class);
 		factory().register(Book.class);
+		factory().register(Image.class);
 	}
 
 	public static Objectify ofy() {

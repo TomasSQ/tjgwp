@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-/*					PHANTOM CLASSES						*/
+
 .fixed {position: fixed !important;}
 .relative {position: relative !important;}
 .absolute {position: absolute !important;}
@@ -8,6 +8,7 @@
 .float-left {float: left;}
 .float-right {float: right;}
 
+.hidden {display: none;}
 .block {display: block;}
 .inline {display: inline;}
 .inline-block {display: inline-block;}

@@ -9,7 +9,7 @@
 		}
 
 		$.getJSON('s/book' + (userId ? '/fromUser/' + userId : ''), function(books) {
-			$.load('.main-content', {books : books}, {componentName : 'bookList', componentPath : 'book', complete : complete});
+			$.load('.main-content', {books : books, userId : userId}, {componentName : 'bookList', componentPath : 'book', complete : complete});
 		});
 	};
 

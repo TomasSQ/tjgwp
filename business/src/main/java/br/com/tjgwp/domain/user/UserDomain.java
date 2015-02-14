@@ -15,7 +15,7 @@ public class UserDomain extends SuperDomain {
 	}
 
 	public List<UserHistory> getLastedHistoryFromUser(UserEntity user) {
-		return ofy().load().type(UserHistory.class).limit(10).filter("date >", DateTime.now().minusDays(10).getMillis()).ancestor(user).list();
+		return ofy().load().type(UserHistory.class).order("-date").limit(10).filter("date >", DateTime.now().minusDays(10).getMillis()).ancestor(user).list();
 	}
 
 }

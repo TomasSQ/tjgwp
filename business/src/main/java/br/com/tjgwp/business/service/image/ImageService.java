@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.service.SuperService;
+import br.com.tjgwp.domain.SuperDomain;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -13,6 +15,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+import com.googlecode.objectify.Ref;
 
 public class ImageService extends SuperService {
 
@@ -46,5 +49,10 @@ public class ImageService extends SuperService {
 
 	public BlobKey getBlobFromRequest(String name, HttpServletRequest req) {
 		return blobstoreService.getUploads(req).get(name).get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Ref<Image> newImageRef() {
+		return (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
+import br.com.tjgwp.domain.SuperDomain;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.gson.Gson;
@@ -48,26 +49,36 @@ public class UserEntity extends SuperEntity {
 		this.nickname = nickname;
 	}
 
+	public Ref<Image> getProfileRef() {
+		return profile;
+	}
+
 	public Image getProfile() {
 		return profile == null ? new Image() : profile.get();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void updateProfile(BlobKey profile) {
 		if (this.profile == null)
-			this.profile = Ref.create(new Image());
+			this.profile = (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
 
 		this.profile.get().updateBlob(profile);
+	}
+
+	public Ref<Image> getBackgroundRef() {
+		return background;
 	}
 
 	public Image getBackground() {
 		return background == null ? new Image() : background.get();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void updateBackground(BlobKey background) {
 		if (this.background == null)
-			this.background = Ref.create(new Image());
+			this.background = (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
 
-		this.profile.get().updateBlob(background);
+		this.background.get().updateBlob(background);
 	}
 
 	public List<Ref<Book>> getBooks() {

@@ -67,6 +67,7 @@
 		</dependency>
 
 		<!-- Test Dependencies -->
+		<!--
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-testing</artifactId>
@@ -79,6 +80,7 @@
 			<version>${appengine.target.version}</version>
 			<scope>test</scope>
 		</dependency>
+		-->
 	</dependencies>
 
 	<build>
