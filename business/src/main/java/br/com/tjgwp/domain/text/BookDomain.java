@@ -21,7 +21,7 @@ public class BookDomain extends SuperDomain {
 			save(book);
 		new UserDomain().removeChapterUserHistory(userEntity, book, chapter);
 
-		remove(book, chapter);
+		remove(chapter);
 	}
 
 	public void remove(UserEntity userEntity, Book book,  int i) {
@@ -35,7 +35,7 @@ public class BookDomain extends SuperDomain {
 
 		new UserDomain().removeBookUserHistory(userEntity, book);
 
-		remove(userEntity, book);
+		remove(book);
 	}
 
 }
