@@ -19,16 +19,17 @@ public class EmailService extends SuperService {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "...";
+		String msgBody = "Welcome, " + userEntity.getNickname();
 
 		try {
 			MimeMessage msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("tomasqueiroga@gmail.com", "Tomas"));
+
+			msg.setFrom(new InternetAddress("news@willpoe.com", "Will Poe"));
 			msg.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(userEntity.getEmail(), userEntity.getNickname()));
 			msg.setSubject("Your willpoe account has been activated");
 			msg.setText(msgBody);
-			Transport.send(msg);
 
+			Transport.send(msg);
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
