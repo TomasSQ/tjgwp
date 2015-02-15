@@ -242,7 +242,7 @@ public class BookService extends SuperService {
 				if (blobKey != null) {
 					book.updateCape(blobKey);
 					if (book.getPublishDate() != null)
-						userSerivce.createNewUserHistory(user, Ref.create(book), UserHistoryType.CHANGED_BOOK_CAPE);
+						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, Ref.create(book));
 					new UserDomain().save(book.getCape());
 					new UserDomain().save(book);
 				}
@@ -266,7 +266,7 @@ public class BookService extends SuperService {
 				if (blobKey != null) {
 					chapter.updateCape(blobKey);
 					if (chapter.getPublishDate() != null)
-						userSerivce.createNewUserHistory(user, Ref.create(chapter), UserHistoryType.CHANGED_BOOK_CAPE);
+						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, Ref.create(chapter));
 					new UserDomain().save(chapter.getCape());
 					new UserDomain().save(chapter);
 				}

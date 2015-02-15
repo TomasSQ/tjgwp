@@ -2,12 +2,28 @@
 	<dot>
 		<div class="histories-list padding clearfix">
 		{{~it.histories :history:i}}
-			<div class="history">
-			    {{= history.type}}
+			<div class="history clearfix">
+			    <div class="history-header clearfix">
+			        <div class="history-info">
+					    <h1 class="title">{{= i18n(history.type)}}</h1>
+					    <div class="history-subtitle float-left">
+					        <span class="margin-right">{{=history.user.nickname}}</span>
+					        <span class="margin-right">{{=utils.timestampToString(history.date)}}</span>
+					    </div>
+			        </div>
+			        <div class="history-owner float-right">
+			            <a href="#user/{{=history.user.id}}">
+			                <img class="profile-pic margin-left radius medium-square" data-src="{{=history.user.profileImageUrl || ''}}"/>
+			            </a>
+			        </div>
+			    </div>
 			</div>
 		{{~}}
 		</div>
 	</dot>
 	<script>
+	    container.find('img.profile-pic').each(function() {
+			$(this).attr('src', $(this).data('src') || 'img/profile.png');
+	    });
 	</script>
 </engine>

@@ -32,7 +32,7 @@
 				book.read(params[0], params[1], params[2]);
 			break;
 		case 'user' :
-			if ($('body').data('user').id == params[0])
+			if (userHelper.myId() == params[0])
 				window.location.hash = '#';
 			else
 				$.getJSON('s/user/' + params[0], function(user) {

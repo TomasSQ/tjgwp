@@ -56,5 +56,18 @@
 	"edit" : "Editar",
 	"save" : "Salvar",
 	"save-successed" : "Salvo com sucesso!",
-	"with" : "com"
+	"with" : "com",
+
+	"SIGNED_IN" : "Come&ccedil;ou a utilizar o Willpoe!",
+	"SIGNED_OUT" : "Nos deixou :(",
+	"NEW_BOOK" : "Escreveu um novo livro!",
+	"CHANGED_BOOK" : "Alterou um de seus livros",
+	"NEW_CHAPTER" : "Escreveu um novo cap&iacute;tulos",
+	"CHANGED_CHAPTER" : "Alterou um de seus cap&iacute;tulos",
+	"CHANGED_BOOK_CAPE" : "Alterou a capa de um de seus livros",
+	"CHANGED_CHAPTER_CAPE" : "Alterou a capa de um de seus cap&iacute;tulos",
+	"NEW_FOLLOWER" : "Tem um novo seguidor",
+	"NEW_FOLLOWING" : "Est&aacute; seguindo mais uma pessoa",
+	"CHANGED_PROFILE_PICTURE" : "Alterou sua foto de perfil",
+	"CHANGED_CAPE_PICTURE" : "Alterou sua foto de capa"
 }

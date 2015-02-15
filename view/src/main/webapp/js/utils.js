@@ -83,4 +83,34 @@
 		});
 	};
 
+	var oneSecond = 1000;
+	var oneMinute = 60 * oneSecond;
+	var oneHour = 60 * oneMinute;
+	var oneDay = 24 * oneHour;
+
+	utils.timestampToString = function(timestamp) {
+		var delta = new Date().getTime() - timestamp;
+
+		if (delta < oneSecond)
+			return i18n('just-now');
+		if (delta < oneMinute)
+			return Math.floor(delta / oneSecond) + 's ';
+		if (delta < oneHour)
+			return Math.floor(delta / oneMinute) + 'm';
+		if (delta < oneDay)
+			return Math.floor(delta / oneHour) + 'h';
+
+		return utils.timestampAsDate(timestamp);
+	};
+
+	var zero = function(n) {
+		return n < 10 ? '0' : ''; 
+	};
+
+	utils.timestampAsDate = function(timestamp) {
+		var date = new Date(timestamp);
+
+		return zero(date.getDate()) + date.getDate() + '/' + zero(date.getMonth()) + date.getMonth() + '/' + date.getFullYear();
+	}
+
 })(window.jQuery);

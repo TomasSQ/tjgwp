@@ -47,23 +47,23 @@ public enum UserHistoryType {
 	CHANGED_PROFILE_PICTURE {
 		@Override
 		protected String superType() {
-			return "social";
+			return "user";
 		}
 	}, CHANGED_CAPE_PICTURE {
 		@Override
 		protected String superType() {
-			return "social";
+			return "user";
 		}
 	},
 	SIGNED_IN {
 		@Override
 		protected String superType() {
-			return "system";
+			return "user";
 		}
 	}, SIGNED_OUT {
 		@Override
 		protected String superType() {
-			return "system";
+			return "user";
 		}
 	};
 
@@ -79,5 +79,9 @@ public enum UserHistoryType {
 
 	public boolean hasPic() {
 		return !equals(SIGNED_IN) && !equals(SIGNED_OUT);
+	}
+
+	public boolean isUser() {
+		return equals(SIGNED_IN) || equals(SIGNED_OUT) || equals(CHANGED_PROFILE_PICTURE) || equals(CHANGED_CAPE_PICTURE);
 	}
 }

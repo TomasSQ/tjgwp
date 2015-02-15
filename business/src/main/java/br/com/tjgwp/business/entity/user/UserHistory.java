@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.tjgwp.business.entity.SuperEntity;
-import br.com.tjgwp.domain.SuperDomain;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
+import br.com.tjgwp.domain.SuperDomain;
 
+import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -50,6 +51,8 @@ public class UserHistory extends SuperEntity {
 		targets.add(targetRef);
 		if (type.isBook())
 			url = UserHistory.urlOfBook(userEntity, targetRef.get());
+		else if (type.isUser())
+			url = UserHistory.urlOfUser(userEntity);
 	}
 
 	public UserHistory(UserHistoryType type, List<Ref<? extends SuperEntity>> targetsRef, UserEntity userEntity) {
@@ -113,7 +116,8 @@ public class UserHistory extends SuperEntity {
 			history.addProperty("mainPic", toJsonMainPic());
 			history.add("othersPics", toJsonOthersPics());
 		}
-		
+
+		history.add("user", new JsonParser().parse(userEntity.get().toJson()));
 
 		return history;
 	}
@@ -151,6 +155,10 @@ public class UserHistory extends SuperEntity {
 
 	public static String urlOfBook(UserEntity userEntity, SuperEntity book) {
 		return "book/fromUser/" + userEntity.getId() + "/" + book.getId();
+	}
+
+	private static String urlOfUser(UserEntity userEntity) {
+		return "user/" + userEntity.getId();
 	}
 
 }

@@ -27,6 +27,7 @@ p {line-height: 1.5; text-align: justify;}
 .margin {margin: 12px;}
 
 .small-square {height: 25px; width: 25px;}
+.medium-square {height: 40px; width: 40px;}
 .radius {border-radius: 100px;}
 
 .padding-top {padding-top: 12px;}

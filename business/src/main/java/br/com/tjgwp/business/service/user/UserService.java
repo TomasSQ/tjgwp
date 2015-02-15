@@ -101,7 +101,7 @@ public class UserService extends SuperService {
 
 		userDomain.save(userEntity);
 
-		createNewUserHistory(userEntity, chapterRef, bookRef);
+		createNewUserHistory(userEntity);
 
 		return userEntity;
 	}
@@ -130,7 +130,7 @@ public class UserService extends SuperService {
 
 				if (blobKey != null) {
 					user.updateProfile(blobKey);
-					createNewUserHistory(user, user.getProfileRef(), UserHistoryType.CHANGED_PROFILE_PICTURE);
+					createUserHistory(user, UserHistoryType.CHANGED_PROFILE_PICTURE);
 					new UserDomain().save(user.getProfile());
 					new UserDomain().save(user);
 				}
@@ -150,7 +150,7 @@ public class UserService extends SuperService {
 
 				if (blobKey != null) {
 					user.updateBackground(blobKey);
-					createNewUserHistory(user, user.getBackgroundRef(), UserHistoryType.CHANGED_CAPE_PICTURE);
+					createUserHistory(user, UserHistoryType.CHANGED_CAPE_PICTURE);
 					new UserDomain().save(user.getBackground());
 					new UserDomain().save(user);
 				}
@@ -178,16 +178,20 @@ public class UserService extends SuperService {
 		return historyJson.toString();
 	}
 
-	public void createNewUserHistory(UserEntity userEntity, Ref<? extends SuperEntity> entityRef, UserHistoryType type) {
-		newUserHistory(type, entityRef, userEntity);
+	public void createUserHistory(UserEntity userEntity, UserHistoryType type, Ref<? extends SuperEntity> entityRef) {
+		newUserHistory(userEntity, type, entityRef);
 	}
 
-	public void createNewUserHistory(UserEntity userEntity, Ref<Chapter> chapterRef, Ref<Book> bookRef) {
-		newUserHistory(UserHistoryType.SIGNED_IN, userEntity);
+	public void createUserHistory(UserEntity userEntity, UserHistoryType type) {
+		newUserHistory(userEntity, type);
+	}
+
+	public void createNewUserHistory(UserEntity userEntity) {
+		newUserHistory(userEntity, UserHistoryType.SIGNED_IN);
 	}
 
 	public void createNewBookUserHistory(UserEntity userEntity, Ref<Book> bookRef) {
-		newUserHistory(UserHistoryType.NEW_BOOK, bookRef, userEntity);
+		newUserHistory(userEntity, UserHistoryType.NEW_BOOK, bookRef);
 	}
 
 	public void createNewChapterUserHistory(UserEntity userEntity, Ref<Book> bookRef, Ref<Chapter> chapterRef) {
@@ -195,12 +199,12 @@ public class UserService extends SuperService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, UserEntity userEntity) {
-		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, userEntity)));
+	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType) {
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, Ref.create(userEntity), userEntity)));
 	}
 
 	@SuppressWarnings("unchecked")
-	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, Ref<? extends SuperEntity> bookRef, UserEntity userEntity) {
+	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType, Ref<? extends SuperEntity> bookRef) {
 		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, bookRef, userEntity)));
 	}
 
