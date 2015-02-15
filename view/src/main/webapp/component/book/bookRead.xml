@@ -56,8 +56,8 @@
 		utils.breadcrumb(context.book.title);
 
 		if (context.activeChapter)
-			container.find('a[data-chapter-id="' + context.activeChapter +'"]')[0].click();
+			window.onhashchange()
 		else
-			container.find('a:first')[0].click();
+			container.find('.sidebar .chapter-list a:first')[0].click();
 	</script>
 </engine>
