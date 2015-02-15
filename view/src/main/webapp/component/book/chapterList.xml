@@ -2,9 +2,9 @@
 	<dot>
 		<div class="chapters-list padding clearfix">
 		    <div class="book-title field margin-bottom" data-no-animation="true">
-					<label for="book-title">{{=i18n('title')}} *</label>
-					<input id="book-title" type="text" name="bookTitle" value="{{=it.book.title}}" data-book-id="{{=it.book.id}}"/>
-					<input type="button" class="save btn margin-left" value="{{=i18n('save')}}" />
+				<label for="book-title">{{=i18n('title')}} *</label>
+				<input id="book-title" type="text" name="bookTitle" value="{{=it.book.title}}" data-book-id="{{=it.book.id}}"/>
+				<input type="button" class="save btn margin-left" value="{{=i18n('save')}}" />
 			</div>
 		<!-- 
 		{{? it.book.chapters && it.book.chapters.length}}

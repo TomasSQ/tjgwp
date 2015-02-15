@@ -112,6 +112,7 @@ input[type="text"], .input-container, textarea, select {border: 1px solid #A0702
 /*					BOOK								*/
 .books-list .book, .books-list .chapter-list .chapter {border: 1px solid #A0702E; cursor: pointer; position: relative; width: 239px;}
 .books-list .book .book-cape, .books-list .chapter-list .chapter .chapter-cape {border-bottom: 1px solid #A0702E; height: 300px; overflow: hidden; position: relative; text-align: center;}
+.books-list .book .book-cape a {display: block; height: 280px; width: 100%;}
 .books-list .book .book-cape div, .books-list .chapter-list .chapter .chapter-cape div {font-size: 40px;}
 .books-list .book .book-cape img, .books-list .chapter-list .chapter .chapter-cape img {height: 100%; width: 100%;}
 .books-list .book .book-cape .buttons, .books-list .chapter-list .chapter .chapter-cape .buttons {bottom: -18px; position: absolute;}
