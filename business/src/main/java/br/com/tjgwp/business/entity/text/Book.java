@@ -94,7 +94,7 @@ public class Book extends SuperEntity {
 
 	public void updateCape(BlobKey cape) {
 		if (this.cape == null)
-			this.cape = new ImageService().newImageRef();
+			this.cape = new ImageService().newImageRef(this);
 
 		this.cape.get().updateBlob(cape);
 	}

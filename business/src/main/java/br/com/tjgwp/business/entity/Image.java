@@ -3,6 +3,8 @@ package br.com.tjgwp.business.entity;
 import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass(index = false)
@@ -10,6 +12,15 @@ public class Image extends SuperEntity {
 
 	private BlobKey blob;
 	private String url;
+	@Parent
+	private Ref<? extends SuperEntity> owner;
+
+	public Image() {
+	}
+
+	public Image(Ref<? extends SuperEntity> owner) {
+		this.owner = owner;
+	}
 
 	public BlobKey getBlob() {
 		return blob;
@@ -38,6 +49,14 @@ public class Image extends SuperEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public Ref<? extends SuperEntity> getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Ref<? extends SuperEntity> owner) {
+		this.owner = owner;
 	}
 
 }

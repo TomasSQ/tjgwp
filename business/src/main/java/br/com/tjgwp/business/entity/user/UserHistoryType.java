@@ -76,4 +76,8 @@ public enum UserHistoryType {
 	public boolean isChapter() {
 		return "chapter".equals(superType());
 	}
+
+	public boolean hasPic() {
+		return !equals(SIGNED_IN) && !equals(SIGNED_OUT);
+	}
 }

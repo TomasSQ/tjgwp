@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import br.com.tjgwp.business.entity.Image;
+import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.domain.SuperDomain;
 
@@ -52,7 +53,7 @@ public class ImageService extends SuperService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Ref<Image> newImageRef() {
-		return (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
+	public Ref<Image> newImageRef(SuperEntity owner) {
+		return (Ref<Image>) Ref.create(new SuperDomain().save(new Image(Ref.create(owner))));
 	}
 }

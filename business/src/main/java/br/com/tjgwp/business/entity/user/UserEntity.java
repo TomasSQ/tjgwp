@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
-import br.com.tjgwp.domain.SuperDomain;
+import br.com.tjgwp.business.service.image.ImageService;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.gson.Gson;
@@ -57,10 +57,9 @@ public class UserEntity extends SuperEntity {
 		return profile == null ? new Image() : profile.get();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void updateProfile(BlobKey profile) {
 		if (this.profile == null)
-			this.profile = (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
+			this.profile = new ImageService().newImageRef(this);
 
 		this.profile.get().updateBlob(profile);
 	}
@@ -73,10 +72,9 @@ public class UserEntity extends SuperEntity {
 		return background == null ? new Image() : background.get();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void updateBackground(BlobKey background) {
 		if (this.background == null)
-			this.background = (Ref<Image>) Ref.create(new SuperDomain().save(new Image()));
+			this.background = new ImageService().newImageRef(this);
 
 		this.background.get().updateBlob(background);
 	}

@@ -21,7 +21,7 @@ public class BookDomain extends SuperDomain {
 			save(book);
 		new UserDomain().removeChapterUserHistory(userEntity, book, chapter);
 
-		remove(chapter);
+		ofy().delete().keys(ofy().load().ancestor(chapter).keys().list()).now();
 	}
 
 	public void remove(UserEntity userEntity, Book book,  int i) {
@@ -34,8 +34,7 @@ public class BookDomain extends SuperDomain {
 		}
 
 		new UserDomain().removeBookUserHistory(userEntity, book);
-
-		remove(book);
+		ofy().delete().keys(ofy().load().ancestor(book).keys().list()).now();
 	}
 
 }

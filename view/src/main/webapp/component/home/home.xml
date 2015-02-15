@@ -45,7 +45,7 @@
 		$('.profile-header img').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
 		$('.breadcrumb').hide();
 
-		$.getJSON('s/user/history', function(histories) {
+		$.getJSON('s/user/history' + (context.me ? '' : '/' + context.user.id), function(histories) {
 			$.load('.profile-content', {histories : histories}, {componentName : 'histories', componentPath : 'home'});
 		});
 	</script>

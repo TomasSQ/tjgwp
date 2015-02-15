@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
@@ -179,8 +178,8 @@ public class UserService extends SuperService {
 		return historyJson.toString();
 	}
 
-	public void createNewUserHistory(UserEntity userEntity, Ref<Image> imageRef, UserHistoryType changedPicture) {
-		newUserHistory(changedPicture, imageRef, userEntity);
+	public void createNewUserHistory(UserEntity userEntity, Ref<? extends SuperEntity> entityRef, UserHistoryType type) {
+		newUserHistory(type, entityRef, userEntity);
 	}
 
 	public void createNewUserHistory(UserEntity userEntity, Ref<Chapter> chapterRef, Ref<Book> bookRef) {

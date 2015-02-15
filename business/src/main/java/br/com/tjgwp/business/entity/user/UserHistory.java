@@ -5,8 +5,11 @@ import java.util.List;
 
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.domain.SuperDomain;
+import br.com.tjgwp.business.entity.text.Book;
+import br.com.tjgwp.business.entity.text.Chapter;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.googlecode.objectify.Ref;
@@ -106,7 +109,40 @@ public class UserHistory extends SuperEntity {
 		for (Long target : new SuperDomain().getIds(this.targets))
 			targets.add(new JsonPrimitive(target));
 
+		if (type.hasPic()) {
+			history.addProperty("mainPic", toJsonMainPic());
+			history.add("othersPics", toJsonOthersPics());
+		}
+		
+
 		return history;
+	}
+
+	private String toJsonMainPic() {
+		switch (type) {
+			case NEW_BOOK:
+			case CHANGED_BOOK:
+			case CHANGED_BOOK_CAPE:
+				return ((Book) targets.get(0).get()).getCape().getUrl();
+			case NEW_CHAPTER:
+			case CHANGED_CHAPTER:
+			case CHANGED_CHAPTER_CAPE:
+				return ((Chapter) targets.get(1).get()).getCape().getUrl();
+			case CHANGED_CAPE_PICTURE:
+				return ((UserEntity) targets.get(0).get()).getBackground().getUrl();
+			case CHANGED_PROFILE_PICTURE:
+				return ((UserEntity) targets.get(0).get()).getProfile().getUrl();
+			case NEW_FOLLOWER:
+				return ((UserEntity) targets.get(1).get()).getProfile().getUrl();
+			case NEW_FOLLOWING:
+				return ((UserEntity) targets.get(1).get()).getProfile().getUrl();
+			default:
+				return null;
+		}
+	}
+
+	private JsonElement toJsonOthersPics() {
+		return new JsonArray();
 	}
 
 	public static String urlOfChapter(UserEntity userEntity, SuperEntity book, SuperEntity chapter) {

@@ -66,4 +66,11 @@ public class UserRS extends SuperRS {
 		return Response.ok(new UserService().getLastestHistoryFromUserAsJson(null)).build();
 	}
 
+	@GET
+	@Path("/history/{userId}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response getHistoryFromUser(@PathParam("userId") Long id) {
+		return Response.ok(new UserService().getLastestHistoryFromUserAsJson(id)).build();
+	}
+
 }
