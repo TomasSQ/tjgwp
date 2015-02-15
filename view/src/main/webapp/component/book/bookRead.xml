@@ -9,7 +9,7 @@
 					{{= it.book.synopsis || ''}}
 				</div>
 				<div>
-					{{? it.book.moreInfo}}
+					{{? it.book.moreInfo.length > 0}}
 					<hr/>
 					<ul class="more-info">
 						{{~it.book.moreInfo :info}}

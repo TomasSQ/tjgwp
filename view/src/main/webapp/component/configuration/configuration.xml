@@ -1,7 +1,6 @@
 <engine>
 	<dot>
 		<div class="configuration-content padding">
-			<h3 class="bold">{{=i18n('configurations')}}</h3>
 			<form name="pics" id="profile-configuration" method="post" enctype="multipart/form-data">
 				<div class="field margin-bottom">
 					<input id="profile-pic-uploader" type="file" name="profile" data-callback-url="/s/user/profilePic" data-message="{{=i18n('profile-pic')}}"/>
@@ -22,5 +21,6 @@
 		utils.fileupload($('#background-pic-uploader'), function(e, data) {
 			userHelper.update();
 		});
+		utils.breadcrumb('configurations');
 	</script>
 </engine>

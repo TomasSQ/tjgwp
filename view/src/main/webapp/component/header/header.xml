@@ -23,7 +23,7 @@
 				<li class="login"><a href="#">{{=i18n('login')}}</a></li>
 				<li class="sign-in"><a href="#">{{=i18n('sign-in')}}</a></li>
 				{{??}}
-				<li><img class="profile-pic margin-left radius small-square"/></li>
+				<li><a href="#"><img class="profile-pic margin-left radius small-square"/></a></li>
 				<li class="you drop-down">
 					<a href="#">{{=i18n('you')}}</a>
 					<ul class="my-profile-container block">
