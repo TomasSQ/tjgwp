@@ -21,6 +21,7 @@
 		utils.fileupload($('#background-pic-uploader'), function(e, data) {
 			userHelper.update();
 		});
-		utils.breadcrumb('configurations');
+
+		utils.breadcrumb('configurations', true);
 	</script>
 </engine>
