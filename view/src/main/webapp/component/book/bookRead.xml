@@ -14,7 +14,7 @@
 					<ul class="more-info">
 						{{~it.book.moreInfo :info}}
 							<li>
-								<span>{{=info.text + (info.metric ? i18n(info.metric) : '')}}</span><span clas="{{=info.ico}}"></span>
+								<span>{{=(info.i18n ? i18n(info.text) : info.text) + (info.metric ? i18n(info.metric) : '')}}</span><span clas="{{=info.ico}}"></span>
 							</li>
 						{{~}}
 					</ul>
@@ -51,8 +51,10 @@
 		container
 			.find('.sidebar .author-pic img').attr('src', context.otherUser.profileImageUrl ? context.otherUser.profileImageUrl : 'img/profile.png');
 
-		utils.breadcrumb({text : context.otherUser.nickname, link : 'user/' + context.userId}, true);
-		utils.breadcrumb({text : 'books', link : 'books/' + context.userId});
+		var itsMe = userHelper.myId() == context.userId;
+		if (!itsMe)
+			utils.breadcrumb({text : context.otherUser.nickname, link : 'user/' + context.userId}, true);
+		utils.breadcrumb({text : i18n('books'), link : 'books' + (userHelper.myId() == context.userId ? '' : '/' + context.userId)}, itsMe);
 		utils.breadcrumb(context.book.title);
 
 		if (context.activeChapter)

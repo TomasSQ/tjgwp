@@ -5,31 +5,27 @@
 		{{? it.books && it.books.length}}
 		-->
 		{{~it.books :book:i}}
-			{{? it.userId}}
-			<a href="#books/{{=it.userId}}/{{=book.id}}">
-			{{?}}
-			<div class="book float-left margin-right {{? i >= 4}}margin-top{{?}} {{=i}}" data-book-id="{{=book.id}}" data-index="{{=i}}">
-				<div class="book-cape">
-					<img class="book-cape-url {{? !book.capeImageUrl}}hidden{{?}}" src="" title="{{=book.title}}"></img>
-					<div class="title {{? book.capeImageUrl}}hidden{{?}}" data-no-animation="true">{{=book.title}}</div>
-				{{? !it.userId}}
-					<div class="buttons clearfix">
-					    <form class="btn" name="pics" method="post" enctype="multipart/form-data">
-							<input type="file" name="bookCape" data-callback-url="{{='/s/book/' + book.id + '/capePic'}}" data-message="{{=i18n('cape')}}"/>
-					    </form>
-						<span class="btn edit">{{=i18n('edit')}}</span>
-						<span class="btn {{=book.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(book.publishDate ? 'unpublish' : 'publish')}}</span>
-						<span class="btn remove" style="border-radius: 15px; font-size: 10px; margin: 1px 5px; padding: 1px 0px 0px 1px; text-align: center; width: 13px;">x</span>
+			<a href="#books/{{=it.userId || it.user.id}}/{{=book.id}}">
+				<div class="book float-left margin-right {{? i >= 4}}margin-top{{?}} {{=i}}" data-book-id="{{=book.id}}" data-index="{{=i}}">
+					<div class="book-cape">
+						<img class="book-cape-url {{? !book.capeImageUrl}}hidden{{?}}" src="" title="{{=book.title}}"></img>
+						<div class="title {{? book.capeImageUrl}}hidden{{?}}" data-no-animation="true">{{=book.title}}</div>
+					{{? !it.userId}}
+						<div class="buttons clearfix">
+						    <form class="btn" name="pics" method="post" enctype="multipart/form-data">
+								<input type="file" name="bookCape" data-callback-url="{{='/s/book/' + book.id + '/capePic'}}" data-message="{{=i18n('cape')}}"/>
+						    </form>
+							<span class="btn edit">{{=i18n('edit')}}</span>
+							<span class="btn {{=book.publishDate ? 'unpublish' : 'publish'}}">{{=i18n(book.publishDate ? 'unpublish' : 'publish')}}</span>
+							<span class="btn remove" style="border-radius: 15px; font-size: 10px; margin: 1px 5px; padding: 1px 0px 0px 1px; text-align: center; width: 13px;">x</span>
+						</div>
+					</div>
+					{{?}}
+					<div class="book-details padding">
+						{{=utils.text({text : book.chaptersCount, suffix : 'chapter', noValue : 'no-chapters', plural : true, i18n : true})}}
 					</div>
 				</div>
-				{{?}}
-				<div class="book-details padding">
-					{{=utils.text({text : book.chaptersCount, suffix : 'chapter', noValue : 'no-chapters', plural : true, i18n : true})}}
-				</div>
-			</div>
-			{{? it.userId}}
 			</a>
-			{{?}}
 		{{~}}
 		{{?? it.userId}}
 			{{=i18n('no-books-come-back-latter')}}

@@ -19,6 +19,7 @@ public class BookVO extends SuperVO {
 	private boolean isPublished;
 	private Long publishDate;
 	private String capeImageUrl;
+	private List<BookMoreInfoVO> moreInfo;
 
 	public BookVO(Book book) {
 		this(book, true);
@@ -38,6 +39,10 @@ public class BookVO extends SuperVO {
 		setPublished(book.getPublishDate() != null);
 		setPublishDate(book.getPublishDate());
 		setCapeImageUrl(book.getCape().getUrl());
+
+		this.moreInfo = new ArrayList<BookMoreInfoVO>();
+		if (!isPublished)
+			moreInfo.add(new BookMoreInfoVO(true, "not-published"));
 	}
 
 	public String getTitle() {
@@ -114,6 +119,14 @@ public class BookVO extends SuperVO {
 
 	protected void setCapeImageUrl(String capeImageUrl) {
 		this.capeImageUrl = capeImageUrl;
+	}
+
+	public List<BookMoreInfoVO> getMoreInfo() {
+		return moreInfo;
+	}
+
+	public void setMoreInfo(List<BookMoreInfoVO> moreInfo) {
+		this.moreInfo = moreInfo;
 	}
 
 }

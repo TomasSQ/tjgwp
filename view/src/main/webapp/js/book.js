@@ -22,7 +22,7 @@
 		if ($('.book-read').length == 1)
 			book.readChapter(chapterId);
 		else
-			$.getJSON('s/book/fromUser/' + userId + '/' + bookId, function(aBook) {
+			$.getJSON('s/book/' + (userHelper.myId() == userId ? '' : 'fromUser/' + userId + '/') + bookId, function(aBook) {
 				$.getJSON('s/user/' + userId, function(otherUser) {
 					$.load('.main-content', 
 						{activeChapter : chapterId, otherUser : otherUser, book : aBook, userId : userId},
