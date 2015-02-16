@@ -53,6 +53,7 @@
 					$('.header .logout a').attr('href', logoutUrl);
 					$('body > *').fadeIn();
 					$('body').data('user', context.user);
+					search.init();
 					window.onhashchange();
 				}
 			});

@@ -6,12 +6,13 @@ import java.util.List;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
+import br.com.tjgwp.business.utils.URLMaker;
 import br.com.tjgwp.domain.SuperDomain;
 
-import com.google.gson.JsonParser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Index;
@@ -50,9 +51,9 @@ public class UserHistory extends SuperEntity {
 
 		targets.add(targetRef);
 		if (type.isBook())
-			url = UserHistory.urlOfBook(userEntity, targetRef.get());
+			url = URLMaker.urlForBook(userEntity, targetRef.get());
 		else if (type.isUser())
-			url = UserHistory.urlOfUser(userEntity);
+			url = URLMaker.urlForUser(userEntity);
 	}
 
 	public UserHistory(UserHistoryType type, List<Ref<? extends SuperEntity>> targetsRef, UserEntity userEntity) {
@@ -63,7 +64,7 @@ public class UserHistory extends SuperEntity {
 			if (targets.size() != 2)
 				throw new IllegalArgumentException("chapter must have two targets ref only");
 
-			url = UserHistory.urlOfChapter(userEntity, targets.get(0).get(), targets.get(1).get());
+			url = URLMaker.urlForChapter(userEntity, targets.get(0).get(), targets.get(1).get());
 		}
 	}
 
@@ -147,18 +148,6 @@ public class UserHistory extends SuperEntity {
 
 	private JsonElement toJsonOthersPics() {
 		return new JsonArray();
-	}
-
-	public static String urlOfChapter(UserEntity userEntity, SuperEntity book, SuperEntity chapter) {
-		return urlOfBook(userEntity, book) + "/chapter/" + chapter.getId();
-	}
-
-	public static String urlOfBook(UserEntity userEntity, SuperEntity book) {
-		return "book/fromUser/" + userEntity.getId() + "/" + book.getId();
-	}
-
-	private static String urlOfUser(UserEntity userEntity) {
-		return "user/" + userEntity.getId();
 	}
 
 }

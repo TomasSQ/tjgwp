@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.tjgwp.view.rs.image.ImageRS;
+import br.com.tjgwp.view.rs.search.SearchRS;
 import br.com.tjgwp.view.rs.user.UserRS;
 import br.com.tjgwp.view.text.BookRS;
 import br.com.tjgwp.view.text.ChapterRS;
@@ -18,6 +19,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(ImageRS.class);
 		classes.add(BookRS.class);
 		classes.add(ChapterRS.class);
+		classes.add(SearchRS.class);
 
 		return classes;
 	}

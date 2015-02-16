@@ -38,6 +38,13 @@
 				$.getJSON('s/user/' + params[0], function(user) {
 					$.load('.main-content', {user : user, me : false}, {componentName : 'home'});
 				});
+			break;
+		case 'search' : 
+			if (params[0])
+				$.getJSON('s/search/' + params[0], function(items) {
+					$.load('.main-content', {items : items}, {componentName : 'searchResultList', componentPath : 'search'});
+				});
+			break;
 		default :
 			$.load('.main-content', {me : true}, {componentName : 'home'});
 		}

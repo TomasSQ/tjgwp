@@ -6,6 +6,7 @@ import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.text.Chapter;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.entity.user.UserHistory;
+import br.com.tjgwp.business.utils.URLMaker;
 import br.com.tjgwp.domain.SuperDomain;
 
 import com.google.appengine.repackaged.org.joda.time.DateTime;
@@ -21,11 +22,11 @@ public class UserDomain extends SuperDomain {
 	}
 
 	public void removeChapterUserHistory(UserEntity userEntity, Book book, Chapter chapter) {
-		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", UserHistory.urlOfChapter(userEntity, book, chapter)).list());
+		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForChapter(userEntity, book, chapter)).list());
 	}
 
 	public void removeBookUserHistory(UserEntity userEntity, Book book) {
-		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", UserHistory.urlOfBook(userEntity, book)).list());
+		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForBook(userEntity, book)).list());
 	}
 
 	public UserEntity findById(Long id) {

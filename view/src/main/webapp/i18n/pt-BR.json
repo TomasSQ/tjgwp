@@ -69,5 +69,9 @@
 	"NEW_FOLLOWER" : "Tem um novo seguidor",
 	"NEW_FOLLOWING" : "Est&aacute; seguindo mais uma pessoa",
 	"CHANGED_PROFILE_PICTURE" : "Alterou sua foto de perfil",
-	"CHANGED_CAPE_PICTURE" : "Alterou sua foto de capa"
+	"CHANGED_CAPE_PICTURE" : "Alterou sua foto de capa",
+
+	"just-now" : "Agora mesmo",
+
+	"no-results" : "Sem resultados"
 }
