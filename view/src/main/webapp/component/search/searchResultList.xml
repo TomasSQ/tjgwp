@@ -1,0 +1,28 @@
+<engine>
+	<dot>
+		<div class="search-result-list padding clearfix">
+		<!--
+		{{? it.items && it.items.length}}
+		-->
+		{{~it.items :item:i}}
+			<div class="item" data-index="{{=i}}">
+			    <a href="#{{=item.url}}">
+				    <div class="pic-container">
+				        <img src=""/>
+				    </div>
+				    <div>
+				        <h1>{{=item.name}}</h1>
+				    </div>
+			    </a>
+			</div>
+		{{~}}
+		{{??}}
+			{{=i18n('no-results')}}
+		{{?}}
+		</div>
+	</dot>
+	<script>
+	    for (var i = 0; context.items.length > i; i++)
+	    	container.find('.item[data-index="' + i + '"] img').attr('src', context.items[i].imageUrl)
+	</script>
+</engine>
