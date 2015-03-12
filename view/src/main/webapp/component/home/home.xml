@@ -24,7 +24,7 @@
 					</li>
 					<li class="followers">
 						<a href="#followers{{=it.me ? '' : '/' + it.user.id}}">
-							{{=utils.text({text : it.user.followers, suffix : 'followers', noValue : 'no-followers', plural : true, i18n : true})}}
+							{{=utils.text({text : it.user.followers, suffix : 'follower', noValue : 'no-followers', plural : true, i18n : true})}}
 						</a>
 					</li>
 					<li class="following">
@@ -35,14 +35,24 @@
 				</ul>
 			</div>
 			{{? !it.me}}
-			<a href="#follow/{{=it.user.id}}" class="btn follow-button book-icon x-icon">{{=i18n('follow')}}</a>
+			<input type="button" class="btn follow-button book-icon x-icon" value="{{=i18n('follow')}}" data-id="{{=it.user.id}}"/>
 			{{?}}
 		</div>
 		<div class="sidebar"></div>
 		<div class="profile-content"></div>
 	</dot>
 	<script>
-		$('.profile-header img').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png');
+		container
+			.find('img').attr('src', context.user.profileImageUrl ? context.user.profileImageUrl : 'img/profile.png').end()
+			.find('.follow-button').click(function() {
+				$.ajax({
+					type : 'PUT',
+					url : 's/user/follow/' + $(this).data('id'),
+					success : function () {
+						window.onhashchange();
+					}
+				});
+			});
 		$('.breadcrumb').hide();
 
 		$.getJSON('s/user/history' + (context.me ? '' : '/' + context.user.id), function(histories) {

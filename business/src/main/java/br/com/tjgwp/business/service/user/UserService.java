@@ -164,6 +164,24 @@ public class UserService extends SuperService {
 		return id == null ? getLoggedUser(true) : userDomain.findById(id, UserEntity.class);
 	}
 
+	public void followUser(Long id) {
+		UserEntity me = getMe();
+
+		UserEntity user = getUser(id);
+
+		if (user == null)
+			return;
+
+		Ref<UserEntity> userRef = Ref.create(user);
+		me.getFollowing().add(userRef);
+		userDomain.save(me);
+		createNewFollowingUserHistory(me, userRef);
+		Ref<UserEntity> meRef = Ref.create(me);
+		user.getFollowers().add(meRef);
+		userDomain.save(user);
+		createNewFollowerUserHistory(user, meRef);
+	}
+
 	public List<UserHistory> getLastestHistoryFromUser(Long id) {
 		return userDomain.getLastedHistoryFromUser(getUserOrMe(id));
 	}
@@ -194,6 +212,14 @@ public class UserService extends SuperService {
 		newUserHistory(userEntity, UserHistoryType.NEW_BOOK, bookRef);
 	}
 
+	public void createNewFollowerUserHistory(UserEntity user, Ref<UserEntity> target) {
+		newUserHistory(user, UserHistoryType.NEW_FOLLOWER, target);
+	}
+
+	public void createNewFollowingUserHistory(UserEntity user, Ref<UserEntity> target) {
+		newUserHistory(user, UserHistoryType.NEW_FOLLOWING, target);
+	}
+
 	public void createNewChapterUserHistory(UserEntity userEntity, Ref<Book> bookRef, Ref<Chapter> chapterRef) {
 		newUserHistory(UserHistoryType.NEW_CHAPTER, Arrays.asList(bookRef, chapterRef), userEntity);
 	}
@@ -204,8 +230,8 @@ public class UserService extends SuperService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType, Ref<? extends SuperEntity> bookRef) {
-		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, bookRef, userEntity)));
+	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType, Ref<? extends SuperEntity> targetRef) {
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, targetRef, userEntity)));
 	}
 
 	@SuppressWarnings("unchecked")

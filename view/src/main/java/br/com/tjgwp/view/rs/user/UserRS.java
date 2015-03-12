@@ -3,6 +3,7 @@ package br.com.tjgwp.view.rs.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -71,6 +72,14 @@ public class UserRS extends SuperRS {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response getHistoryFromUser(@PathParam("userId") Long id) {
 		return Response.ok(new UserService().getLastestHistoryFromUserAsJson(id)).build();
+	}
+
+	@PUT
+	@Path("/follow/{userId}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public Response followUser(@PathParam("userId") Long id) {
+		new UserService().followUser(id);
+		return Response.ok().build();
 	}
 
 }

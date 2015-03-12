@@ -29,6 +29,9 @@ public class UserEntity extends SuperEntity {
 
 	private List<Ref<Book>> books;
 
+	private List<Ref<UserEntity>> following;
+	private List<Ref<UserEntity>> followers;
+
 	public UserEntity() {
 		super();
 	}
@@ -88,6 +91,26 @@ public class UserEntity extends SuperEntity {
 
 	public void setBooks(List<Ref<Book>> books) {
 		this.books = books;
+	}
+
+	public List<Ref<UserEntity>> getFollowing() {
+		if (following == null)
+			following = new ArrayList<Ref<UserEntity>>();
+		return following;
+	}
+
+	public void setFollowing(List<Ref<UserEntity>> following) {
+		this.following = following;
+	}
+
+	public List<Ref<UserEntity>> getFollowers() {
+		if (followers == null)
+			followers = new ArrayList<Ref<UserEntity>>();
+		return followers;
+	}
+
+	public void setFollowers(List<Ref<UserEntity>> followers) {
+		this.followers = followers;
 	}
 
 	public String toJson() {

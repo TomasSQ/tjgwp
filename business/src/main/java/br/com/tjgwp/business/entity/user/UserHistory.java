@@ -54,6 +54,8 @@ public class UserHistory extends SuperEntity {
 			url = URLMaker.urlForBook(userEntity, targetRef.get());
 		else if (type.isUser())
 			url = URLMaker.urlForUser(userEntity);
+		else if (type.isOtherUser())
+			url = URLMaker.urlForUser((UserEntity) targetRef.get());
 	}
 
 	public UserHistory(UserHistoryType type, List<Ref<? extends SuperEntity>> targetsRef, UserEntity userEntity) {
@@ -118,7 +120,10 @@ public class UserHistory extends SuperEntity {
 			history.add("othersPics", toJsonOthersPics());
 		}
 
-		history.add("user", new JsonParser().parse(userEntity.get().toJson()));
+		if (type.isOtherUser())
+			history.add("user", new JsonParser().parse(((UserEntity) this.targets.get(0).get()).toJson()));
+		else
+			history.add("user", new JsonParser().parse(userEntity.get().toJson()));
 
 		return history;
 	}
@@ -137,10 +142,9 @@ public class UserHistory extends SuperEntity {
 				return ((UserEntity) targets.get(0).get()).getBackground().getUrl();
 			case CHANGED_PROFILE_PICTURE:
 				return ((UserEntity) targets.get(0).get()).getProfile().getUrl();
-			case NEW_FOLLOWER:
-				return ((UserEntity) targets.get(1).get()).getProfile().getUrl();
 			case NEW_FOLLOWING:
-				return ((UserEntity) targets.get(1).get()).getProfile().getUrl();
+			case NEW_FOLLOWER:
+				return ((UserEntity) targets.get(0).get()).getProfile().getUrl();
 			default:
 				return null;
 		}

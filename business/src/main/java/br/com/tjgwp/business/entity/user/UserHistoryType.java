@@ -84,4 +84,8 @@ public enum UserHistoryType {
 	public boolean isUser() {
 		return equals(SIGNED_IN) || equals(SIGNED_OUT) || equals(CHANGED_PROFILE_PICTURE) || equals(CHANGED_CAPE_PICTURE);
 	}
+
+	public boolean isOtherUser() {
+		return equals(NEW_FOLLOWER) || equals(NEW_FOLLOWING);
+	}
 }
