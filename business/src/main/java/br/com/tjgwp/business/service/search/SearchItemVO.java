@@ -2,6 +2,7 @@ package br.com.tjgwp.business.service.search;
 
 import java.util.Map;
 
+import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.utils.URLMaker;
 
@@ -19,6 +20,12 @@ public class SearchItemVO {
 		url = URLMaker.urlForUser(userEntity);
 		name = userEntity.getNickname();
 		imageUrl = userEntity.getProfile().getUrl();
+	}
+
+	public SearchItemVO(Book book, UserEntity user) {
+		type = SearchItemType.BOOK;
+		url = URLMaker.urlForBook(user, book);
+		// TODO
 	}
 
 	public SearchItemType getType() {

@@ -17,6 +17,7 @@ public class SearchService extends SuperService {
 		for (UserEntity userEntity : searchDomain.searchUser(word))
 			items.add(new SearchItemVO(userEntity));
 
+		// TODO inserir livros
 		return items;
 	}
 
