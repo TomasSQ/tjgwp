@@ -6,9 +6,26 @@ import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.domain.SuperDomain;
 import br.com.tjgwp.domain.user.UserDomain;
 
+import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Ref;
 
 public class BookDomain extends SuperDomain {
+
+	public Book findByIdWithOwner(Long bookId, UserEntity owner) {
+		Book book = findById(bookId, Book.class);
+		if (book.getOwner().get().getId().equals(owner.getId()))
+			return book;
+
+		throw new NotFoundException();
+	}
+
+	public Chapter findChapterOfBook(Long chapterId, Long bookId) {
+		Chapter chapter = findById(chapterId, Chapter.class);
+		if (chapter.getBook().get().getId().equals(bookId))
+			return chapter;
+
+		throw new NotFoundException();
+	}
 
 	public void remove(UserEntity userEntity, Book book, Chapter chapter, int i) {
 		remove(userEntity, book, chapter, i, true);
@@ -36,5 +53,6 @@ public class BookDomain extends SuperDomain {
 		new UserDomain().removeBookUserHistory(userEntity, book);
 		ofy().delete().keys(ofy().load().ancestor(book).keys().list()).now();
 	}
+
 
 }

@@ -22,7 +22,7 @@ public class Chapter extends SuperEntity {
 	private Long publishDate;
 	private Ref<Book> book;
 
-	public Chapter() {
+	protected Chapter() {
 		super();
 	}
 

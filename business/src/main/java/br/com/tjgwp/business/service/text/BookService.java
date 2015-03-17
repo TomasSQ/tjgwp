@@ -40,19 +40,19 @@ public class BookService extends SuperService {
 				(!StringUtils.isNumeric(chapterId) && writeVO.getChapterId() == null && StringUtils.isBlank(writeVO.getChapterTitle())))
 			throw new ValidationException("fill-the-titles");
 
-		UserEntity loggedUser = userSerivce.getMe();
-		Book book = getBook(bookId, writeVO);
-		Chapter chapter = getChapter(chapterId, writeVO);
-
-		boolean isNewChapter = chapter.getId() == null;
-		boolean isNewBook = book.getId() == null;
+		UserEntity me = userSerivce.getMe();
+		Book book = getMyBook(bookId, writeVO, me);
+		Chapter chapter = getMyChapter(chapterId, writeVO, book);
 		bookDomain.save(chapter);
+
+		boolean isNewChapter = !StringUtils.isNumeric(chapterId);
+		boolean isNewBook = !StringUtils.isNumeric(bookId);
 		if (isNewChapter)
 			book.getChapters().add(chapter.getRef());
 		bookDomain.save(book);
 		if (isNewBook)
-			loggedUser.getBooks().add(book.getRef());
-		userDomain.save(loggedUser);
+			me.getBooks().add(book.getRef());
+		userDomain.save(me);
 
 		writeVO = new BookService().getWriteVO();
 		writeVO.setBookId(book.getId());
@@ -62,8 +62,8 @@ public class BookService extends SuperService {
 		return writeVO;
 	}
 
-	protected Chapter getChapter(String chapterId, WriteVO writeVO) {
-		Chapter chapter = StringUtils.isNumeric(chapterId) ? bookDomain.findById(Long.parseLong(chapterId), Chapter.class) : new Chapter();
+	protected Chapter getMyChapter(String chapterId, WriteVO writeVO, Book book) {
+		Chapter chapter = StringUtils.isNumeric(chapterId) ? bookDomain.findChapterOfBook(Long.parseLong(chapterId), book.getId()) : new Chapter(book);
 
 		if (chapter == null)
 			throw new NotFoundException();
@@ -76,16 +76,18 @@ public class BookService extends SuperService {
 		return chapter;
 	}
 
-	protected Book getBook(String bookId, WriteVO writeVO) {
-		Book book = getBook(bookId);
+	protected Book getMyBook(String bookId, WriteVO writeVO, UserEntity me) {
+		Book book = StringUtils.isNumeric(bookId) ? bookDomain.findById(Long.parseLong(bookId), Book.class) : new Book(me);
 
-		if (book.getId() == null)
+		if (book.getId() == null) {
 			book.setTitle(writeVO.getBookTitle());
+			bookDomain.save(book);
+		}
 		return book;
 	}
 
 	public Book getBook(String bookId) {
-		Book book = StringUtils.isNumeric(bookId) ? bookDomain.findById(Long.parseLong(bookId), Book.class) : new Book();
+		Book book = bookDomain.findById(Long.parseLong(bookId), Book.class);
 
 		if (book == null)
 			throw new NotFoundException();

@@ -96,7 +96,7 @@
 
 		container.find('select#book, select#chapter').change();
 
-		utils.breadcrumb('books', true);
+		utils.breadcrumb({text : 'books', link : 'book'}, true);
 		utils.breadcrumb('write');
 	</script>
 </engine>

@@ -27,9 +27,9 @@
 
 		if (crumb) {
 			if (!$.isPlainObject(crumb))
-				crumb = {text : i18n(crumb), link : crumb};
+				crumb = {text : crumb, link : crumb};
 	
-			crumbs.push(crumb.text);
+			crumbs.push(crumb.i18n ? text : i18n(crumb.text));
 			links.push(crumb.link);
 		}
 

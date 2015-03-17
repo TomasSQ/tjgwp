@@ -32,7 +32,7 @@ public class Book extends SuperEntity {
 	private Ref<Image> cape;
 	private Ref<UserEntity> owner;
 
-	public Book() {
+	protected Book() {
 		super();
 	}
 

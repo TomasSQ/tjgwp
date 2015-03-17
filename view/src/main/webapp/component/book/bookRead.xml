@@ -54,7 +54,7 @@
 		var itsMe = userHelper.myId() == context.userId;
 		if (!itsMe)
 			utils.breadcrumb({text : context.otherUser.nickname, link : 'user/' + context.userId}, true);
-		utils.breadcrumb({text : i18n('books'), link : 'books' + (userHelper.myId() == context.userId ? '' : '/' + context.userId)}, itsMe);
+		utils.breadcrumb({text : i18n('books'), link : 'book' + (userHelper.myId() == context.userId ? '' : '/' + context.userId)}, itsMe);
 		utils.breadcrumb(context.book.title);
 
 		if (context.activeChapter)
