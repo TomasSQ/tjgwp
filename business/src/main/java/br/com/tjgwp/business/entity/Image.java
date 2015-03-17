@@ -11,7 +11,6 @@ import com.googlecode.objectify.annotation.Subclass;
 public class Image extends SuperEntity {
 
 	private BlobKey blob;
-	private String url;
 	@Parent
 	private Ref<? extends SuperEntity> owner;
 
@@ -43,14 +42,6 @@ public class Image extends SuperEntity {
 		this.blob = blob;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public Ref<? extends SuperEntity> getOwner() {
 		return owner;
 	}
@@ -59,4 +50,11 @@ public class Image extends SuperEntity {
 		this.owner = owner;
 	}
 
+	public void createUrl() {
+	}
+
+	@SuppressWarnings("unchecked")
+	public Ref<Image> getRef() {
+		return Ref.create(this);
+	}
 }

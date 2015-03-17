@@ -25,7 +25,7 @@
 					<ul class="chapter-list">
 					{{~ it.book.chapters :chapter}}
 						<li>
-							<a href="#books/{{=it.userId}}/{{=it.book.id}}/{{=chapter.id}}" data-chapter-id="{{=chapter.id}}">{{=chapter.title}}</a>
+							<a href="#book/{{=it.userId}}/{{=it.book.id}}/{{=chapter.id}}" data-chapter-id="{{=chapter.id}}">{{=chapter.title}}</a>
 						</li>
 					{{~}}
 					</ul>

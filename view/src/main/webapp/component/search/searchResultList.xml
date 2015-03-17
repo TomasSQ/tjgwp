@@ -12,6 +12,7 @@
 				    </div>
 				    <div>
 				        <h1>{{=item.name}}</h1>
+				        <span>{{=item.subtitle || ''}}</span>
 				    </div>
 			    </a>
 			</div>
@@ -24,5 +25,6 @@
 	<script>
 	    for (var i = 0; context.items.length > i; i++)
 	    	container.find('.item[data-index="' + i + '"] img').attr('src', context.items[i].imageUrl)
+	    utils.breadcrumb('search', true);
 	</script>
 </engine>

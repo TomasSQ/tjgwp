@@ -48,10 +48,10 @@ public class BookService extends SuperService {
 		boolean isNewBook = book.getId() == null;
 		bookDomain.save(chapter);
 		if (isNewChapter)
-			book.getChapters().add(Ref.create(chapter));
+			book.getChapters().add(chapter.getRef());
 		bookDomain.save(book);
 		if (isNewBook)
-			loggedUser.getBooks().add(Ref.create(book));
+			loggedUser.getBooks().add(book.getRef());
 		userDomain.save(loggedUser);
 
 		writeVO = new BookService().getWriteVO();
@@ -197,7 +197,7 @@ public class BookService extends SuperService {
 
 		bookDomain.save(book);
 
-		userSerivce.createNewBookUserHistory(userEntity, Ref.create(book));
+		userSerivce.createNewBookUserHistory(userEntity, book.getRef());
 	}
 
 	public void deleteMyBook(Long bookId) throws NotFoundException {
@@ -242,7 +242,7 @@ public class BookService extends SuperService {
 				if (blobKey != null) {
 					book.updateCape(blobKey);
 					if (book.getPublishDate() != null)
-						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, Ref.create(book));
+						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, book.getRef());
 					new UserDomain().save(book.getCape());
 					new UserDomain().save(book);
 				}
@@ -266,7 +266,7 @@ public class BookService extends SuperService {
 				if (blobKey != null) {
 					chapter.updateCape(blobKey);
 					if (chapter.getPublishDate() != null)
-						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, Ref.create(chapter));
+						userSerivce.createUserHistory(user, UserHistoryType.CHANGED_BOOK_CAPE, chapter.getRef());
 					new UserDomain().save(chapter.getCape());
 					new UserDomain().save(chapter);
 				}

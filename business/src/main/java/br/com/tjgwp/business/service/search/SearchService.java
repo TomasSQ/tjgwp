@@ -3,6 +3,7 @@ package br.com.tjgwp.business.service.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.entity.user.UserEntity;
 import br.com.tjgwp.business.service.SuperService;
 import br.com.tjgwp.domain.search.SearchDomain;
@@ -17,7 +18,8 @@ public class SearchService extends SuperService {
 		for (UserEntity userEntity : searchDomain.searchUser(word))
 			items.add(new SearchItemVO(userEntity));
 
-		// TODO inserir livros
+		for (Book book : searchDomain.searchBook(word))
+			items.add(new SearchItemVO(book));
 		return items;
 	}
 

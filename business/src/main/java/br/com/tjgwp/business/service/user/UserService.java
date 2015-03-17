@@ -85,23 +85,24 @@ public class UserService extends SuperService {
 		UserEntity userEntity = new UserEntity();
 		userEntity.setEmail(user.getEmail());
 		userEntity.setNickname(user.getNickname());
+		userDomain.save(userEntity);
 
-		Chapter chapter = new Chapter();
+		Book book = new Book(userEntity);
+		book.setTitle("My first Book");
+		userDomain.save(book);
+
+		Chapter chapter = new Chapter(book);
 		chapter.setTitle("Chapter 1");
 		userDomain.save(chapter);
 
-		Book book = new Book();
-		book.setTitle("My first Book");
-		Ref<Chapter> chapterRef = Ref.create(chapter);
-		book.getChapters().add(chapterRef);
+		book.getChapters().add(chapter.getRef());
 		userDomain.save(book);
 
-		Ref<Book> bookRef = Ref.create(book);
-		userEntity.getBooks().add(bookRef);
-
-		userDomain.save(userEntity);
+		userEntity.getBooks().add(book.getRef());
 
 		createNewUserHistory(userEntity);
+
+		userDomain.save(userEntity);
 
 		return userEntity;
 	}
@@ -172,11 +173,11 @@ public class UserService extends SuperService {
 		if (user == null)
 			return;
 
-		Ref<UserEntity> userRef = Ref.create(user);
+		Ref<UserEntity> userRef = user.getRef();
 		me.getFollowing().add(userRef);
 		userDomain.save(me);
 		createNewFollowingUserHistory(me, userRef);
-		Ref<UserEntity> meRef = Ref.create(me);
+		Ref<UserEntity> meRef = me.getRef();
 		user.getFollowers().add(meRef);
 		userDomain.save(user);
 		createNewFollowerUserHistory(user, meRef);
@@ -224,17 +225,14 @@ public class UserService extends SuperService {
 		newUserHistory(UserHistoryType.NEW_CHAPTER, Arrays.asList(bookRef, chapterRef), userEntity);
 	}
 
-	@SuppressWarnings("unchecked")
 	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType) {
-		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, Ref.create(userEntity), userEntity)));
+		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, userEntity.getRef(), userEntity)));
 	}
 
-	@SuppressWarnings("unchecked")
 	private Ref<UserHistory> newUserHistory(UserEntity userEntity, UserHistoryType userHistoryType, Ref<? extends SuperEntity> targetRef) {
 		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, targetRef, userEntity)));
 	}
 
-	@SuppressWarnings("unchecked")
 	private Ref<UserHistory> newUserHistory(UserHistoryType userHistoryType, List<Ref<? extends SuperEntity>> targets, UserEntity userEntity) {
 		return (Ref<UserHistory>) Ref.create(userDomain.save(new UserHistory(userHistoryType, targets, userEntity)));
 	}

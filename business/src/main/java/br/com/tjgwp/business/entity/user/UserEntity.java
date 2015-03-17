@@ -3,10 +3,13 @@ package br.com.tjgwp.business.entity.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.tjgwp.business.entity.Image;
 import br.com.tjgwp.business.entity.SuperEntity;
 import br.com.tjgwp.business.entity.text.Book;
 import br.com.tjgwp.business.service.image.ImageService;
+import br.com.tjgwp.business.utils.URLMaker;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.gson.Gson;
@@ -20,8 +23,9 @@ public class UserEntity extends SuperEntity {
 
 	@Index
 	private String email;
-	@Index
 	private String nickname;
+	@Index
+	private String nicknameDowncase;
 	@Load
 	private Ref<Image> profile;
 	@Load
@@ -50,6 +54,15 @@ public class UserEntity extends SuperEntity {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+		setNicknameDowncase(StringUtils.isNotEmpty(nickname) ? nickname.toLowerCase() : nickname); 
+	}
+
+	public String getNicknameDowncase() {
+		return nicknameDowncase;
+	}
+
+	public void setNicknameDowncase(String nicknameDowncase) {
+		this.nicknameDowncase = nicknameDowncase;
 	}
 
 	public Ref<Image> getProfileRef() {
@@ -128,4 +141,12 @@ public class UserEntity extends SuperEntity {
 		return new Gson().toJson(new UserVO(this, publishedBooks, publishedChapters));
 	}
 
+	@SuppressWarnings("unchecked")
+	public Ref<UserEntity> getRef() {
+		return Ref.create(this);
+	}
+
+	public void createUrl() {
+		setUrl(URLMaker.urlForUser(this));
+	}
 }

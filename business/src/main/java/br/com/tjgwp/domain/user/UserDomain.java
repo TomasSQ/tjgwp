@@ -22,11 +22,11 @@ public class UserDomain extends SuperDomain {
 	}
 
 	public void removeChapterUserHistory(UserEntity userEntity, Book book, Chapter chapter) {
-		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForChapter(userEntity, book, chapter)).list());
+		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForChapter(chapter)).list());
 	}
 
 	public void removeBookUserHistory(UserEntity userEntity, Book book) {
-		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForBook(userEntity, book)).list());
+		removeAll(userEntity, ofy().load().type(UserHistory.class).ancestor(userEntity).filter("url", URLMaker.urlForBook(book)).list());
 	}
 
 	public UserEntity findById(Long id) {

@@ -25,7 +25,7 @@
 				$.load('.main-content', { write : write, bookId : params[0], chapterId : params[1]}, {componentName : 'chapterInclude', componentPath : 'book'});
 			});
 			break;
-		case 'books' :
+		case 'book' :
 			if (params.length <= 1)
 				book.load(params[0]);
 			else

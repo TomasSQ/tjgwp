@@ -28,8 +28,6 @@ public class UserHistory extends SuperEntity {
 	private UserHistoryType type;
 	@Load
 	private List<Ref<? extends SuperEntity>> targets;
-	@Index
-	private String url;
 	@Parent
 	private Ref<UserEntity> userEntity;
 
@@ -41,7 +39,7 @@ public class UserHistory extends SuperEntity {
 
 	public UserHistory(UserHistoryType type, UserEntity userEntity) {
 		this();
-		this.userEntity = Ref.create(userEntity);
+		this.userEntity = userEntity.getRef();
 		setDate(System.currentTimeMillis());
 		setType(type);
 	}
@@ -51,11 +49,11 @@ public class UserHistory extends SuperEntity {
 
 		targets.add(targetRef);
 		if (type.isBook())
-			url = URLMaker.urlForBook(userEntity, targetRef.get());
+			setUrl(URLMaker.urlForBook((Book) targetRef.get()));
 		else if (type.isUser())
-			url = URLMaker.urlForUser(userEntity);
+			setUrl(URLMaker.urlForUser(userEntity));
 		else if (type.isOtherUser())
-			url = URLMaker.urlForUser((UserEntity) targetRef.get());
+			setUrl(URLMaker.urlForUser((UserEntity) targetRef.get()));
 	}
 
 	public UserHistory(UserHistoryType type, List<Ref<? extends SuperEntity>> targetsRef, UserEntity userEntity) {
@@ -66,7 +64,7 @@ public class UserHistory extends SuperEntity {
 			if (targets.size() != 2)
 				throw new IllegalArgumentException("chapter must have two targets ref only");
 
-			url = URLMaker.urlForChapter(userEntity, targets.get(0).get(), targets.get(1).get());
+			setUrl(URLMaker.urlForChapter((Chapter) targets.get(1).get()));
 		}
 	}
 
@@ -94,18 +92,10 @@ public class UserHistory extends SuperEntity {
 		this.targets = targets;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public JsonObject toJson() {
 		JsonObject history = new JsonObject();
 
-		history.addProperty("url", url);
+		history.addProperty("url", getUrl());
 		history.addProperty("type", type.toString());
 		history.addProperty("date", date);
 
@@ -152,6 +142,14 @@ public class UserHistory extends SuperEntity {
 
 	private JsonElement toJsonOthersPics() {
 		return new JsonArray();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Ref<UserHistory> getRef() {
+		return Ref.create(this);
+	}
+
+	public void createUrl() {
 	}
 
 }

@@ -38,10 +38,12 @@ public class SuperDomain {
 		return ObjectifyService.factory();
 	}
 
-	public Key<?> save(SuperEntity entity) {
+	public <T extends SuperEntity> Key<T> save(T entity) {
 		if (entity == null)
 			throw new NotFoundException();
 
+		ofy().save().entity(entity).now();
+		entity.createUrl();
 		return ofy().save().entity(entity).now();
 	}
 

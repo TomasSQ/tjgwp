@@ -7,7 +7,7 @@
 		{{~it.books :book:i}}
 			<div class="book float-left margin-right {{? i >= 4}}margin-top{{?}} {{=i}}" data-book-id="{{=book.id}}" data-index="{{=i}}">
 				<div class="book-cape">
-					<a href="#books/{{=it.userId || it.user.id}}/{{=book.id}}">
+					<a href="#book/{{=it.userId || it.user.id}}/{{=book.id}}">
 						<img class="book-cape-url {{? !book.capeImageUrl}}hidden{{?}}" src="" title="{{=book.title}}"></img>
 						<div class="title {{? book.capeImageUrl}}hidden{{?}}" data-no-animation="true">{{=book.title}}</div>
 					</a>

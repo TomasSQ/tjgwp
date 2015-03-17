@@ -11,6 +11,7 @@ public class SearchItemVO {
 	private SearchItemType type;
 	private String url;
 	private String name;
+	private String subtitle;
 	private String imageUrl;
 	private String description;
 	private Map<String, String> moreInfo;
@@ -22,10 +23,12 @@ public class SearchItemVO {
 		imageUrl = userEntity.getProfile().getUrl();
 	}
 
-	public SearchItemVO(Book book, UserEntity user) {
+	public SearchItemVO(Book book) {
 		type = SearchItemType.BOOK;
-		url = URLMaker.urlForBook(user, book);
-		// TODO
+		url = URLMaker.urlForBook(book);
+		name = book.getTitle();
+		subtitle = book.getOwner().get().getNickname();
+		imageUrl = book.getCape().getUrl();
 	}
 
 	public SearchItemType getType() {
@@ -50,6 +53,14 @@ public class SearchItemVO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 
 	public String getImageUrl() {

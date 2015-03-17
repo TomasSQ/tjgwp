@@ -2,6 +2,7 @@ package br.com.tjgwp.business.entity.text;
 
 import br.com.tjgwp.business.entity.SuperEntity;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Subclass;
 
@@ -29,4 +30,11 @@ public class KeyWord extends SuperEntity {
 		this.gender = gender;
 	}
 
+	@SuppressWarnings("unchecked")
+	public Ref<KeyWord> getRef() {
+		return Ref.create(this);
+	}
+
+	public void createUrl() {
+	}
 }
