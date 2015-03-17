@@ -206,7 +206,7 @@ public class BookService extends SuperService {
 		UserEntity userEntity = userSerivce.getMe();
 
 		for (int i = 0; i < userEntity.getBooks().size(); i++) {
-			Ref<Book> bookRef = userEntity.getBooks().get(0);
+			Ref<Book> bookRef = userEntity.getBooks().get(i);
 			Book book = bookRef.get();
 			if (book.getId().equals(bookId)) {
 				bookDomain.remove(userEntity, book, i);
@@ -221,7 +221,7 @@ public class BookService extends SuperService {
 
 		Book book = findBookFromUserById(userEntity, bookId, false);
 		for (int i = 0; i < book.getChapters().size(); i++) {
-			Ref<Chapter> chapterRef = book.getChapters().get(0);
+			Ref<Chapter> chapterRef = book.getChapters().get(i);
 			Chapter chapter = chapterRef.get();
 			if (chapter.getId().equals(chapterId)) {
 				bookDomain.remove(userEntity, book, chapter, i);
